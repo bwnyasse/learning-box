@@ -1,0 +1,22 @@
+version: '2'
+services:
+  proxy:
+    build: ./proxy
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - microservice1
+      - microservice2
+
+  microservice1:
+    extends:
+      file: ./microservice1/docker-compose.yml
+      service: app
+    container_name: "microservice1-container"
+
+  microservice2:
+    extends:
+      file: ./microservice2/docker-compose.yml
+      service: app
+    container_name: "microservice2-container"
