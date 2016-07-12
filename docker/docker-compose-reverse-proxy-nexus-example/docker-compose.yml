@@ -1,0 +1,14 @@
+version: '2'
+services:
+  proxy:
+    build: ./proxy
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - nexus-service
+
+  nexus-service:
+    build: ./nexus
+    ports:
+      - 4444:8081
