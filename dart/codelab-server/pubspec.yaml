@@ -1,0 +1,16 @@
+name: 'codelab_server'
+version: 0.0.1
+description: Codelab Server Sample.
+
+#author: bwnyasse <email@example.com>
+#homepage: https://www.example.com
+
+environment:
+  sdk: '>=1.9.0 <2.0.0'
+dependencies:
+  _discoveryapis_commons: ^0.1.0
+  browser: ^0.10.0+2
+  crypto: ^0.9.0
+  http: ^0.11.1
+  logging_handlers: ^0.8.0
+  rpc: ^0.5.0
