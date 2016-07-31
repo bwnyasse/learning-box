@@ -18,6 +18,7 @@ import '../common/messages.dart';
 import '../common/utils.dart';
 
 // This class defines the interface that the server provides.
+@ApiClass(version: 'v1')
 class PiratesApi {
   final Map<String, Pirate> _pirateCrew = {};
   final PirateShanghaier _shanghaier = new PirateShanghaier();
@@ -28,12 +29,14 @@ class PiratesApi {
   }
 
   // Returns a list of the pirate crew.
+  @ApiMethod(path: 'pirates')
   List<Pirate> listPirates() {
     return _pirateCrew.values.toList();
   }
 
   // Generates (shanghais) and returns a new pirate.
   // Does not add the new pirate to the crew.
+  @ApiMethod(path: 'shanghai')
   Pirate shanghaiAPirate() {
     var pirate = _shanghaier.shanghaiAPirate();
     if (pirate == null) {
