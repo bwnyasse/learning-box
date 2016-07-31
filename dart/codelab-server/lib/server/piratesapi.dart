@@ -1,14 +1,14 @@
 /**
  * Copyright (c) 2016 codelab-server. All rights reserved
- * 
+ *
  * REDISTRIBUTION AND USE IN SOURCE AND BINARY FORMS,
  * WITH OR WITHOUT MODIFICATION, ARE NOT PERMITTED.
- * 
+ *
  * DO NOT ALTER OR REMOVE THIS HEADER.
- * 
+ *
  * Created on : 31/07/16
  * Author     : bwnyasse
- *  
+ *
  */
 library pirate.server;
 
@@ -44,4 +44,37 @@ class PiratesApi {
     }
     return pirate;
   }
+
+  @ApiMethod(method: 'POST', path: 'pirate')
+  Pirate hirePirate(Pirate newPirate) {
+    if (!truePirate(newPirate)) {
+      throw new BadRequestError(
+          '$newPirate cannot be a pirate. \'This not a pirate name!');
+    }
+    var pirateName = newPirate.toString();
+    if (_pirateCrew.containsKey(pirateName)) {
+      throw new BadRequestError(
+          '$newPirate is already part of your crew!');
+    }
+
+    // Add the pirate to the crew.
+    _pirateCrew[pirateName] = newPirate;
+    return newPirate;
+  }
+
+  @ApiMethod(
+      method: 'DELETE', path: 'pirate/{name}/the/{appellation}')
+  Pirate firePirate(String name, String appellation) {
+    var pirate = new Pirate()
+      ..name = Uri.decodeComponent(name)
+      ..appellation = Uri.decodeComponent(appellation);
+    var pirateName = pirate.toString();
+    if (!_pirateCrew.containsKey(pirateName)) {
+      throw new NotFoundError('Could not find pirate \'$pirate\'! ' +
+          'Maybe they\'ve abandoned ship!');
+    }
+    return _pirateCrew.remove(pirateName);
+  }
+
+
 }
