@@ -32,3 +32,6 @@ pubspec.lock # (Remove this pattern if you wish to check in your lock file)
 *.info.json
 ### Directory created by dartdoc
 doc/api/
+
+#fluentd-es
+/www/
