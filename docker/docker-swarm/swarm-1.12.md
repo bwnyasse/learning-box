@@ -1,5 +1,5 @@
 
-# PID - Docker Swarm CLI commands
+# PID - Discover Docker 1.12 / Swarm CLI commands
 
 - ensure docker 1.12 , for all cluster node
 
@@ -86,12 +86,27 @@
     - manager scheduled new task on the remaining node to keep repliat to 10
 
 
-Unknow:
+#### Unknow:
 
 d service scale website=20
 
 Scale vs replicat ( better use  ? )
-Use Case:
 
-1- docker swarm init: don't work if multiple adress is present
-2- docker swarm init : don't work if node already worker
+#### Reminder:
+
+  - docker swarm init: don't work if multiple adress is present
+
+  - docker swarm init : don't work if node already worker
+
+  - Cluster management integrated with Docker Engine : Don't need additional orchestration software to create or manage a swarm
+     ===> **No need of Consul for PID**
+
+  - Decentralized design :
+       * Master ==> **manager**
+       * Slave ==> **worker**
+
+  - Scaling : => **for each service, you can declare the number of tasks you want to run**
+
+  - Desired state reconciliation : ==> **manager create replicas to replace, the replicas that crashed**
+
+  - Service Discovery / LB
