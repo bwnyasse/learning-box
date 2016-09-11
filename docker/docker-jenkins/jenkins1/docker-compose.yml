@@ -1,0 +1,29 @@
+version: '2'
+services:
+
+  jenkins1:
+    build:
+      context: .
+    container_name: learningbox_jenkins1
+    ports:
+     - 8080:8080
+     - 5000:5000
+    logging:
+      driver: fluentd
+      options:
+        tag: "default.docker.{{.Name }}"
+        fluentd-address: localhost:24224
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+
+  fluentd-led:
+    image: bwnyasse/fluentd-led:0.3.0
+    container_name: learningbox_led
+    ports:
+      - 24224:24224
+      - 8081:8080
+      - 9200:9200
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
