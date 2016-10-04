@@ -1,0 +1,32 @@
+name: 'bw_dra'
+
+author: <bwnyasse>
+
+environment:
+  sdk: '>=1.16.0 <2.0.0'
+
+dependencies:
+  w_transport:
+  angular: '1.1.2+2'
+  http: '^0.11.2'
+  angular_ui: any
+  dart_to_js_script_rewriter: "^1.0.1"
+  quiver: "^0.22.0"
+  xml2json: any
+  jsonx: any
+  web_components: "0.12.0+4"
+  js: ^0.6.0
+  date: "^0.1.0"
+  ng_infinite_scroll: any
+dev_dependencies:
+  test: '0.12.2'
+
+transformers:
+- angular
+- dart_to_js_script_rewriter
+- $dart2js:
+    csp: true # Content Security Policy
+    checked: false
+    $exclude: bin
+    minify: true
+    commandLineOptions: ['--enable-experimental-mirrors','--trust-type-annotations', '--trust-primitives']
