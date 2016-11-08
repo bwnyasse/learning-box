@@ -1,0 +1,52 @@
+version: '2'
+
+services:
+
+  redmine:
+    image: redmine:3.3.1
+    ports:
+      - 3000:3000
+    environment:
+      POSTGRES_PORT_5432_TCP: postgres
+      POSTGRES_ENV_POSTGRES_USER: redmine
+      POSTGRES_ENV_POSTGRES_PASSWORD: secret
+      POSTGRES_ENV_POSTGRES_DB: redmine
+    volumes:
+      - redmine_data:/usr/src/redmine/files
+    depends_on:
+      - postgres
+    links:
+      - "postgres:postgres"
+
+  postgres:
+    image: postgres:9.5.4
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_USER: redmine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  postgres_backup:
+    image: jmcarbo/docker-postgres-backup
+    environment:
+      POSTGRES_DB: redmine
+      CRON_TIME: '* * * * *'
+      MAX_BACKUPS: 4
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: redmine
+      POSTGRES_PASSWORD: secret
+    depends_on:
+      - postgres
+    links:
+      - "postgres:postgres"
+    volumes:
+    - ./backup:/backup
+    - /etc/localtime:/etc/localtime:ro
+    - /etc/timezone:/etc/timezone:ro
+    
+volumes:
+  redmine_data:
+    driver: local
+  postgres_data:
+    driver: local
