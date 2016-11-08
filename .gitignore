@@ -35,3 +35,7 @@ doc/api/
 
 #fluentd-es
 /www/
+
+#backup file
+/backup/
+*backup
