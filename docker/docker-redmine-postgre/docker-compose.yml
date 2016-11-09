@@ -44,7 +44,7 @@ services:
     - ./backup:/backup
     - /etc/localtime:/etc/localtime:ro
     - /etc/timezone:/etc/timezone:ro
-    
+
 volumes:
   redmine_data:
     driver: local

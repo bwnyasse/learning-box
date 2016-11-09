@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+
+  postgres_backup:
+    image: jmcarbo/docker-postgres-backup
+    environment:
+      POSTGRES_DB: redmine
+      CRON_TIME: '* * * * *'
+      MAX_BACKUPS: 4
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: redmine
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - ./backup:/backup
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+
+networks:
+  default:
+    external:
+      name: dockerredminepostgre_default
