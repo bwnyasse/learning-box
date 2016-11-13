@@ -1,0 +1,14 @@
+<app-header></app-header>
+
+<div id="chat" class="card card-outline-primary flex layout vertical" style="overflow-y: hidden;">
+    <div class="msg-container flex layout vertical" style="overflow-y: auto;">
+    </div>
+
+    <div id="input-container" class="card-block layout horizontal center">
+        <input type="text" class="form-control" placeholder="Message...">
+        <button class="btn btn-outline-primary">Send</button>
+
+        <input #mediaCapture type="file" accept="image/*,capture=camera">
+        <button class="btn btn-outline-primary"><i class="material-icons">image</i></button>
+    </div>
+</div>
