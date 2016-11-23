@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+
+  jekyll-env:
+    image: jekyll/jekyll:stable
+    ports:
+      - 3333:4000
+    volumes:
+      - ./tutorial:/srv/jekyll
