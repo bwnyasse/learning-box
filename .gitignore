@@ -39,3 +39,5 @@ doc/api/
 #backup file
 /backup/
 *backup
+
+*pre-build-cache.zip
