@@ -3,8 +3,8 @@ version: '2'
 services:
 
   env-dev:
-#    build:
-#      context: .
+    build:
+      context: .
     image: bwnyasse/typesafe-activator:1.3.6
     stdin_open: true
     tty: true
@@ -16,4 +16,5 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
-      - ./code:/code
+      #- ./meo/code:/code
+      # - ./asroot/:/root

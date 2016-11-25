@@ -3,9 +3,9 @@ version: '2'
 services:
 
   env-dev:
-#    build:
-#      context: .
-    image: bwnyasse/typesafe-activator-1.3.12
+   build:
+     context: .
+    image: bwnyasse/typesafe-activator:1.3.12
     stdin_open: true
     tty: true
     ports:
