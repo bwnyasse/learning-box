@@ -40,4 +40,4 @@ doc/api/
 /backup/
 *backup
 
-*pre-build-cache.zip
+*pre-build-cache*.zip

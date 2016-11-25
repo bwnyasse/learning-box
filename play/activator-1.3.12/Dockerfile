@@ -14,8 +14,8 @@ ENV PATH $PATH:/activator-${ACTIVATOR_VERSION}-minimal/bin
 ADD scripts/.minimalbashrc /root/.bashrc
 
 # Prebuild cache
-COPY cache/pre-build-cache.zip /root
-RUN unzip /root/pre-build-cache.zip -d /root
+COPY cache/pre-build-cache-activator-${ACTIVATOR_VERSION}.zip /root
+RUN unzip /root/pre-build-cache-activator-${ACTIVATOR_VERSION}.zip -d /root
 
 EXPOSE 9000
 EXPOSE 9999
