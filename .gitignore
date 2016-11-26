@@ -3,6 +3,7 @@
 .project
 .settings/
 *target/
+*cache-ignore/
 
 # JetBrains IDEs
 .idea/
