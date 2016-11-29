@@ -3,9 +3,9 @@ version: '2'
 services:
 
   env-dev:
-   build:
-     context: .
-    image: bwnyasse/typesafe-activator:1.3.12
+    build:
+      context: .
+    image: bwnyasse/typesafe-activator-scala:1.3.12_2.12.0
     stdin_open: true
     tty: true
     ports:
@@ -16,4 +16,5 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
-      - ./code:/code
+      - /home/bwnyasse/work/project/learning-box/play/cache-ignore/root:/root/activator-cache
+      - /home/bwnyasse/work/project/learning-box/scala:/code
