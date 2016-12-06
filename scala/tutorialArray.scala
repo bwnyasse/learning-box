@@ -36,5 +36,13 @@ object  ScalaTutorial {
     val favNumsDiv4 = for( num <- favNums if num %4 == 0 ) yield num
     favNumsDiv4.foreach(println)
 
+    println("MultTable " )
+    var mutlTable = Array.ofDim[Int](10,10)
+
+    for( i <- 0 to 9 ; j <- 0 to 9)
+      mutlTable(i)(j) = i * j
+
+    for( i <- 0 to 9 ; j <- 0 to 9)
+      printf("%d : %d = %d\n", i , j, mutlTable(i)(j))
   }
 }
