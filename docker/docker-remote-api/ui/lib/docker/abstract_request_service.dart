@@ -103,26 +103,6 @@ abstract class AbstractRequestService {
     return null;
   }
 
-  _requestStream2(){
-    ResponseStream stream = new ResponseStream();
-    stream.flow.listen((String data) {
-      try{
-        Map json = JSON.decode(data);
-        StatsResponse statsResponse = new StatsResponse.fromJson(json,null);
-        print(statsResponse._asJson);
-      }catch(e){
-        //Nothing to show if decode failed
-      }
-    });
-    HttpRequest req = new HttpRequest();
-    req.open('GET', 'http://vmi92598.contabo.host:4243/containers/f4cb/stats',
-        async: true);
-    req.onProgress.listen((ProgressEvent e) {
-      stream.add(req.responseText);
-    });
-    req.send();
-  }
-
 
   /// Post request expecting a streamed response.
   Future<Stream> _requestStream(RequestType requestType, String path, {Map body,

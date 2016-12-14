@@ -26,6 +26,7 @@ class ConfigurationCmp extends ShadowRootAware {
 
   String stats;
   var ctx;
+
   ConfigurationCmp(this.controler);
 
   @override
@@ -35,12 +36,12 @@ class ConfigurationCmp extends ShadowRootAware {
 
   initConnection() async {
     connection = await controler.load(Uri.parse('http://192.168.1.19:2375'));
-    ctx = (querySelector('#canvas') as CanvasElement).context2D;
+    ctx = (querySelector('#cpu-stats-chart') as CanvasElement).context2D;
   }
 
   handleVersion() async {
     VersionResponse versionResponse = await connection.version();
-    version =  versionResponse._asPrettyJson;
+    version = versionResponse._asPrettyJson;
   }
 
   handleInfo() async {
@@ -49,8 +50,7 @@ class ConfigurationCmp extends ShadowRootAware {
   }
 
   handleStats() async {
-
-    connection._requestStream2();
+    _requestStream2();
 //    final Stream<StatsResponse> stream =
 //    connection.stats(new Container("1e9410a73aed"),stream: false).take(5);
 //
@@ -62,9 +62,9 @@ class ConfigurationCmp extends ShadowRootAware {
   }
 
   void showChart() {
-
     var rnd = new math.Random();
-    var months = <String>["January", "February", "March", "April", "May", "June"];
+    var months = <String>["January", "February", "March", "April", "May", "June"
+    ];
 
     var data = new LinearChartData(labels: months, datasets: <ChartDataSets>[
       new ChartDataSets(
@@ -83,6 +83,10 @@ class ConfigurationCmp extends ShadowRootAware {
     new Chart(ctx, config);
   }
 
+  void showCpuUsage() {
+  }
+
+
   Future<int> sumStream(Stream<StatsResponse> stream) async {
     var sum = 0;
     await for (var value in stream) {
@@ -90,5 +94,68 @@ class ConfigurationCmp extends ShadowRootAware {
       sum = sum++;
     }
     return sum;
+  }
+
+//  updateCpuChart(data) {
+//    var cpuChart;
+//    cpuChart.addData([calculateCPUPercent(data)], new Date(data.read).toLocaleTimeString());
+//    cpuChart.removeData();
+//  }
+//
+//  calculateCPUPercent(stats) {
+//    // Same algorithm the official client uses: https://github.com/docker/docker/blob/master/api/client/stats.go#L195-L208
+//    var prevCpu = stats.precpu_stats;
+//    var curCpu = stats.cpu_stats;
+//
+//    var cpuPercent = 0.0;
+//
+//    // calculate the change for the cpu usage of the container in between readings
+//    var cpuDelta = curCpu.cpu_usage.total_usage - prevCpu.cpu_usage.total_usage;
+//    // calculate the change for the entire system between readings
+//    var systemDelta = curCpu.system_cpu_usage - prevCpu.system_cpu_usage;
+//
+//    if (systemDelta > 0.0 && cpuDelta > 0.0) {
+//      cpuPercent = (cpuDelta / systemDelta) * curCpu.cpu_usage.percpu_usage.length * 100.0;
+//    }
+//    return cpuPercent;
+//  }
+
+  cpuPercent(StatsResponse statsResponse) {
+    // Same algorithm the official client uses: https://github.com/docker/docker/blob/master/api/client/stats.go#L195-L208
+    StatsResponseCpuStats preCpu = statsResponse.preCpuStats;
+    StatsResponseCpuStats curCpu = statsResponse.cpuStats;
+
+    var cpuPercent = 0.0;
+
+    // calculate the change for the cpu usage of the container in between readings
+    var cpuDelta = curCpu.cupUsage.totalUsage - preCpu.cupUsage.totalUsage;
+    // calculate the change for the entire system between readings
+    var systemDelta = curCpu.systemCpuUsage - preCpu.systemCpuUsage;
+    if (systemDelta > 0.0 && cpuDelta > 0.0) {
+      cpuPercent = (cpuDelta / systemDelta) * curCpu.cupUsage.perCpuUsage.length * 100.0;
+    }
+    return cpuPercent;
+  }
+
+  _requestStream2() {
+    ResponseStream stream = new ResponseStream();
+    stream.flow.listen((String data) {
+      try {
+        Map json = JSON.decode(data);
+        StatsResponse statsResponse = new StatsResponse.fromJson(json, null);
+        String readS = statsResponse.read.toLocal().toString();
+        String cpuPercentS = cpuPercent(statsResponse).toString();
+        print("Read $readS  - CPU : $cpuPercentS");
+      } catch (e) {
+        //Nothing to show if decode failed
+      }
+    });
+    HttpRequest req = new HttpRequest();
+    req.open('GET', 'http://192.168.1.19:2375/containers/1e9410a73aed/stats',
+        async: true);
+    req.onProgress.listen((ProgressEvent e) {
+      stream.add(req.responseText);
+    });
+    req.send();
   }
 }
