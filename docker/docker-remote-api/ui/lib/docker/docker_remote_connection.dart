@@ -81,7 +81,6 @@ class DockerRemoteConnection extends AbstractRequestService {
         RequestType.get, '/containers/${container.id}/stats', query: query);
     print(4);
     await for (var v in responseStream) {
-      print(v);
       StatsResponse response = new StatsResponse.fromJson(JSON.decode(UTF8.decode(v)), apiVersion);
       yield response;
     }

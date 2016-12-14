@@ -25,7 +25,7 @@ class ConfigurationCmp extends ShadowRootAware {
   String info;
 
   String stats;
-
+  var ctx;
   ConfigurationCmp(this.controler);
 
   @override
@@ -35,6 +35,7 @@ class ConfigurationCmp extends ShadowRootAware {
 
   initConnection() async {
     connection = await controler.load(Uri.parse('http://192.168.1.19:2375'));
+    ctx = (querySelector('#canvas') as CanvasElement).context2D;
   }
 
   handleVersion() async {
@@ -49,19 +50,38 @@ class ConfigurationCmp extends ShadowRootAware {
 
   handleStats() async {
 
-    final Stream<StatsResponse> stream =
-    connection.stats(new Container("1e9410a73aed")).take(5);
-
-    await sumStream(stream);
-
-
-//    final List<StatsResponse> items =  stream.;
+    connection._requestStream2();
+//    final Stream<StatsResponse> stream =
+//    connection.stats(new Container("1e9410a73aed"),stream: false).take(5);
+//
+//    final List<StatsResponse> items =  await stream.toList();
 //    for (final item in items) {
 //      print(item._asPrettyJson);
 //    }
 
   }
 
+  void showChart() {
+
+    var rnd = new math.Random();
+    var months = <String>["January", "February", "March", "April", "May", "June"];
+
+    var data = new LinearChartData(labels: months, datasets: <ChartDataSets>[
+      new ChartDataSets(
+          label: "My First dataset",
+          backgroundColor: "rgba(220,220,220,0.2)",
+          data: months.map((_) => rnd.nextInt(100)).toList()),
+      new ChartDataSets(
+          label: "My Second dataset",
+          backgroundColor: "rgba(151,187,205,0.2)",
+          data: months.map((_) => rnd.nextInt(100)).toList())
+    ]);
+
+    var config = new ChartConfiguration(
+        type: 'line', data: data, options: new ChartOptions(responsive: true));
+
+    new Chart(ctx, config);
+  }
 
   Future<int> sumStream(Stream<StatsResponse> stream) async {
     var sum = 0;

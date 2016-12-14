@@ -1,4 +1,13 @@
 
+<style type="text/css">
+    div.wrapper {
+        margin: 0 auto;
+        max-width: 500px;
+        text-align: center;
+        font-style: italic;
+    }
+</style>
+
 <div>
     <button ng-click="handleVersion()">  Version   </button>
     <div> {{ version }} </div>
@@ -12,5 +21,11 @@
 
 <div>
     <button ng-click="handleStats()">  stats   </button>
+    <button ng-click="showChart()">  show Chart   </button>
     <div> {{ stats }} </div>
+</div>
+
+
+<div class="wrapper">
+    <canvas id="canvas" height="200" width="200"></canvas>
 </div>

@@ -18,7 +18,7 @@ class DockerRemoteControler {
   Map<String, DockerRemoteConnection> dockerRemoteConnections = new Map();
 
   Future<DockerRemoteConnection> load(Uri hostServer) async {
-    DockerRemoteConnection connection = new DockerRemoteConnection(hostServer, new BrowserClient());
+    DockerRemoteConnection connection = new DockerRemoteConnection(hostServer, new http_browser_client.BrowserClient());
     dockerRemoteConnections[hostServer.toString()] = connection;
     await connection.init();
     return connection;
