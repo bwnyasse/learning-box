@@ -33,7 +33,7 @@ class RegistryConfigs {
 }
 
 /// Response to the info request.
-class InfoResponse {
+class InfoResponse extends AsJsonReponse{
   int _containers;
   int get containers => _containers;
 
@@ -133,7 +133,7 @@ class InfoResponse {
   DateTime _systemTime;
   DateTime get systemTime => _systemTime;
 
-  InfoResponse.fromJson(Map json) {
+  InfoResponse.fromJson(Map json, Version apiVersion) : super.fromJson(json, apiVersion) {
     _containers = json['Containers'];
     _cpuCfsPeriod = json['CpuCfsPeriod'];
     _cpuCfsQuota = json['CpuCfsQuota'];

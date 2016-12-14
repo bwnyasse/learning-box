@@ -17,14 +17,11 @@ class DockerRemoteControler {
 
   Map<String, DockerRemoteConnection> dockerRemoteConnections = new Map();
 
-  DockerRemoteControler() {
-  }
-
-  load() async {
-    String hostServer = 'http://192.168.1.19:2375';
-    DockerRemoteConnection connection = new DockerRemoteConnection(hostServer);
+  Future<DockerRemoteConnection> load(Uri hostServer) async {
+    DockerRemoteConnection connection = new DockerRemoteConnection(hostServer, new BrowserClient());
+    dockerRemoteConnections[hostServer.toString()] = connection;
     await connection.init();
-    dockerRemoteConnections[hostServer] = connection;
+    return connection;
   }
 
 }

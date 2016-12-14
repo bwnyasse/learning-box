@@ -19,6 +19,7 @@ import 'dart:html';
 import 'dart:js' as js;
 import 'dart:collection';
 import 'package:http/http.dart' as http;
+import 'package:http/browser_client.dart';
 
 import 'dart:convert';
 import 'package:angular/angular.dart';
@@ -29,13 +30,14 @@ import 'package:quiver/core.dart' as quiver_core;
 import 'package:date/date.dart' as external_date_lib;
 
 part 'component/configuration_cmp.dart';
-part 'injectable/abstract_http_service.dart';
+part 'package:bw_dra/docker/abstract_request_service.dart';
 part 'injectable/docker_remote_controler.dart';
 part 'package:bw_dra/docker/docker_remote_connection.dart';
 
 part 'docker/response/version_response.dart';
 part 'docker/response/info_response.dart';
 part 'docker/response/events_response.dart';
+part 'docker/response/stats_response.dart';
 
 class ApplicationModule extends Module {
   ApplicationModule() {

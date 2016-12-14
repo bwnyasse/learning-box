@@ -20,37 +20,55 @@ part of bw_dra;
 class ConfigurationCmp extends ShadowRootAware {
 
   DockerRemoteControler controler;
+  DockerRemoteConnection connection;
   String version;
+  String info;
+
+  String stats;
 
   ConfigurationCmp(this.controler);
 
   @override
   void onShadowRoot(ShadowRoot shadowRoot) {
+    initConnection();
   }
 
-  updateConfig() async {
-    await controler.load();
-    version = controler.dockerRemoteConnections['http://192.168.1.19:2375']
-        .dockerVersion.version;
+  initConnection() async {
+    connection = await controler.load(Uri.parse('http://192.168.1.19:2375'));
+  }
 
-    await controler.dockerRemoteConnections['http://192.168.1.19:2375'].info();
+  handleVersion() async {
+    VersionResponse versionResponse = await connection.version();
+    version =  versionResponse._asPrettyJson;
+  }
 
-    print("LE");
-    StreamSubscription eventsSubscription;
-    eventsSubscription = controler.dockerRemoteConnections['http://192.168.1.19:2375'].events(filters: new EventsFilter()
-      ..events.addAll(
-          [ContainerEvent.stop, ContainerEvent.kill, ContainerEvent.die])).listen((event) {
-      new Future.delayed(const Duration(milliseconds: 200), () async {
-        print("ICI");
-//        final Iterable<Container> containers = await connection.containers(
-//            filters: {'status': [ContainerStatus.exited.toString()]});
-//        if (containers.any((c) => c.id == createdResponse.container.id)) {
-//          await connection.removeContainer(createdResponse.container);
-//          eventsSubscription.cancel();
-//        }
-      });
-    });
-    controler.dockerRemoteConnections['http://192.168.1.19:2375'].events();
-    print("LI");
+  handleInfo() async {
+    InfoResponse infoResponse = await connection.info();
+    info = infoResponse._asPrettyJson;
+  }
+
+  handleStats() async {
+
+    final Stream<StatsResponse> stream =
+    connection.stats(new Container("1e9410a73aed")).take(5);
+
+    await sumStream(stream);
+
+
+//    final List<StatsResponse> items =  stream.;
+//    for (final item in items) {
+//      print(item._asPrettyJson);
+//    }
+
+  }
+
+
+  Future<int> sumStream(Stream<StatsResponse> stream) async {
+    var sum = 0;
+    await for (var value in stream) {
+      print(value);
+      sum = sum++;
+    }
+    return sum;
   }
 }
