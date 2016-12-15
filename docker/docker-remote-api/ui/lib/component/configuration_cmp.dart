@@ -23,9 +23,15 @@ class ConfigurationCmp extends ShadowRootAware {
   DockerRemoteConnection connection;
   String version;
   String info;
+  String cpuPercentS;
+  Queue<String> receiveCpuPercentS = new Queue();
+  Queue<String> receiveReadS = new Queue();
 
-  String stats;
   var ctx;
+
+  List cpuPercentData = [];
+  List cpuPercentReadData = [];
+  Chart cpuChart;
 
   ConfigurationCmp(this.controler);
 
@@ -63,8 +69,7 @@ class ConfigurationCmp extends ShadowRootAware {
 
   void showChart() {
     var rnd = new math.Random();
-    var months = <String>["January", "February", "March", "April", "May", "June"
-    ];
+    var months = <String>["January","Fevrier","Mars"];
 
     var data = new LinearChartData(labels: months, datasets: <ChartDataSets>[
       new ChartDataSets(
@@ -80,45 +85,31 @@ class ConfigurationCmp extends ShadowRootAware {
     var config = new ChartConfiguration(
         type: 'line', data: data, options: new ChartOptions(responsive: true));
 
-    new Chart(ctx, config);
+    Chart chart = new Chart(ctx, config);
   }
 
-  void showCpuUsage() {
+  initCpuChart() {
+
+    LinearChartData data = new LinearChartData(labels: cpuPercentReadData, datasets: <ChartDataSets>[
+      new ChartDataSets(
+          label: "cpu percent",
+          backgroundColor: "rgba(220,220,220,0.2)",
+          data: cpuPercentData),
+    ]);
+
+    var config = new ChartConfiguration(
+        type: 'line', data: data, options: new ChartOptions(responsive: true));
+
+    cpuChart = new Chart(ctx, config);
+
+    new Timer.periodic(const Duration(seconds: 3), (Timer t) {
+      cpuPercentReadData.add(receiveReadS.last);
+      cpuPercentData.add(receiveCpuPercentS.last);
+      cpuChart.update();
+      receiveReadS.clear();
+      receiveCpuPercentS.clear();
+    });
   }
-
-
-  Future<int> sumStream(Stream<StatsResponse> stream) async {
-    var sum = 0;
-    await for (var value in stream) {
-      print(value);
-      sum = sum++;
-    }
-    return sum;
-  }
-
-//  updateCpuChart(data) {
-//    var cpuChart;
-//    cpuChart.addData([calculateCPUPercent(data)], new Date(data.read).toLocaleTimeString());
-//    cpuChart.removeData();
-//  }
-//
-//  calculateCPUPercent(stats) {
-//    // Same algorithm the official client uses: https://github.com/docker/docker/blob/master/api/client/stats.go#L195-L208
-//    var prevCpu = stats.precpu_stats;
-//    var curCpu = stats.cpu_stats;
-//
-//    var cpuPercent = 0.0;
-//
-//    // calculate the change for the cpu usage of the container in between readings
-//    var cpuDelta = curCpu.cpu_usage.total_usage - prevCpu.cpu_usage.total_usage;
-//    // calculate the change for the entire system between readings
-//    var systemDelta = curCpu.system_cpu_usage - prevCpu.system_cpu_usage;
-//
-//    if (systemDelta > 0.0 && cpuDelta > 0.0) {
-//      cpuPercent = (cpuDelta / systemDelta) * curCpu.cpu_usage.percpu_usage.length * 100.0;
-//    }
-//    return cpuPercent;
-//  }
 
   cpuPercent(StatsResponse statsResponse) {
     // Same algorithm the official client uses: https://github.com/docker/docker/blob/master/api/client/stats.go#L195-L208
@@ -138,6 +129,7 @@ class ConfigurationCmp extends ShadowRootAware {
   }
 
   _requestStream2() {
+    initCpuChart();
     ResponseStream stream = new ResponseStream();
     stream.flow.listen((String data) {
       try {
@@ -146,6 +138,8 @@ class ConfigurationCmp extends ShadowRootAware {
         String readS = statsResponse.read.toLocal().toString();
         String cpuPercentS = cpuPercent(statsResponse).toString();
         print("Read $readS  - CPU : $cpuPercentS");
+        receiveReadS.add(readS);
+        receiveCpuPercentS.add(cpuPercentS);
       } catch (e) {
         //Nothing to show if decode failed
       }
