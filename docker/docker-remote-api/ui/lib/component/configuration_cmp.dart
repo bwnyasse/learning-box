@@ -93,7 +93,9 @@ class ConfigurationCmp extends ShadowRootAware {
     LinearChartData data = new LinearChartData(labels: cpuPercentReadData, datasets: <ChartDataSets>[
       new ChartDataSets(
           label: "cpu percent",
-          backgroundColor: "rgba(220,220,220,0.2)",
+          backgroundColor: "rgba(151,187,205,0.5)",
+          borderColor: "rgba(151,187,205,1)",
+          pointBackgroundColor: "rgba(151,187,205,1)",
           data: cpuPercentData),
     ]);
 
