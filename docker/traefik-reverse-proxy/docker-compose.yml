@@ -48,6 +48,9 @@ services:
     networks:
       - "reverseproxy_default"
     restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=reverseproxy_default"
     env_file:
       - ./noelenwax/env/vars.env
     volumes:
