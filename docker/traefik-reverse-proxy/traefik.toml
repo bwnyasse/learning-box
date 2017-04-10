@@ -23,7 +23,7 @@ address = ":443"
 # Enable ACME (Let's Encrypt): automatic SSL
 [acme]
 # caServer = "https://acme-staging.api.letsencrypt.org/directory"
-email = "letsencrypt@example.com"
+email = "contact@noelenwax.com"
 storage = "acme.json" # or "traefik/acme/account" if using KV store
 entryPoint = "https"
 onDemand = false
@@ -32,6 +32,6 @@ OnHostRule = true
 
 [docker]
 endpoint = "unix:///var/run/docker.sock"
-domain = "example.com"
+domain = "noelenwax.com"
 watch = true
 exposedbydefault = false
