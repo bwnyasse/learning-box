@@ -11,8 +11,9 @@ services:
     labels:
       - "traefik.backend=wordpress"
       - "traefik.frontend.rule=Host:noelenwax.com"
+      - "traefik.docker.network=reverseproxy_default"
     networks:
-      - front
+      - reverseproxy_default
       - application-backend
     links:
       - mysql
@@ -60,9 +61,9 @@ services:
 networks:
   application-backend:
     driver: overlay
-  front:
+  reverseproxy_default:
     external:
-      name: traefik_front
+      name: reverseproxy_default
 
 volumes:
   wordpress-www-data-prod:

@@ -18,8 +18,3 @@ services:
       - all
     cap_add:
       - net_bind_service
-
-networks:
-  traefik_front:
-    external:
-      name: traefik_front
