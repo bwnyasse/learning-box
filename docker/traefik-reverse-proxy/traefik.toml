@@ -34,4 +34,4 @@ OnHostRule = true
 endpoint = "unix:///var/run/docker.sock"
 domain = "noelenwax.com"
 watch = true
-exposedbydefault = false
+#exposedbydefault = false

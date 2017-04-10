@@ -19,50 +19,7 @@ services:
     cap_add:
       - net_bind_service
 
-  # NOEL EN WAX -- WEB
-  t_noelenwax_wordpress:
-    build: ./noelenwax/images/wordpress
-    container_name: t_noelenwax_wordpress
-    restart: always
-    labels:
-      - "traefik.enable=true"
-      - "traefik.backend=t_noelenwax_wordpress"
-      - "traefik.frontend.rule=Host:noelenwax.com"
-      - "traefik.docker.network=reverseproxy_default"
-    networks:
-      - "reverseproxy_default"
-    restart: always
-    links:
-      - t_noelenwax_mysql
-    volumes:
-      - noelenwax_wordpress_www_data_prod:/var/www/html/
-    depends_on:
-      - t_noelenwax_mysql
-    env_file:
-      - ./noelenwax/env/vars.env
-
-  # NOEL EN WAX -- DB
-  t_noelenwax_mysql:
-    image: mariadb
-    container_name: t_noelenwax_mysql
-    networks:
-      - "reverseproxy_default"
-    restart: always
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=reverseproxy_default"
-    env_file:
-      - ./noelenwax/env/vars.env
-    volumes:
-      - noelenwax_mysql_lib_data_prod:/var/lib/mysql
-
-volumes:
-  noelenwax_wordpress_www_data_prod:
-    external: false
-  noelenwax_mysql_lib_data_prod:
-    external: false
-
 networks:
-  reverseproxy_default:
+  traefik_front:
     external:
-      name: reverseproxy_default
+      name: traefik_front
