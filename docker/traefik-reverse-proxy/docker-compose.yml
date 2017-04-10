@@ -35,7 +35,7 @@ services:
     links:
       - noelenwax_mysql
     volumes:
-      - wordpress-www-data-prod:/var/www/html/
+      - noelenwax_wordpress_www_data_prod:/var/www/html/
     depends_on:
       - noelenwax_mysql
     env_file:
@@ -51,7 +51,13 @@ services:
     env_file:
       - ./noelenwax/env/vars.env
     volumes:
-      - mysql-lib-data-prod:/var/lib/mysql
+      - noelenwax_mysql_lib_data_prod:/var/lib/mysql
+
+volumes:
+  noelenwax_wordpress_www_data_prod:
+    external: false
+  noelenwax_mysql_lib_data_prod:
+    external: false
 
 networks:
   reverseproxy_default:
