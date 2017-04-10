@@ -20,31 +20,31 @@ services:
       - net_bind_service
 
   # NOEL EN WAX -- WEB
-  noelenwax_wordpress:
+  t_noelenwax_wordpress:
     build: ./noelenwax/images/wordpress
-    container_name: noelenwax_wordpress
+    container_name: t_noelenwax_wordpress
     restart: always
     labels:
       - "traefik.enable=true"
-      - "traefik.backend=noelenwax_wordpress"
+      - "traefik.backend=t_noelenwax_wordpress"
       - "traefik.frontend.rule=Host:noelenwax.com"
       - "traefik.docker.network=reverseproxy_default"
     networks:
       - "reverseproxy_default"
     restart: always
     links:
-      - noelenwax_mysql
+      - t_noelenwax_mysql
     volumes:
       - noelenwax_wordpress_www_data_prod:/var/www/html/
     depends_on:
-      - noelenwax_mysql
+      - t_noelenwax_mysql
     env_file:
       - ./noelenwax/env/vars.env
 
   # NOEL EN WAX -- DB
-  noelenwax_mysql:
+  t_noelenwax_mysql:
     image: mariadb
-    container_name: noelenwax_wordpress
+    container_name: t_noelenwax_mysql
     networks:
       - "reverseproxy_default"
     restart: always
