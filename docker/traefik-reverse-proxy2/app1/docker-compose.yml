@@ -1,0 +1,29 @@
+version: '2'
+services:
+
+  # WEB
+  wordpress:
+    image: wordpress
+    restart: always
+    labels:
+      - "traefik.backend=wordpress"
+      - "traefik.frontend.rule=Host:wordpress.docker.localhost"
+      - "traefik.docker.network=reverseproxy"
+    links:
+      - mysql
+    depends_on:
+      - mysql
+    env_file:
+     - ./env/vars.env
+
+  # DB
+  mysql:
+    image: mariadb
+    restart: always
+    env_file:
+     - ./env/vars.env
+
+networks:
+  default:
+    external:
+      name: traefikreverseproxy2_webgateway
