@@ -2,16 +2,18 @@ version: '2'
 
 services:
   proxy:
-    image: traefik
-    command: --web --docker --docker.domain=docker.localhost --docker.watch --logLevel=DEBUG
+    build: .
+    restart: always
+    container_name: traefik_proxy
+    command: --web --docker --logLevel=DEBUG
     networks:
       - webgateway
     ports:
       - "80:80"
+      - "443:443"
       - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /dev/null:/traefik.toml
 
 networks:
   webgateway:

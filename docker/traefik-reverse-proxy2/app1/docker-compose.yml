@@ -7,8 +7,8 @@ services:
     restart: always
     labels:
       - "traefik.backend=wordpress"
-      - "traefik.frontend.rule=Host:wordpress.docker.localhost"
-      - "traefik.docker.network=reverseproxy"
+      - "traefik.frontend.rule=Host:vmi92598.contabo.host"
+      - "traefik.docker.network=traefikreverseproxy2_webgateway"
     links:
       - mysql
     depends_on:
