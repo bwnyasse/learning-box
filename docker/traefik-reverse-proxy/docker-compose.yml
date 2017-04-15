@@ -1,32 +1,20 @@
 version: '2'
 
 services:
-
-  traefik:
+  proxy:
     build: .
-    command: --web --docker --docker.domain=docker.localhost --logLevel=DEBUG
+    restart: always
+    container_name: traefik_proxy
+    command: --web --docker --logLevel=DEBUG
+    networks:
+      - webgateway
     ports:
       - "80:80"
       - "443:443"
       - "8080:8080"
-    restart: always
-      volumes:
-        - /var/run/docker.sock:/var/run/docker.sock
-    networks:
-      - default
-    cap_drop:
-      - all
-    cap_add:
-      - net_bind_service
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
-  whoami1:
-    image: emilevauge/whoami
-    labels:
-      - "traefik.backend=whoami"
-      - "traefik.frontend.rule=Host:whoami.docker.localhost"
-
-  whoami2:
-    image: emilevauge/whoami
-    labels:
-      - "traefik.backend=whoami"
-      - "traefik.frontend.rule=Host:whoami.docker.localhost"
+networks:
+  webgateway:
+    driver: bridge
