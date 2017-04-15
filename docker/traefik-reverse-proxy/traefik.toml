@@ -213,9 +213,10 @@ OnHostRule = true
 #   sans = ["test1.local2.com", "test2x.local2.com"]
 # [[acme.domains]]
 #   main = "local3.com"
-# [[acme.domains]]
-#   main = "local4.com"
-
+[[acme.domains]]
+  main = "ellesontose.com"
+[[acme.domains]]
+  main = "noelenwax.com"
 
 # Entrypoints definition
 #
