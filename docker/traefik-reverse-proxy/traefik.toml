@@ -213,10 +213,6 @@ OnHostRule = true
 #   sans = ["test1.local2.com", "test2x.local2.com"]
 # [[acme.domains]]
 #   main = "local3.com"
-[[acme.domains]]
-  main = "ellesontose.com"
-[[acme.domains]]
-  main = "noelenwax.com"
 
 # Entrypoints definition
 #
@@ -396,26 +392,26 @@ address = ":8080"
 #
 # Optional
 #
-# [docker]
+[docker]
 
 # Docker server endpoint. Can be a tcp or a unix socket endpoint.
 #
 # Required
 #
-# endpoint = "unix:///var/run/docker.sock"
+endpoint = "unix:///var/run/docker.sock"
 
 # Default domain used.
 # Can be overridden by setting the "traefik.domain" label on a container.
 #
 # Required
 #
-# domain = "vmi92598.contabo.host"
+domain = "vps343264.ovh.net"
 
 # Enable watch docker changes
 #
 # Optional
 #
-# watch = true
+watch = true
 
 # Override default configuration template. For advanced users :)
 #
