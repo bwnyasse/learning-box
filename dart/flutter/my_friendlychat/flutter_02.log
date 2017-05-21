@@ -1,0 +1,88 @@
+Flutter crash report; please file at https://github.com/flutter/flutter/issues.
+
+## command
+
+flutter doctor --android-licenses
+
+## exception
+
+ArgumentError: Invalid argument(s): Cannot find executable for /home/bwnyasse/Android/Sdk/tools/bin/sdkmanager.
+
+```
+#0      _getExecutable (package:process/src/interface/local_process_manager.dart:115)
+#1      LocalProcessManager.start (package:process/src/interface/local_process_manager.dart:43)
+#2      runCommand (package:flutter_tools/src/base/process.dart:107)
+#3      AndroidWorkflow.runLicenseManager (package:flutter_tools/src/android/android_workflow.dart:186)
+<asynchronous suspension>
+#4      Doctor.diagnose (package:flutter_tools/src/doctor.dart:111)
+<asynchronous suspension>
+#5      DoctorCommand.runCommand (package:flutter_tools/src/commands/doctor.dart:27)
+<asynchronous suspension>
+#6      FlutterCommand.verifyThenRunCommand (package:flutter_tools/src/runner/flutter_command.dart:210)
+<asynchronous suspension>
+#7      FlutterCommand.run (package:flutter_tools/src/runner/flutter_command.dart:156)
+<asynchronous suspension>
+#8      CommandRunner.runCommand (package:args/command_runner.dart:194)
+<asynchronous suspension>
+#9      FlutterCommandRunner.runCommand (package:flutter_tools/src/runner/flutter_command_runner.dart:262)
+<asynchronous suspension>
+#10     CommandRunner.run.<anonymous closure> (package:args/command_runner.dart:109)
+#11     Future.Future.sync (dart:async/future.dart:208)
+#12     CommandRunner.run (package:args/command_runner.dart:109)
+#13     FlutterCommandRunner.run (package:flutter_tools/src/runner/flutter_command_runner.dart:157)
+#14     run.<anonymous closure> (package:flutter_tools/executable.dart:142)
+<asynchronous suspension>
+#15     AppContext._run (package:flutter_tools/src/base/context.dart:76)
+<asynchronous suspension>
+#16     AppContext.runInZone.<anonymous closure> (package:flutter_tools/src/base/context.dart:66)
+#17     _rootRun (dart:async/zone.dart:1120)
+#18     _CustomZone.run (dart:async/zone.dart:1001)
+#19     runZoned (dart:async/zone.dart:1465)
+#20     AppContext.runInZone (package:flutter_tools/src/base/context.dart:65)
+#21     run (package:flutter_tools/executable.dart:114)
+<asynchronous suspension>
+#22     main (package:flutter_tools/executable.dart:67)
+<asynchronous suspension>
+#23     main (file:///home/bwnyasse/work/project/opensource/flutter/packages/flutter_tools/bin/flutter_tools.dart:16)
+#24     _startIsolate.<anonymous closure> (dart:isolate-patch/isolate_patch.dart:263)
+#25     _RawReceivePortImpl._handleMessage (dart:isolate-patch/isolate_patch.dart:151)
+```
+
+## flutter doctor
+
+```
+[✓] Flutter (on Linux, channel master)
+    • Flutter at /home/bwnyasse/work/project/opensource/flutter
+    • Framework revision 48237d54c1 (il y a 2 heures), 2017-05-19 14:50:11 -0700
+    • Engine revision 82815836eb
+    • Tools Dart version 1.23.0-dev.11.11
+
+[✓] Android toolchain - develop for Android devices (Android SDK 23.0.0_rc2)
+    • Android SDK at /home/bwnyasse/Android/Sdk
+    • Platform android-23, build-tools 23.0.0_rc2
+    • ANDROID_HOME = /home/bwnyasse/Android/Sdk
+    • Java binary at: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+    • Java version: OpenJDK Runtime Environment (build 1.8.0_121-8u121-b13-0ubuntu1.16.04.2-b13)
+
+[-] Android Studio (version 2.0)
+    • Android Studio at /opt/android-studio
+    ✗ Gradle version 2.14.1 required. Found version 2.10.
+    ✗ Unable to find bundled Java version.
+    • Try updating or re-installing Android Studio.
+
+[✓] IntelliJ IDEA Community Edition (version 2017.1)
+    • Dart plugin version 162.2485
+    • Flutter plugin version 0.1.4
+
+[✓] WebStorm (version 2017.1)
+    • Flutter plugin version 13.1
+
+[-] WebStorm (version 2016.1)
+    • Flutter plugin not installed; this adds Flutter specific functionality.
+    • For information about managing plugins, see
+      https://www.jetbrains.com/help/idea/managing-plugins.html
+
+[✓] Connected devices
+    • Nexus 5X • 01043580d4b8aaa7 • android-arm • Android 7.1.2 (API 25)
+
+```
