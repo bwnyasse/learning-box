@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Java8ForEach",
+            "request": "launch",
+            "mainClass": "fr.bwnyasse.Java8ForEach",
+            "projectName": "java8-tutorial"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - ScopeUseCaseTester",
+            "request": "launch",
+            "mainClass": "fr.bwnyasse.lambdaexpressions.ScopeUseCaseTester",
+            "projectName": "java8-tutorial"
+        }
+    ]
+}
