@@ -1,2 +1,10 @@
 {
+  "java.format.enabled": true,
+  "java.saveActions.organizeImports": true,
+  "java.format.onType.enabled": true,
+  "java.format.settings.url": "eclipse-java-google-style.xml",
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
+  "editor.insertSpaces": true,
 }

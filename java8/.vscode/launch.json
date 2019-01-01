@@ -1,25 +1,46 @@
 {
     "configurations": [
-        {
-            "type": "java",
-            "name": "CodeLens (Launch) - JavaStream",
-            "request": "launch",
-            "mainClass": "fr.bwnyasse.JavaStream",
-            "projectName": "java8-tutorial"
-        },
-        {
-            "type": "java",
-            "name": "CodeLens (Launch) - Java8ForEach",
-            "request": "launch",
-            "mainClass": "fr.bwnyasse.Java8ForEach",
-            "projectName": "java8-tutorial"
-        },
-        {
-            "type": "java",
-            "name": "CodeLens (Launch) - ScopeUseCaseTester",
-            "request": "launch",
-            "mainClass": "fr.bwnyasse.lambdaexpressions.ScopeUseCaseTester",
-            "projectName": "java8-tutorial"
-        }
+      {
+        "type": "java",
+        "name": "CodeLens (Launch) - JavaReduceEx3",
+        "request": "launch",
+        "mainClass": "fr.bwnyasse.JavaReduceEx3",
+        "projectName": "java8-tutorial"
+      },
+      {
+        "type": "java",
+        "name": "CodeLens (Launch) - JavaReduceEx2",
+        "request": "launch",
+        "mainClass": "fr.bwnyasse.JavaReduceEx2",
+        "projectName": "java8-tutorial"
+      },
+      {
+        "type": "java",
+        "name": "CodeLens (Launch) - JavaReduceExample",
+        "request": "launch",
+        "mainClass": "fr.bwnyasse.JavaReduceExample",
+        "projectName": "java8-tutorial"
+      },
+      {
+        "type": "java",
+        "name": "CodeLens (Launch) - JavaStream",
+        "request": "launch",
+        "mainClass": "fr.bwnyasse.JavaStream",
+        "projectName": "java8-tutorial"
+      },
+      {
+        "type": "java",
+        "name": "CodeLens (Launch) - Java8ForEach",
+        "request": "launch",
+        "mainClass": "fr.bwnyasse.Java8ForEach",
+        "projectName": "java8-tutorial"
+      },
+      {
+        "type": "java",
+        "name": "CodeLens (Launch) - ScopeUseCaseTester",
+        "request": "launch",
+        "mainClass": "fr.bwnyasse.lambdaexpressions.ScopeUseCaseTester",
+        "projectName": "java8-tutorial"
+      }
     ]
 }
