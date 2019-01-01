@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - JavaStream",
+            "request": "launch",
+            "mainClass": "fr.bwnyasse.JavaStream",
+            "projectName": "java8-tutorial"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Java8ForEach",
             "request": "launch",
             "mainClass": "fr.bwnyasse.Java8ForEach",
