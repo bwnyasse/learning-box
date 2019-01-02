@@ -2,6 +2,13 @@
     "configurations": [
       {
         "type": "java",
+        "name": "CodeLens (Launch) - JavaBoxedStream",
+        "request": "launch",
+        "mainClass": "fr.bwnyasse.JavaBoxedStream",
+        "projectName": "java8-tutorial"
+      },
+      {
+        "type": "java",
         "name": "CodeLens (Launch) - JavaReduceEx3",
         "request": "launch",
         "mainClass": "fr.bwnyasse.JavaReduceEx3",
