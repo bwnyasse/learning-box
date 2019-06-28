@@ -1,0 +1,409 @@
+2019-06-27 00:17:45,030 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-06-27 00:17:45,373 p=12234 u=bwnyasse |  my-docker-container | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2019-06-27 00:21:50,168 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-06-27 00:21:50,171 p=12962 u=bwnyasse |  playbook: playbooks/vps/vps.yml
+2019-06-27 00:23:24,746 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-06-27 00:23:24,749 p=13495 u=bwnyasse |  playbook: playbooks/vps/vps.yml
+2019-06-28 11:02:50,830 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-06-28 11:02:51,055 p=4442 u=bwnyasse |  my-docker-container | FAILED! => {
+    "changed": false,
+    "module_stderr": "Error: No such container: my-docker-container\n",
+    "module_stdout": "",
+    "msg": "MODULE FAILURE\nSee stdout/stderr for the exact error",
+    "rc": 1
+}
+2019-06-28 11:03:23,593 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-06-28 11:03:23,925 p=4811 u=bwnyasse |  stack-container | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2019-06-28 11:31:42,897 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-06-28 11:31:42,901 p=6303 u=bwnyasse |  PLAY [vps] ***********************************************************************************
+2019-06-28 11:31:42,909 p=6303 u=bwnyasse |  TASK [Gathering Facts] ***********************************************************************
+2019-06-28 11:31:44,220 p=6303 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:31:44,235 p=6303 u=bwnyasse |  TASK [common : Check required values] ********************************************************
+2019-06-28 11:31:44,331 p=6303 u=bwnyasse |  ok: [stack-container] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+2019-06-28 11:31:44,341 p=6303 u=bwnyasse |  TASK [common : Create group sudo] ************************************************************
+2019-06-28 11:31:44,697 p=6303 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:31:44,710 p=6303 u=bwnyasse |  TASK [common : Create and configure main user stacker] ***************************************
+2019-06-28 11:31:45,357 p=6303 u=bwnyasse |   [WARNING]: The input password appears not to have been hashed. The 'password' argument must
+be encrypted for this module to work properly.
+
+2019-06-28 11:31:45,358 p=6303 u=bwnyasse |  fatal: [stack-container]: FAILED! => {"changed": false, "msg": "Failed to find required executable ssh-keygen in paths: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"}
+2019-06-28 11:31:45,359 p=6303 u=bwnyasse |  PLAY RECAP ***********************************************************************************
+2019-06-28 11:31:45,359 p=6303 u=bwnyasse |  stack-container            : ok=3    changed=0    unreachable=0    failed=1   
+2019-06-28 11:35:08,513 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-06-28 11:35:08,517 p=6727 u=bwnyasse |  PLAY [vps] ***********************************************************************************
+2019-06-28 11:35:08,525 p=6727 u=bwnyasse |  TASK [Gathering Facts] ***********************************************************************
+2019-06-28 11:35:09,789 p=6727 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:35:09,801 p=6727 u=bwnyasse |  TASK [common : Check required values] ********************************************************
+2019-06-28 11:35:09,902 p=6727 u=bwnyasse |  ok: [stack-container] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+2019-06-28 11:35:09,912 p=6727 u=bwnyasse |  TASK [common : Create group sudo] ************************************************************
+2019-06-28 11:35:10,253 p=6727 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:35:10,269 p=6727 u=bwnyasse |  TASK [common : Create and configure main user stacker] ***************************************
+2019-06-28 11:35:10,884 p=6727 u=bwnyasse |   [WARNING]: The input password appears not to have been hashed. The 'password' argument must
+be encrypted for this module to work properly.
+
+2019-06-28 11:35:10,884 p=6727 u=bwnyasse |  fatal: [stack-container]: FAILED! => {"changed": false, "msg": "Failed to find required executable ssh-keygen in paths: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"}
+2019-06-28 11:35:10,886 p=6727 u=bwnyasse |  PLAY RECAP ***********************************************************************************
+2019-06-28 11:35:10,886 p=6727 u=bwnyasse |  stack-container            : ok=3    changed=0    unreachable=0    failed=1   
+2019-06-28 11:41:10,289 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-06-28 11:41:10,636 p=8264 u=bwnyasse |  stack-container | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+2019-06-28 11:41:16,487 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-06-28 11:41:16,491 p=8518 u=bwnyasse |  PLAY [vps] ***********************************************************************************
+2019-06-28 11:41:16,499 p=8518 u=bwnyasse |  TASK [Gathering Facts] ***********************************************************************
+2019-06-28 11:41:17,788 p=8518 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:41:17,803 p=8518 u=bwnyasse |  TASK [common : Check required values] ********************************************************
+2019-06-28 11:41:17,894 p=8518 u=bwnyasse |  ok: [stack-container] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+2019-06-28 11:41:17,904 p=8518 u=bwnyasse |  TASK [common : Create group sudo] ************************************************************
+2019-06-28 11:41:18,247 p=8518 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:41:18,260 p=8518 u=bwnyasse |  TASK [common : Create and configure main user stacker] ***************************************
+2019-06-28 11:41:19,402 p=8518 u=bwnyasse |   [WARNING]: The input password appears not to have been hashed. The 'password' argument must
+be encrypted for this module to work properly.
+
+2019-06-28 11:41:19,402 p=8518 u=bwnyasse |  changed: [stack-container]
+2019-06-28 11:41:19,413 p=8518 u=bwnyasse |  TASK [common : Make sure we have a 'wheel' group] ********************************************
+2019-06-28 11:41:19,918 p=8518 u=bwnyasse |  changed: [stack-container]
+2019-06-28 11:41:19,929 p=8518 u=bwnyasse |  TASK [common : Allow 'wheel' group to have passwordless sudo] ********************************
+2019-06-28 11:41:20,262 p=8518 u=bwnyasse |  fatal: [stack-container]: FAILED! => {"changed": false, "msg": "Destination /etc/sudoers does not exist !", "rc": 257}
+2019-06-28 11:41:20,263 p=8518 u=bwnyasse |  PLAY RECAP ***********************************************************************************
+2019-06-28 11:41:20,263 p=8518 u=bwnyasse |  stack-container            : ok=5    changed=2    unreachable=0    failed=1   
+2019-06-28 11:42:21,316 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-06-28 11:42:21,320 p=8747 u=bwnyasse |  PLAY [vps] ***********************************************************************************
+2019-06-28 11:42:21,328 p=8747 u=bwnyasse |  TASK [Gathering Facts] ***********************************************************************
+2019-06-28 11:42:22,601 p=8747 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:42:22,613 p=8747 u=bwnyasse |  TASK [common : Check required values] ********************************************************
+2019-06-28 11:42:22,712 p=8747 u=bwnyasse |  ok: [stack-container] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+2019-06-28 11:42:22,722 p=8747 u=bwnyasse |  TASK [common : Create group sudo] ************************************************************
+2019-06-28 11:42:23,063 p=8747 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:42:23,076 p=8747 u=bwnyasse |  TASK [common : Create and configure main user stacker] ***************************************
+2019-06-28 11:42:23,927 p=8747 u=bwnyasse |   [WARNING]: The input password appears not to have been hashed. The 'password' argument must
+be encrypted for this module to work properly.
+
+2019-06-28 11:42:23,927 p=8747 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:42:23,938 p=8747 u=bwnyasse |  TASK [common : Make sure we have a 'wheel' group] ********************************************
+2019-06-28 11:42:24,196 p=8747 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:42:24,207 p=8747 u=bwnyasse |  TASK [common : Allow 'wheel' group to have passwordless sudo] ********************************
+2019-06-28 11:42:24,543 p=8747 u=bwnyasse |  changed: [stack-container]
+2019-06-28 11:42:24,555 p=8747 u=bwnyasse |  TASK [common : Allow 'root' group to have passwordless sudo] *********************************
+2019-06-28 11:42:24,828 p=8747 u=bwnyasse |  changed: [stack-container]
+2019-06-28 11:42:24,840 p=8747 u=bwnyasse |  TASK [common : Add sudoers users to wheel group] *********************************************
+2019-06-28 11:42:25,582 p=8747 u=bwnyasse |  changed: [stack-container]
+2019-06-28 11:42:25,593 p=8747 u=bwnyasse |  TASK [common : Set correct permissions to home directory] ************************************
+2019-06-28 11:42:25,938 p=8747 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:42:25,940 p=8747 u=bwnyasse |  PLAY RECAP ***********************************************************************************
+2019-06-28 11:42:25,941 p=8747 u=bwnyasse |  stack-container            : ok=9    changed=3    unreachable=0    failed=0   
+2019-06-28 11:43:08,607 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-06-28 11:43:08,611 p=8894 u=bwnyasse |  PLAY [vps] ***********************************************************************************
+2019-06-28 11:43:08,619 p=8894 u=bwnyasse |  TASK [Gathering Facts] ***********************************************************************
+2019-06-28 11:43:09,902 p=8894 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:43:09,913 p=8894 u=bwnyasse |  TASK [common : Check required values] ********************************************************
+2019-06-28 11:43:10,005 p=8894 u=bwnyasse |  ok: [stack-container] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+2019-06-28 11:43:10,016 p=8894 u=bwnyasse |  TASK [common : Create group sudo] ************************************************************
+2019-06-28 11:43:10,360 p=8894 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:43:10,374 p=8894 u=bwnyasse |  TASK [common : Create and configure main user stacker] ***************************************
+2019-06-28 11:43:11,213 p=8894 u=bwnyasse |   [WARNING]: The input password appears not to have been hashed. The 'password' argument must
+be encrypted for this module to work properly.
+
+2019-06-28 11:43:11,214 p=8894 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:43:11,226 p=8894 u=bwnyasse |  TASK [common : Make sure we have a 'wheel' group] ********************************************
+2019-06-28 11:43:11,497 p=8894 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:43:11,510 p=8894 u=bwnyasse |  TASK [common : Allow 'wheel' group to have passwordless sudo] ********************************
+2019-06-28 11:43:11,848 p=8894 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:43:11,861 p=8894 u=bwnyasse |  TASK [common : Allow 'root' group to have passwordless sudo] *********************************
+2019-06-28 11:43:12,121 p=8894 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:43:12,133 p=8894 u=bwnyasse |  TASK [common : Add sudoers users to wheel group] *********************************************
+2019-06-28 11:43:12,641 p=8894 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:43:12,656 p=8894 u=bwnyasse |  TASK [common : Set correct permissions to home directory] ************************************
+2019-06-28 11:43:13,010 p=8894 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:43:13,012 p=8894 u=bwnyasse |  PLAY RECAP ***********************************************************************************
+2019-06-28 11:43:13,012 p=8894 u=bwnyasse |  stack-container            : ok=9    changed=0    unreachable=0    failed=0   
+2019-06-28 11:44:08,660 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-06-28 11:44:08,664 p=9038 u=bwnyasse |  PLAY [vps] ***********************************************************************************
+2019-06-28 11:44:08,672 p=9038 u=bwnyasse |  TASK [Gathering Facts] ***********************************************************************
+2019-06-28 11:44:09,942 p=9038 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:44:09,954 p=9038 u=bwnyasse |  TASK [common : Check required values] ********************************************************
+2019-06-28 11:44:10,050 p=9038 u=bwnyasse |  ok: [stack-container] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+2019-06-28 11:44:10,060 p=9038 u=bwnyasse |  TASK [common : Create group sudo] ************************************************************
+2019-06-28 11:44:10,403 p=9038 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:44:10,416 p=9038 u=bwnyasse |  TASK [common : Create and configure main user stacker] ***************************************
+2019-06-28 11:44:11,494 p=9038 u=bwnyasse |   [WARNING]: The input password appears not to have been hashed. The 'password' argument must
+be encrypted for this module to work properly.
+
+2019-06-28 11:44:11,495 p=9038 u=bwnyasse |  changed: [stack-container]
+2019-06-28 11:44:11,507 p=9038 u=bwnyasse |  TASK [common : Make sure we have a 'wheel' group] ********************************************
+2019-06-28 11:44:11,766 p=9038 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:44:11,779 p=9038 u=bwnyasse |  TASK [common : Allow 'wheel' group to have passwordless sudo] ********************************
+2019-06-28 11:44:12,129 p=9038 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:44:12,140 p=9038 u=bwnyasse |  TASK [common : Allow 'root' group to have passwordless sudo] *********************************
+2019-06-28 11:44:12,395 p=9038 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:44:12,406 p=9038 u=bwnyasse |  TASK [common : Add sudoers users to wheel group] *********************************************
+2019-06-28 11:44:12,913 p=9038 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:44:12,925 p=9038 u=bwnyasse |  TASK [common : Set correct permissions to home directory] ************************************
+2019-06-28 11:44:13,262 p=9038 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:44:13,265 p=9038 u=bwnyasse |  PLAY RECAP ***********************************************************************************
+2019-06-28 11:44:13,265 p=9038 u=bwnyasse |  stack-container            : ok=9    changed=1    unreachable=0    failed=0   
+2019-06-28 11:49:25,673 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-06-28 11:49:25,677 p=10257 u=bwnyasse |  PLAY [vps] ***********************************************************************************
+2019-06-28 11:49:25,685 p=10257 u=bwnyasse |  TASK [Gathering Facts] ***********************************************************************
+2019-06-28 11:49:26,966 p=10257 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:49:26,977 p=10257 u=bwnyasse |  TASK [common : Check required values] ********************************************************
+2019-06-28 11:49:27,072 p=10257 u=bwnyasse |  ok: [stack-container] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+2019-06-28 11:49:27,084 p=10257 u=bwnyasse |  TASK [common : Create group sudo] ************************************************************
+2019-06-28 11:49:27,420 p=10257 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:49:27,435 p=10257 u=bwnyasse |  TASK [common : Create and configure main user stacker] ***************************************
+2019-06-28 11:49:28,552 p=10257 u=bwnyasse |   [WARNING]: The input password appears not to have been hashed. The 'password' argument must
+be encrypted for this module to work properly.
+
+2019-06-28 11:49:28,552 p=10257 u=bwnyasse |  changed: [stack-container]
+2019-06-28 11:49:28,566 p=10257 u=bwnyasse |  TASK [common : Make sure we have a 'wheel' group] ********************************************
+2019-06-28 11:49:29,065 p=10257 u=bwnyasse |  changed: [stack-container]
+2019-06-28 11:49:29,078 p=10257 u=bwnyasse |  TASK [common : Allow 'wheel' group to have passwordless sudo] ********************************
+2019-06-28 11:49:29,420 p=10257 u=bwnyasse |  fatal: [stack-container]: FAILED! => {"changed": false, "msg": "Destination /etc/sudoers does not exist !", "rc": 257}
+2019-06-28 11:49:29,421 p=10257 u=bwnyasse |  PLAY RECAP ***********************************************************************************
+2019-06-28 11:49:29,422 p=10257 u=bwnyasse |  stack-container            : ok=5    changed=2    unreachable=0    failed=1   
+2019-06-28 11:56:02,273 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-06-28 11:56:02,278 p=10716 u=bwnyasse |  PLAY [vps] ***********************************************************************************
+2019-06-28 11:56:02,285 p=10716 u=bwnyasse |  TASK [Gathering Facts] ***********************************************************************
+2019-06-28 11:56:03,589 p=10716 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:56:03,601 p=10716 u=bwnyasse |  TASK [common : Check required values] ********************************************************
+2019-06-28 11:56:03,700 p=10716 u=bwnyasse |  ok: [stack-container] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+2019-06-28 11:56:03,711 p=10716 u=bwnyasse |  TASK [common : Create group sudo] ************************************************************
+2019-06-28 11:56:04,066 p=10716 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:56:04,079 p=10716 u=bwnyasse |  TASK [common : Create and configure main user stacker] ***************************************
+2019-06-28 11:56:05,254 p=10716 u=bwnyasse |   [WARNING]: The input password appears not to have been hashed. The 'password' argument must
+be encrypted for this module to work properly.
+
+2019-06-28 11:56:05,254 p=10716 u=bwnyasse |  changed: [stack-container]
+2019-06-28 11:56:05,268 p=10716 u=bwnyasse |  TASK [common : Make sure we have a 'wheel' group] ********************************************
+2019-06-28 11:56:05,780 p=10716 u=bwnyasse |  changed: [stack-container]
+2019-06-28 11:56:05,793 p=10716 u=bwnyasse |  TASK [common : Allow 'wheel' group to have passwordless sudo] ********************************
+2019-06-28 11:56:06,126 p=10716 u=bwnyasse |  changed: [stack-container]
+2019-06-28 11:56:06,139 p=10716 u=bwnyasse |  TASK [common : Allow 'root' group to have passwordless sudo] *********************************
+2019-06-28 11:56:06,411 p=10716 u=bwnyasse |  changed: [stack-container]
+2019-06-28 11:56:06,422 p=10716 u=bwnyasse |  TASK [common : Add sudoers users to wheel group] *********************************************
+2019-06-28 11:56:07,161 p=10716 u=bwnyasse |  changed: [stack-container]
+2019-06-28 11:56:07,172 p=10716 u=bwnyasse |  TASK [common : Set correct permissions to home directory] ************************************
+2019-06-28 11:56:07,529 p=10716 u=bwnyasse |  ok: [stack-container]
+2019-06-28 11:56:07,531 p=10716 u=bwnyasse |  PLAY RECAP ***********************************************************************************
+2019-06-28 11:56:07,531 p=10716 u=bwnyasse |  stack-container            : ok=9    changed=5    unreachable=0    failed=0   
+2019-06-28 12:08:14,200 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-06-28 12:08:14,204 p=14080 u=bwnyasse |  PLAY [vps] ***********************************************************************************
+2019-06-28 12:08:14,211 p=14080 u=bwnyasse |  TASK [Gathering Facts] ***********************************************************************
+2019-06-28 12:08:15,486 p=14080 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:08:15,498 p=14080 u=bwnyasse |  TASK [common : Check required values] ********************************************************
+2019-06-28 12:08:15,595 p=14080 u=bwnyasse |  ok: [stack-container] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+2019-06-28 12:08:15,605 p=14080 u=bwnyasse |  TASK [common : Create group sudo] ************************************************************
+2019-06-28 12:08:15,953 p=14080 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:08:15,965 p=14080 u=bwnyasse |  TASK [common : Create and configure main user stacker] ***************************************
+2019-06-28 12:08:17,203 p=14080 u=bwnyasse |   [WARNING]: The input password appears not to have been hashed. The 'password' argument must
+be encrypted for this module to work properly.
+
+2019-06-28 12:08:17,204 p=14080 u=bwnyasse |  changed: [stack-container]
+2019-06-28 12:08:17,216 p=14080 u=bwnyasse |  TASK [common : Make sure we have a 'wheel' group] ********************************************
+2019-06-28 12:08:17,709 p=14080 u=bwnyasse |  changed: [stack-container]
+2019-06-28 12:08:17,720 p=14080 u=bwnyasse |  TASK [common : Allow 'wheel' group to have passwordless sudo] ********************************
+2019-06-28 12:08:18,068 p=14080 u=bwnyasse |  changed: [stack-container]
+2019-06-28 12:08:18,080 p=14080 u=bwnyasse |  TASK [common : Allow 'root' group to have passwordless sudo] *********************************
+2019-06-28 12:08:18,349 p=14080 u=bwnyasse |  changed: [stack-container]
+2019-06-28 12:08:18,362 p=14080 u=bwnyasse |  TASK [common : Add sudoers users to wheel group] *********************************************
+2019-06-28 12:08:19,112 p=14080 u=bwnyasse |  changed: [stack-container]
+2019-06-28 12:08:19,124 p=14080 u=bwnyasse |  TASK [common : Set correct permissions to home directory] ************************************
+2019-06-28 12:08:19,481 p=14080 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:08:19,483 p=14080 u=bwnyasse |  PLAY RECAP ***********************************************************************************
+2019-06-28 12:08:19,483 p=14080 u=bwnyasse |  stack-container            : ok=9    changed=5    unreachable=0    failed=0   
+2019-06-28 12:15:09,029 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-06-28 12:15:09,033 p=15123 u=bwnyasse |  PLAY [vps] ***********************************************************************************
+2019-06-28 12:15:09,042 p=15123 u=bwnyasse |  TASK [Gathering Facts] ***********************************************************************
+2019-06-28 12:15:10,318 p=15123 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:15:10,331 p=15123 u=bwnyasse |  TASK [common : Check required values] ********************************************************
+2019-06-28 12:15:10,425 p=15123 u=bwnyasse |  ok: [stack-container] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+2019-06-28 12:15:10,435 p=15123 u=bwnyasse |  TASK [common : Create group sudo] ************************************************************
+2019-06-28 12:15:10,772 p=15123 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:15:10,785 p=15123 u=bwnyasse |  TASK [common : Create and configure main user stacker] ***************************************
+2019-06-28 12:15:11,888 p=15123 u=bwnyasse |   [WARNING]: The input password appears not to have been hashed. The 'password' argument must
+be encrypted for this module to work properly.
+
+2019-06-28 12:15:11,889 p=15123 u=bwnyasse |  changed: [stack-container]
+2019-06-28 12:15:11,899 p=15123 u=bwnyasse |  TASK [common : Make sure we have a 'wheel' group] ********************************************
+2019-06-28 12:15:12,398 p=15123 u=bwnyasse |  changed: [stack-container]
+2019-06-28 12:15:12,409 p=15123 u=bwnyasse |  TASK [common : Allow 'wheel' group to have passwordless sudo] ********************************
+2019-06-28 12:15:12,749 p=15123 u=bwnyasse |  changed: [stack-container]
+2019-06-28 12:15:12,762 p=15123 u=bwnyasse |  TASK [common : Allow 'root' group to have passwordless sudo] *********************************
+2019-06-28 12:15:13,028 p=15123 u=bwnyasse |  changed: [stack-container]
+2019-06-28 12:15:13,039 p=15123 u=bwnyasse |  TASK [common : Add sudoers users to wheel group] *********************************************
+2019-06-28 12:15:13,776 p=15123 u=bwnyasse |  changed: [stack-container]
+2019-06-28 12:15:13,787 p=15123 u=bwnyasse |  TASK [common : Set correct permissions to home directory] ************************************
+2019-06-28 12:15:14,131 p=15123 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:15:14,132 p=15123 u=bwnyasse |  PLAY RECAP ***********************************************************************************
+2019-06-28 12:15:14,132 p=15123 u=bwnyasse |  stack-container            : ok=9    changed=5    unreachable=0    failed=0   
+2019-06-28 12:17:57,290 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-06-28 12:17:57,294 p=15993 u=bwnyasse |  PLAY [vps] ***********************************************************************************
+2019-06-28 12:17:57,301 p=15993 u=bwnyasse |  TASK [Gathering Facts] ***********************************************************************
+2019-06-28 12:17:58,577 p=15993 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:17:58,589 p=15993 u=bwnyasse |  TASK [common : Check required values] ********************************************************
+2019-06-28 12:17:58,682 p=15993 u=bwnyasse |  ok: [stack-container] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+2019-06-28 12:17:58,692 p=15993 u=bwnyasse |  TASK [common : Create group sudo] ************************************************************
+2019-06-28 12:17:59,041 p=15993 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:17:59,054 p=15993 u=bwnyasse |  TASK [common : Create and configure main user stacker] ***************************************
+2019-06-28 12:18:00,130 p=15993 u=bwnyasse |   [WARNING]: The input password appears not to have been hashed. The 'password' argument must
+be encrypted for this module to work properly.
+
+2019-06-28 12:18:00,130 p=15993 u=bwnyasse |  changed: [stack-container]
+2019-06-28 12:18:00,141 p=15993 u=bwnyasse |  TASK [common : Make sure we have a 'wheel' group] ********************************************
+2019-06-28 12:18:00,416 p=15993 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:18:00,428 p=15993 u=bwnyasse |  TASK [common : Allow 'wheel' group to have passwordless sudo] ********************************
+2019-06-28 12:18:00,767 p=15993 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:18:00,779 p=15993 u=bwnyasse |  TASK [common : Allow 'root' group to have passwordless sudo] *********************************
+2019-06-28 12:18:01,045 p=15993 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:18:01,057 p=15993 u=bwnyasse |  TASK [common : Add sudoers users to wheel group] *********************************************
+2019-06-28 12:18:01,550 p=15993 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:18:01,563 p=15993 u=bwnyasse |  TASK [common : Set correct permissions to home directory] ************************************
+2019-06-28 12:18:01,918 p=15993 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:18:01,919 p=15993 u=bwnyasse |  PLAY RECAP ***********************************************************************************
+2019-06-28 12:18:01,920 p=15993 u=bwnyasse |  stack-container            : ok=9    changed=1    unreachable=0    failed=0   
+2019-06-28 12:20:02,705 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-06-28 12:20:02,710 p=16496 u=bwnyasse |  PLAY [vps] ***********************************************************************************
+2019-06-28 12:20:02,718 p=16496 u=bwnyasse |  TASK [Gathering Facts] ***********************************************************************
+2019-06-28 12:20:03,978 p=16496 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:20:03,990 p=16496 u=bwnyasse |  TASK [common : Check required values] ********************************************************
+2019-06-28 12:20:04,084 p=16496 u=bwnyasse |  ok: [stack-container] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+2019-06-28 12:20:04,094 p=16496 u=bwnyasse |  TASK [common : Create group sudo] ************************************************************
+2019-06-28 12:20:04,439 p=16496 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:20:04,455 p=16496 u=bwnyasse |  TASK [common : Create and configure main user stacker] ***************************************
+2019-06-28 12:20:05,540 p=16496 u=bwnyasse |  changed: [stack-container]
+2019-06-28 12:20:05,552 p=16496 u=bwnyasse |  TASK [common : Make sure we have a 'wheel' group] ********************************************
+2019-06-28 12:20:05,813 p=16496 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:20:05,824 p=16496 u=bwnyasse |  TASK [common : Allow 'wheel' group to have passwordless sudo] ********************************
+2019-06-28 12:20:06,156 p=16496 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:20:06,167 p=16496 u=bwnyasse |  TASK [common : Allow 'root' group to have passwordless sudo] *********************************
+2019-06-28 12:20:06,425 p=16496 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:20:06,436 p=16496 u=bwnyasse |  TASK [common : Add sudoers users to wheel group] *********************************************
+2019-06-28 12:20:06,943 p=16496 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:20:06,955 p=16496 u=bwnyasse |  TASK [common : Set correct permissions to home directory] ************************************
+2019-06-28 12:20:07,294 p=16496 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:20:07,296 p=16496 u=bwnyasse |  PLAY RECAP ***********************************************************************************
+2019-06-28 12:20:07,296 p=16496 u=bwnyasse |  stack-container            : ok=9    changed=1    unreachable=0    failed=0   
+2019-06-28 12:20:50,265 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-06-28 12:20:50,269 p=16825 u=bwnyasse |  PLAY [vps] ***********************************************************************************
+2019-06-28 12:20:50,277 p=16825 u=bwnyasse |  TASK [Gathering Facts] ***********************************************************************
+2019-06-28 12:20:51,519 p=16825 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:20:51,530 p=16825 u=bwnyasse |  TASK [common : Check required values] ********************************************************
+2019-06-28 12:20:51,627 p=16825 u=bwnyasse |  ok: [stack-container] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+2019-06-28 12:20:51,637 p=16825 u=bwnyasse |  TASK [common : Create group sudo] ************************************************************
+2019-06-28 12:20:51,979 p=16825 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:20:51,994 p=16825 u=bwnyasse |  TASK [common : Create and configure main user stacker] ***************************************
+2019-06-28 12:20:53,048 p=16825 u=bwnyasse |   [WARNING]: The input password appears not to have been hashed. The 'password' argument must
+be encrypted for this module to work properly.
+
+2019-06-28 12:20:53,048 p=16825 u=bwnyasse |  changed: [stack-container]
+2019-06-28 12:20:53,059 p=16825 u=bwnyasse |  TASK [common : Make sure we have a 'wheel' group] ********************************************
+2019-06-28 12:20:53,317 p=16825 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:20:53,328 p=16825 u=bwnyasse |  TASK [common : Allow 'wheel' group to have passwordless sudo] ********************************
+2019-06-28 12:20:53,667 p=16825 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:20:53,678 p=16825 u=bwnyasse |  TASK [common : Allow 'root' group to have passwordless sudo] *********************************
+2019-06-28 12:20:53,947 p=16825 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:20:53,959 p=16825 u=bwnyasse |  TASK [common : Add sudoers users to wheel group] *********************************************
+2019-06-28 12:20:54,462 p=16825 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:20:54,473 p=16825 u=bwnyasse |  TASK [common : Set correct permissions to home directory] ************************************
+2019-06-28 12:20:54,820 p=16825 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:20:54,823 p=16825 u=bwnyasse |  PLAY RECAP ***********************************************************************************
+2019-06-28 12:20:54,823 p=16825 u=bwnyasse |  stack-container            : ok=9    changed=1    unreachable=0    failed=0   
+2019-06-28 12:21:02,786 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-06-28 12:21:02,791 p=16957 u=bwnyasse |  PLAY [vps] ***********************************************************************************
+2019-06-28 12:21:02,799 p=16957 u=bwnyasse |  TASK [Gathering Facts] ***********************************************************************
+2019-06-28 12:21:04,069 p=16957 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:21:04,081 p=16957 u=bwnyasse |  TASK [common : Check required values] ********************************************************
+2019-06-28 12:21:04,175 p=16957 u=bwnyasse |  ok: [stack-container] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+2019-06-28 12:21:04,185 p=16957 u=bwnyasse |  TASK [common : Create group sudo] ************************************************************
+2019-06-28 12:21:04,528 p=16957 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:21:04,541 p=16957 u=bwnyasse |  TASK [common : Create and configure main user stacker] ***************************************
+2019-06-28 12:21:05,611 p=16957 u=bwnyasse |   [WARNING]: The input password appears not to have been hashed. The 'password' argument must
+be encrypted for this module to work properly.
+
+2019-06-28 12:21:05,611 p=16957 u=bwnyasse |  changed: [stack-container]
+2019-06-28 12:21:05,622 p=16957 u=bwnyasse |  TASK [common : Make sure we have a 'wheel' group] ********************************************
+2019-06-28 12:21:05,890 p=16957 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:21:05,901 p=16957 u=bwnyasse |  TASK [common : Allow 'wheel' group to have passwordless sudo] ********************************
+2019-06-28 12:21:06,235 p=16957 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:21:06,246 p=16957 u=bwnyasse |  TASK [common : Allow 'root' group to have passwordless sudo] *********************************
+2019-06-28 12:21:06,512 p=16957 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:21:06,524 p=16957 u=bwnyasse |  TASK [common : Add sudoers users to wheel group] *********************************************
+2019-06-28 12:21:07,042 p=16957 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:21:07,053 p=16957 u=bwnyasse |  TASK [common : Set correct permissions to home directory] ************************************
+2019-06-28 12:21:07,396 p=16957 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:21:07,398 p=16957 u=bwnyasse |  PLAY RECAP ***********************************************************************************
+2019-06-28 12:21:07,398 p=16957 u=bwnyasse |  stack-container            : ok=9    changed=1    unreachable=0    failed=0   
+2019-06-28 12:24:13,061 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-06-28 12:24:13,065 p=17711 u=bwnyasse |  PLAY [vps] ***********************************************************************************
+2019-06-28 12:24:13,073 p=17711 u=bwnyasse |  TASK [Gathering Facts] ***********************************************************************
+2019-06-28 12:24:14,355 p=17711 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:24:14,366 p=17711 u=bwnyasse |  TASK [common : Check required values] ********************************************************
+2019-06-28 12:24:14,464 p=17711 u=bwnyasse |  ok: [stack-container] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+2019-06-28 12:24:14,475 p=17711 u=bwnyasse |  TASK [common : Create group sudo] ************************************************************
+2019-06-28 12:24:14,818 p=17711 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:24:14,830 p=17711 u=bwnyasse |  TASK [common : Create and configure main user stacker] ***************************************
+2019-06-28 12:24:15,909 p=17711 u=bwnyasse |  changed: [stack-container]
+2019-06-28 12:24:15,922 p=17711 u=bwnyasse |  TASK [common : Make sure we have a 'wheel' group] ********************************************
+2019-06-28 12:24:16,185 p=17711 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:24:16,198 p=17711 u=bwnyasse |  TASK [common : Allow 'wheel' group to have passwordless sudo] ********************************
+2019-06-28 12:24:16,535 p=17711 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:24:16,547 p=17711 u=bwnyasse |  TASK [common : Allow 'root' group to have passwordless sudo] *********************************
+2019-06-28 12:24:16,822 p=17711 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:24:16,833 p=17711 u=bwnyasse |  TASK [common : Add sudoers users to wheel group] *********************************************
+2019-06-28 12:24:17,349 p=17711 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:24:17,363 p=17711 u=bwnyasse |  TASK [common : Set correct permissions to home directory] ************************************
+2019-06-28 12:24:17,706 p=17711 u=bwnyasse |  ok: [stack-container]
+2019-06-28 12:24:17,708 p=17711 u=bwnyasse |  PLAY RECAP ***********************************************************************************
+2019-06-28 12:24:17,708 p=17711 u=bwnyasse |  stack-container            : ok=9    changed=1    unreachable=0    failed=0   

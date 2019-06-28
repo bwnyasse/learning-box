@@ -1,0 +1,72 @@
+# ################################################
+# Check que les variables obligatoires sont renseignées :
+# ################################################
+- name: Check required values
+  assert: 
+    that:
+      - "user.name != ''" 
+      - "user.password != ''" 
+      - "user.home != ''" 
+
+# ################################################
+# Configuration de l'utilisateur principal
+# ################################################
+
+- name: Create group sudo
+  group:
+    name: "{{ sudo_group | mandatory }}"
+    state: present
+    system: yes
+
+- name: Create and configure main user {{ user.name }}
+  become: yes
+  user:
+    name: "{{ user.name }}"
+    home: "{{ user.home }}"
+    password: "{{ user.password }}"
+    groups: "{{ sudo_group | mandatory }}"
+    state: present
+    append: yes
+    createhome: yes
+    generate_ssh_key: yes
+    shell: /bin/bash
+
+- name: Make sure we have a 'wheel' group
+  become: yes
+  group:
+    name: wheel
+    state: present
+
+- name: Allow 'wheel' group to have passwordless sudo
+  become: yes
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%wheel'
+    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+
+- name: Allow 'root' group to have passwordless sudo
+  become: yes
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^root'
+    line: 'root  ALL=(ALL:ALL) ALL'
+
+- name: Add sudoers users to wheel group
+  become: yes
+  user: 
+    name: "{{ user.name }}" 
+    groups: wheel 
+    append: yes 
+    state: present 
+    createhome: yes
+
+- name: Set correct permissions to home directory
+  file:
+     path: "{{ user.home }}"
+     owner: "{{ user.name }}"
+     group: "{{ user.name }}"
+     mode: 0755
+     state: "directory"
+  become: yes

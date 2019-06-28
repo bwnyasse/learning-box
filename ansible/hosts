@@ -1,0 +1,5 @@
+#[local]
+#localhost ansible_connection=local
+
+[vps] ## Virtual Private Server
+stack-container ansible_connection=docker

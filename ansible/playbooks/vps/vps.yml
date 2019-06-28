@@ -1,0 +1,16 @@
+- hosts: vps
+  vars:
+    user:
+      name: stacker
+      # Exemple pour generer le mot de passe
+      # $> python -c 'import crypt; print crypt.crypt("MON_PWD", "$1$SuperSalt$")'
+      # voir https://groups.google.com/forum/#!topic/ansible-project/6GLXA5RqY2U
+      password: $1$SomeSalt$jq8SKC2Uj5I4pJKGXtprF0
+      home: /home/stacker
+
+  vars_files:
+    - ../../group_vars/all
+
+  roles:
+    - { role: common  }
+
