@@ -1,0 +1,10 @@
+<manifest>
+  <!--
+  <imports>
+    <import manifest="minimal" name="manifest" remote="https://fuchsia.googlesource.com/manifest"/>
+  </imports>-->
+  <projects>
+    <project name="led" remote="https://github.com/bwnyasse/led" path="led" />
+    <project name="mongodbworker" remote="https://github.com/bwnyasse/docker-mongodb-worker" path="worker" />
+  </projects>
+</manifest>
