@@ -11,9 +11,13 @@ spec:
       ports:
         - containerPort: 80
       volumeMounts:
-        - name: fruit-service-ambassador-config
+        - name: config-volume
           mountPath: /usr/local/etc/haproxy
-
+  volumes:
+    - name: config-volume
+      configMap:
+        name: fruit-service-ambassador-config
+        
 ---
 apiVersion: v1
 kind: ConfigMap
