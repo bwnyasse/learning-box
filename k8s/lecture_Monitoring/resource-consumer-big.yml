@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: resource-consumer-big
+spec:
+  containers:
+  - name: resource-consumer
+    image: gcr.io/kubernetes-e2e-test-images/resource-consumer:1.4
+    resources:
+      requests:
+        cpu: 500m
+        memory: 128Mi
+  - name: busybox-sidecar
+    image: radial/busyboxplus:curl
+    command: [/bin/sh, -c, 'until curl localhost:8080/ConsumeCPU -d "millicores=300&durationSec=3600"; do sleep 5; done && sleep 3700']
