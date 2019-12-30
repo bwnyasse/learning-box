@@ -1,0 +1,19 @@
+##
+## Liveness probe with a command 
+##
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-liveness-pod
+spec:
+  containers:
+  - name: myapp-container
+    image: busybox
+    command: ['sh', '-c', "echo Hello, Kubernetes! && sleep 3600"]
+    livenessProbe:
+      exec:
+        command:
+        - echo
+        - testing
+      initialDelaySeconds: 5
+      periodSeconds: 5

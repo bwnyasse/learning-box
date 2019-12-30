@@ -1,0 +1,17 @@
+##
+## Readiness probe with a http requestr 
+##
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-readiness-pod
+spec:
+  containers:
+  - name: myapp-container
+    image: nginx
+    readinessProbe:
+      httpGet:
+        path: /
+        port: 80
+      initialDelaySeconds: 5
+      periodSeconds: 5
