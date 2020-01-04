@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: pizza
+  name: pizza-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pizza-app
+  template:
+    metadata:
+      namespace: pizza
+      labels:
+        app: pizza-app
+    spec:
+      restartPolicy: Always    
+      containers:
+      - name: pizza-app-container
+        image: linuxacademycontent/pizza-service:1.14.6
+        command: ['nginx']
+        args: ["-g", "daemon off;"]
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8081
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+        ports:
+        - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: pizza
+  name: pizza-service
+spec:
+  type: NodePort
+  selector:
+    app: pizza-app
+  ports:
+  - protocol: TCP
+    port: 80
+    nodePort: 30080 
