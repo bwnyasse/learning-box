@@ -1,5 +1,4 @@
 #!/usr/bin/env python3.7
-
 from helpers.strings import extract_lower
 from helpers import variables
 from helpers import *
