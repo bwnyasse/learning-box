@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+  </head>
+  <body>
+    <p>Bonjour <b>Office Management Stack Labs Canada,</b> </p>
+    
+    <p> Demande de congés validés pour : <b> <?= data.stackerEmailAddress;?> </b> <p/>
+
+    Ci-dessous les détails : 
+
+    <ul>
+
+      <li> Période du <b><?= data.dayFrom.toLocaleDateString("fr-FR");?> (<?= data.momentFrom;?>) au <?= data.dayTo.toLocaleDateString("fr-FR");?> (<?= data.momentTo;?>)</b> </li>
+
+      <li> Nombre de jours à comptabiliser : <b> <?= data.countDays;?> </b> </li>
+      <li> Nombre d'heures à comptabiliser : <b>  <?= data.countHours;?> </b> </li>
+    </ul>
+
+    <p>Cordialement,</p>
+    
+    <p><img src="https://devfest2019.gdgnantes.com/images/partners/stack_labs.png" width="150px"></p>
+    <p><b>Technologie Stack Labs Canada Inc.</b></p>
+    <p>1010, Rue Sainte-Catherine O Ste 200, Montréal</p>
+    <p>https://www.stack-labs.com </p>
+    <p>France · Canada</p>
+
+    
+  </body>
+</html>
