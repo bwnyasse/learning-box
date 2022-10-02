@@ -3,6 +3,8 @@
   export let jobTitle;
   export let description;
   export let userImage;
+
+  const initialName = userName;
 </script>
 
 <style>
@@ -11,6 +13,7 @@
     max-width: 30rem;
     border-radius: 5px;
     margin: 1rem 0;
+    background: white;
   }
 
   header {
@@ -69,7 +72,7 @@
       <img src={userImage} alt={userName} />
     </div>
     <div class="user-data">
-      <h1>{userName}</h1>
+      <h1>{userName} / {initialName}</h1>
       <h2>{jobTitle}</h2>
     </div>
   </header>

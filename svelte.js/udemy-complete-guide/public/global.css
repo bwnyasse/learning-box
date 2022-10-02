@@ -36,3 +36,30 @@ button:active {
   border-color: #e40763;
   box-shadow: 1px 1px 8px rgba(77, 51, 51, 0.26);
 }
+
+input, textarea {
+  display: block;
+  width: 100%;
+  font: inherit;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  border-radius: 3px 3px 0 0;
+  background: white;
+  padding: 0.15rem 0.25rem;
+  transition: border-color 0.1s ease-out;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #e40763;
+  outline: none;
+}
+
+label {
+  display: block;
+  margin: 0.5rem 0;
+}
+
+.form-control {
+  padding: 0.5rem 0;
+}
