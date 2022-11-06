@@ -5,12 +5,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>net.bwnyasse</groupId>
-  <artifactId>kafka-demo-java</artifactId>
+  <artifactId>kafka-beginners-course-basics</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <name>kafka-demo-java</name>
-  <description>A simple kafka-demo-java.</description>
-
+  <description>kafka-beginners-course-basics</description>
+  
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>11</maven.compiler.source>
