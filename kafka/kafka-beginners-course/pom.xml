@@ -21,6 +21,7 @@
     <module>basics</module>
     <module>producer-wikimedia</module>
     <module>consumer-opensearch</module>
+    <module>streams-wikimedia</module>
   </modules>
 
   <dependencies>
@@ -33,7 +34,7 @@
     <dependency>
       <groupId>org.apache.kafka</groupId>
       <artifactId>kafka-clients</artifactId>
-      <version>3.0.0</version>
+      <version>3.1.0</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
     <dependency>
