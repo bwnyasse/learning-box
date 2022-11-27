@@ -15,7 +15,7 @@ export 'models/models.dart';
   final isoCode = request.isoCode ?? 'CA'; // Default is Canada
   
   final response = await loadMovies(isoCode);
-  context.logger.info('isoCode : $isoCode - MoviesResponse: ${response.toJson()}');
+  context.logger.info('Context - isoCode : $isoCode - MoviesResponse: ${response.toJson()}');
   return response;
 }
 
