@@ -190,4 +190,4 @@ override.tf.json
 terraform.rc
 
 # Google cloud
-sa-keys.json
+sa-key.json
