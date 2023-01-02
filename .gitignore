@@ -188,3 +188,6 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# Google cloud
+sa-keys.json
