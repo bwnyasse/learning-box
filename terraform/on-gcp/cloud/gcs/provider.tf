@@ -14,3 +14,4 @@ provider "google" {
   zone = "northamerica-northeast1-a"
   credentials = "sa-key.json" # the service-account to connect to learning-box project
 }
+
