@@ -1,0 +1,6 @@
+# creation rules are evaluated sequentially, the first match wins
+creation_rules:
+ 
+  # if we can't be certain which keys to use, encrypt with all keys so that any of them can decrypt
+  - gcp_kms: projects/learning-box-369917/locations/global/keyRings/sops-demo/cryptoKeys/my-encryption-key
+    encrypted_regex: '(?i)^(data|stringData|.*user.*|.*pass.*|.*bearer.*|.*key.*|.*salt|.*sentry.*|.*token.*|.*id|.*secret.*|.*role.*|.*sa_json.*|.*values.*|.*GOOGLE_TAG_MANAGER.*|.*auth.*)$'

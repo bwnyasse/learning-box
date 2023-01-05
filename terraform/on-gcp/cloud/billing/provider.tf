@@ -1,9 +1,22 @@
+data "sops_file" "sa-key" {
+  source_file = "../sa-key.sops.json"
+}
+
 terraform {
   required_providers {
+    sops = {
+      source  = "carlpett/sops"
+      version = "~> 0.5"
+    }
     google = {
       source = "hashicorp/google"
-      version = "4.47.0"
+      version = "4.5.0"
     }
+  }
+
+  backend "gcs" {
+    bucket = "learning-box-369917-terraform-remote-state"
+    prefix = "billing"
   }
 }
 
@@ -12,6 +25,5 @@ provider "google" {
   project = "learning-box-369917"
   region = "northamerica-northeast1"
   zone = "northamerica-northeast1-a"
-  credentials = "sa-key.json" # the service-account to connect to learning-box project
+  credentials = data.sops_file.sa-key.raw # the service-account to connect to learning-box project
 }
-

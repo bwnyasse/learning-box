@@ -31,13 +31,10 @@ resource "google_billing_budget" "budget" {
   }
 
   # THRESHOLD -------------------
-  threshold_rules {
-    threshold_percent = 0.5
-  }
-  threshold_rules {
-    threshold_percent = 0.9
-  }
-  threshold_rules {
-    threshold_percent = 1
+  dynamic "threshold_rules" {
+    for_each = toset([0.8, 0.9, 1.0, 1.25, 1.5])
+    content {
+      threshold_percent = threshold_rules.value
+    }
   }
 }
