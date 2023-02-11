@@ -1,11 +1,11 @@
-import 'package:flutter_moviesapp_demo_firebase_remote_config/screens/dashboard/components/my_fields.dart';
+import 'package:flutter_moviesapp_demo_firebase_remote_config/screens/dashboard/components/my_genres.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
 import 'components/header.dart';
 
-import 'components/recent_files.dart';
-import 'components/storage_details.dart';
+import 'components/my_movies.dart';
+import 'components/chart_details.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -26,18 +26,18 @@ class DashboardScreen extends StatelessWidget {
                 Expanded(
                   flex: 5,
                   child: Column(
-                    children: [
-                      const MyFiles(),
-                      const SizedBox(height: defaultPadding),
-                      const RecentFiles(),
+                    children: const [
+                      MyGenres(),
+                      SizedBox(height: defaultPadding),
+                      MyMovies(),
                     ],
                   ),
                 ),
-                  const SizedBox(width: defaultPadding),
-                  const Expanded(
-                    flex: 2,
-                    child: StorageDetails(),
-                  ),
+                const SizedBox(width: defaultPadding),
+                const Expanded(
+                  flex: 2,
+                  child: ChartDetails(),
+                ),
               ],
             )
           ],
