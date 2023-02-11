@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../constants.dart';
+import '../../../../constants.dart';
 
-class ChartInfoCard extends StatelessWidget {
-  const ChartInfoCard({
+class ChartInfoCardComponent extends StatelessWidget {
+  const ChartInfoCardComponent({
     Key? key,
     required this.title,
     required this.svgSrc,
-    required this.amountOfFiles,
-    required this.numOfFiles,
+    required this.average,
+    required this.numOfMovies,
   }) : super(key: key);
 
-  final String title, svgSrc, amountOfFiles;
-  final int numOfFiles;
+  final String title, svgSrc, average;
+  final int numOfMovies;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: defaultPadding),
-      padding: EdgeInsets.all(defaultPadding),
+      margin: const EdgeInsets.only(top: defaultPadding),
+      padding: const EdgeInsets.all(defaultPadding),
       decoration: BoxDecoration(
         border: Border.all(width: 2, color: primaryColor.withOpacity(0.15)),
         borderRadius: const BorderRadius.all(
@@ -45,7 +45,7 @@ class ChartInfoCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    "$numOfFiles Files",
+                    "$numOfMovies Movies",
                     style: Theme.of(context)
                         .textTheme
                         .caption!
@@ -55,7 +55,7 @@ class ChartInfoCard extends StatelessWidget {
               ),
             ),
           ),
-          Text(amountOfFiles)
+          Text(average)
         ],
       ),
     );

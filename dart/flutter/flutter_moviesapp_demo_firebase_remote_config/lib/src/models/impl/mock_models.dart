@@ -1,3 +1,39 @@
+import 'package:flutter/material.dart';
+
+import '../../constants.dart';
+import 'genres.dart';
+
+List mockMyGenres = [
+  GenreInfo(
+    title: "Adventure",
+    numOfMovies: 10,
+    svgSrc: "assets/flaticon/12.svg",
+    color: primaryColor,
+    percentage: 35,
+  ),
+  GenreInfo(
+    title: "Animation",
+    numOfMovies: 15,
+    svgSrc: "assets/flaticon/16.svg",
+    color: const Color(0xFFFFA113),
+    percentage: 35,
+  ),
+  GenreInfo(
+    title: "Horror",
+    numOfMovies: 20,
+    svgSrc: "assets/flaticon/27.svg",
+    color: const Color(0xFFA4CDFF),
+    percentage: 10,
+  ),
+  GenreInfo(
+    title: "Action",
+    numOfMovies: 2,
+    svgSrc: "assets/flaticon/28.svg",
+    color: const Color(0xFF007EE5),
+    percentage: 78,
+  ),
+];
+
 Map<String, dynamic> mockGenre() => {
       "genres": [
         {"id": 12, "name": "Adventure"},

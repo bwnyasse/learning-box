@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../../constants.dart';
-import 'chart.dart';
-import 'chart_info_card.dart';
+import '../../../../constants.dart';
+import 'chart_component.dart';
+import 'chart_info_card_component.dart';
 
-class ChartDetails extends StatelessWidget {
-  const ChartDetails({
+class ChartDetailsComponent extends StatelessWidget {
+  const ChartDetailsComponent({
     Key? key,
   }) : super(key: key);
 
@@ -30,30 +30,30 @@ class ChartDetails extends StatelessWidget {
               ),
             ),
              SizedBox(height: defaultPadding),
-            Chart(),
-            ChartInfoCard(
+            ChartComponent(),
+            ChartInfoCardComponent(
               svgSrc: "assets/flaticon/12.svg",
               title: "Adventure",
-              amountOfFiles: "1.3GB",
-              numOfFiles: 1328,
+              average: "1.3",
+              numOfMovies: 1328,
             ),
-            ChartInfoCard(
+            ChartInfoCardComponent(
               svgSrc: "assets/flaticon/16.svg",
               title: "Animation",
-              amountOfFiles: "15.3GB",
-              numOfFiles: 1328,
+              average: "15.3",
+              numOfMovies: 1328,
             ),
-            ChartInfoCard(
+            ChartInfoCardComponent(
               svgSrc: "assets/flaticon/27.svg",
               title: "Horror",
-              amountOfFiles: "1.3GB",
-              numOfFiles: 1328,
+              average: "1.3",
+              numOfMovies: 1328,
             ),
-            ChartInfoCard(
+            ChartInfoCardComponent(
               svgSrc: "assets/icons/unknown.svg",
               title: "Unknown",
-              amountOfFiles: "1.3GB",
-              numOfFiles: 140,
+              average: "1.3",
+              numOfMovies: 140,
             ),
           ],
         ),

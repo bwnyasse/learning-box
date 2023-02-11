@@ -1,22 +1,21 @@
-import 'package:flutter_moviesapp_demo_firebase_remote_config/models/RecentMovies.dart';
+import 'package:flutter_moviesapp_demo_firebase_remote_config/src/models/impl/RecentMovies.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
-import '../../../constants.dart';
+import '../../../../constants.dart';
 
-class MyMovies extends StatelessWidget {
-  const MyMovies({
+class MoviesComponent extends StatelessWidget {
+  const MoviesComponent({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(defaultPadding),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.all(defaultPadding),
+      decoration: const BoxDecoration(
         color: secondaryColor,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,9 +38,10 @@ class MyMovies extends StatelessWidget {
                   size: ColumnSize.S,
                 ),
               ],
+              //TODO: RecentFileDataRow to MovieDataRow
               rows: List.generate(
-                demoRecentMovies.length,
-                (index) => recentFileDataRow(demoRecentMovies[index]),
+                demoMovies.length,
+                (index) => moviesDataRow(demoMovies[index]),
               ),
             ),
           ),
@@ -51,7 +51,7 @@ class MyMovies extends StatelessWidget {
   }
 }
 
-DataRow recentFileDataRow(RecentMovie fileInfo) {
+DataRow moviesDataRow(MovieItemInRow movieItem) {
   return DataRow(
     cells: [
       DataCell(
@@ -68,13 +68,13 @@ DataRow recentFileDataRow(RecentMovie fileInfo) {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-              child: Text(fileInfo.title!),
+              child: Text(movieItem.title!),
             ),
           ],
         ),
       ),
-      DataCell(Text(fileInfo.date!)),
-      DataCell(Text(fileInfo.average!)),
+      DataCell(Text(movieItem.date!)),
+      DataCell(Text(movieItem.average!)),
     ],
   );
 }

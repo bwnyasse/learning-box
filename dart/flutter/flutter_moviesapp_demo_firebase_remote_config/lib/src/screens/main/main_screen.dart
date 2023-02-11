@@ -1,4 +1,4 @@
-import 'package:flutter_moviesapp_demo_firebase_remote_config/screens/dashboard/dashboard_screen.dart';
+import 'package:flutter_moviesapp_demo_firebase_remote_config/src/screens/dashboard/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'components/side_menu.dart';

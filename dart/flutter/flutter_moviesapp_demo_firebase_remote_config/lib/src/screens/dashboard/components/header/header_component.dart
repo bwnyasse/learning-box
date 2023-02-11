@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../constants.dart';
+import '../../../../constants.dart';
 
-class Header extends StatelessWidget {
-  const Header({
+class HeaderComponent extends StatelessWidget {
+  const HeaderComponent({
     Key? key,
   }) : super(key: key);
 
@@ -15,7 +15,7 @@ class Header extends StatelessWidget {
           "Dev Team : PoC Firebase Remote Config",
           style: Theme.of(context).textTheme.headline6,
         ),
-        Spacer(flex: 2),
+        const Spacer(flex: 2),
         const ProfileCard()
       ],
     );
