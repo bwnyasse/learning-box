@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "598115471565",
+    "project_id": "fir-remote-config-demo-940e0",
+    "storage_bucket": "fir-remote-config-demo-940e0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:598115471565:android:0445387c8d417831f21984",
+        "android_client_info": {
+          "package_name": "com.example.flutter_firebase_remote_config_demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "598115471565-f6gfegdtrpg0rlu7ucdpmn45jm7al44c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtSZGMsgRluArNDCSeixC8TuZBWRYvZow"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "598115471565-f6gfegdtrpg0rlu7ucdpmn45jm7al44c.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "598115471565-no3ife2aaa9135q6g3pru5o4mpmo60ji.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterFirebaseRemoteConfigDemo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
