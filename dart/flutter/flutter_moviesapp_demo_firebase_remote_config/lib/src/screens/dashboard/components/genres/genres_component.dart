@@ -1,17 +1,16 @@
-import 'package:flutter_moviesapp_demo_firebase_remote_config/models/MyGenre.dart';
 import 'package:flutter/material.dart';
 
-import '../../../constants.dart';
-import 'genre_info_card.dart';
+import '../../../../constants.dart';
+import '../../../../models/impl/mock_models.dart';
+import 'genre_info_card_component.dart';
 
-class MyGenres extends StatelessWidget {
-  const MyGenres({
+class GenresComponent extends StatelessWidget {
+  const GenresComponent({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final Size _size = MediaQuery.of(context).size;
     return Column(
       children: [
         Row(
@@ -45,14 +44,14 @@ class GenreInfoCardGridView extends StatelessWidget {
     return GridView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: demoMyGenres.length,
+      itemCount: mockMyGenres.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: crossAxisCount,
         crossAxisSpacing: defaultPadding,
         mainAxisSpacing: defaultPadding,
         childAspectRatio: childAspectRatio,
       ),
-      itemBuilder: (context, index) => GenreInfoCard(info: demoMyGenres[index]),
+      itemBuilder: (context, index) => GenreInfoCardComponent(info: mockMyGenres[index]),
     );
   }
 }

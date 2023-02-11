@@ -1,11 +1,11 @@
-import 'package:flutter_moviesapp_demo_firebase_remote_config/screens/dashboard/components/my_genres.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_moviesapp_demo_firebase_remote_config/src/screens/dashboard/components/chart/chart_details_component.dart';
 
 import '../../constants.dart';
-import 'components/header.dart';
+import 'components/genres/genres_component.dart';
+import 'components/header/header_component.dart';
 
-import 'components/my_movies.dart';
-import 'components/chart_details.dart';
+import 'components/movies/movies_component.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -18,7 +18,7 @@ class DashboardScreen extends StatelessWidget {
         padding: const EdgeInsets.all(defaultPadding),
         child: Column(
           children: [
-            const Header(),
+            const HeaderComponent(),
             const SizedBox(height: defaultPadding),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,16 +27,16 @@ class DashboardScreen extends StatelessWidget {
                   flex: 5,
                   child: Column(
                     children: const [
-                      MyGenres(),
+                      GenresComponent(),
                       SizedBox(height: defaultPadding),
-                      MyMovies(),
+                      MoviesComponent(),
                     ],
                   ),
                 ),
                 const SizedBox(width: defaultPadding),
                 const Expanded(
                   flex: 2,
-                  child: ChartDetails(),
+                  child: ChartDetailsComponent(),
                 ),
               ],
             )
