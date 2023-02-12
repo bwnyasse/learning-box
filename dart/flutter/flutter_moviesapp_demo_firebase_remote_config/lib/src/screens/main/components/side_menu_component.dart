@@ -25,24 +25,13 @@ class _SideMenuComponentState extends State<SideMenuComponent> {
             child: Image.asset("assets/images/logo.png"),
           ),
           DrawerListTile(
-            index: 0,
-            title: "Latest",
-            svgSrc: "assets/icons/menu_latest.svg",
-            press: () {
-              setState(() {
-                currentIndex = 0;
-                BlocProvider.of<AppCubit>(context).onLoadEvent();
-              });
-            },
-          ),
-          DrawerListTile(
             index: 1,
             title: "Top rated",
             svgSrc: "assets/icons/menu_top_rated.svg",
             press: () {
               setState(() {
                 currentIndex = 1;
-                BlocProvider.of<AppCubit>(context).onLoadingEvent();
+                BlocProvider.of<AppCubit>(context).onLoadEvent('top_rated');
               });
             },
           ),
@@ -53,7 +42,7 @@ class _SideMenuComponentState extends State<SideMenuComponent> {
             press: () {
               setState(() {
                 currentIndex = 3;
-                BlocProvider.of<AppCubit>(context).onLoadingEvent();
+                BlocProvider.of<AppCubit>(context).onLoadEvent('now_playing');
               });
             },
           ),
@@ -64,7 +53,7 @@ class _SideMenuComponentState extends State<SideMenuComponent> {
             press: () {
               setState(() {
                 currentIndex = 4;
-                BlocProvider.of<AppCubit>(context).onLoadingEvent();
+                BlocProvider.of<AppCubit>(context).onLoadEvent('upcoming');
               });
             },
           ),

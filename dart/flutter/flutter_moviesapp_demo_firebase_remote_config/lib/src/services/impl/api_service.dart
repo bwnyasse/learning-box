@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:convert';
 
 import 'package:http/http.dart' show Client;
-import 'package:flutter_moviesapp_demo_firebase_remote_config/src/models/impl/mock_models.dart' as mock;
 import 'package:flutter_moviesapp_demo_firebase_remote_config/src/models/models.dart';
 
 class LoadMoviesException implements Exception {
@@ -17,13 +16,11 @@ class ApiService {
 
   ApiService(this.client);
 
-  MoviesResponse loadMockMovies() => MoviesResponse.fromJson(mock.mockMovies());
-
-  Future<MoviesResponse> loadMovies() async {
+  Future<MoviesResponse> loadMovies(final String restApi) async {
     const apiKey = '4205ec1d93b1e3465f636f0956a98c64';
     const api = 'https://api.themoviedb.org/3';
-    const urlPath = 'movie/now_playing';
-    const path = '$api/$urlPath?api_key=$apiKey&language=en-US';
+    final urlPath = 'movie/$restApi';
+    final path = '$api/$urlPath?api_key=$apiKey&language=en-US';
 
     // appel asynchrone
     final response = await client.get(Uri.parse(path));
@@ -38,6 +35,4 @@ class ApiService {
 
     return MoviesResponse.fromJson(data);
   }
-
-  
 }
