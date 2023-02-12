@@ -29,6 +29,8 @@ class FirebaseRemoteConfigService {
     }
   }
 
+  bool getLocationUsers() => firebaseRemoteConfig.getBool('location_users');
+  
   bool getChartDetailEnabled() =>
       firebaseRemoteConfig.getBool('chart_details_enabled');
 
