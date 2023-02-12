@@ -1,17 +1,37 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter_moviesapp_demo_firebase_remote_config/src/constants.dart';
 import 'package:flutter_moviesapp_demo_firebase_remote_config/src/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_moviesapp_demo_firebase_remote_config/src/services/impl/location_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'src/cubits/cubit.dart';
-import 'src/providers/impl/app_providers.dart';
+import 'src/features/firebase/firebase_options.dart';
+import 'src/providers/providers.dart';
 import 'src/services/services.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  final firebaseRemoteConfigService = FirebaseRemoteConfigService(
+    firebaseRemoteConfig: FirebaseRemoteConfig.instance,
+  );
+  await firebaseRemoteConfigService.init();
+
+  Client client = Client();
+
+  final locationService = LocationService(client);
+  await locationService.load();
+
   runApp(AppProvider(
-    httpClient: Client(),
+    httpClient: client,
+    firebaseRemoteConfigService: firebaseRemoteConfigService,
+    locationService: locationService,
     child: const MyApp(),
   ));
 }

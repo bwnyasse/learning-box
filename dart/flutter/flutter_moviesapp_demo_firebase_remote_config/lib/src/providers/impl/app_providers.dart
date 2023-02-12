@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
+import '../../services/impl/location_service.dart';
 import '../../services/services.dart';
 
 ///
@@ -11,10 +12,16 @@ import '../../services/services.dart';
 class AppProvider extends StatelessWidget {
   final Client httpClient;
   final Widget child;
+  final FirebaseRemoteConfigService firebaseRemoteConfigService;
 
-  AppProvider({
+  final LocationService locationService;
+
+  const AppProvider({
+    super.key,
     required this.httpClient,
     required this.child,
+    required this.firebaseRemoteConfigService,
+    required this.locationService,
   });
 
   @override
@@ -22,6 +29,9 @@ class AppProvider extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider<ApiService>(create: (_) => ApiService(httpClient)),
+        Provider<LocationService>(create: (_) => locationService),
+        Provider<FirebaseRemoteConfigService>(
+            create: (_) => firebaseRemoteConfigService),
       ],
       child: child,
     );

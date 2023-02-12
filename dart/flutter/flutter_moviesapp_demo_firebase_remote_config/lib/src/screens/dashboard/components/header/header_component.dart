@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 
 import '../../../../constants.dart';
 
@@ -22,10 +23,27 @@ class HeaderComponent extends StatelessWidget {
   }
 }
 
-class ProfileCard extends StatelessWidget {
+class ProfileCard extends StatefulWidget {
   const ProfileCard({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<ProfileCard> createState() => _ProfileCardState();
+}
+
+class _ProfileCardState extends State<ProfileCard> {
+  final List<String> items = [
+    'Item1',
+    'Item2',
+    'Item3',
+    'Item4',
+    'Item5',
+    'Item6',
+    'Item7',
+    'Item8',
+  ];
+  String? selectedValue;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +70,7 @@ class ProfileCard extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: defaultPadding / 2),
               child: Text("Boris-Wilfried"),
             ),
-            const Icon(Icons.keyboard_arrow_down),
+
           ],
         ),
       ),
