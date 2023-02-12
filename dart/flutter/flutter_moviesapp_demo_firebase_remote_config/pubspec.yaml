@@ -36,6 +36,12 @@ dev_dependencies:
 
   flutter_lints: ^2.0.0
 
+  # Tools to write binaries that run builders.
+  build_runner: 
+
+  # Automatically generate code for converting to and from JSON by annotating Dart classes.
+  json_serializable: 
+
 flutter:
   uses-material-design: true
   

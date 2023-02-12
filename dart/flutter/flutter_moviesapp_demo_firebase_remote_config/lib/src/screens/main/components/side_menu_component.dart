@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../../cubits/cubit.dart';
 
 int currentIndex = 0;
 
-class SideMenu extends StatefulWidget {
-  const SideMenu({
+class SideMenuComponent extends StatefulWidget {
+  const SideMenuComponent({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<SideMenu> createState() => _SideMenuState();
+  State<SideMenuComponent> createState() => _SideMenuComponentState();
 }
 
-class _SideMenuState extends State<SideMenu> {
+class _SideMenuComponentState extends State<SideMenuComponent> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -28,6 +31,7 @@ class _SideMenuState extends State<SideMenu> {
             press: () {
               setState(() {
                 currentIndex = 0;
+                BlocProvider.of<AppCubit>(context).onLoadEvent();
               });
             },
           ),
@@ -38,6 +42,7 @@ class _SideMenuState extends State<SideMenu> {
             press: () {
               setState(() {
                 currentIndex = 1;
+                BlocProvider.of<AppCubit>(context).onLoadingEvent();
               });
             },
           ),
@@ -48,16 +53,18 @@ class _SideMenuState extends State<SideMenu> {
             press: () {
               setState(() {
                 currentIndex = 3;
+                BlocProvider.of<AppCubit>(context).onLoadingEvent();
               });
             },
           ),
           DrawerListTile(
-            index: 5,
+            index: 4,
             title: "Upcoming",
             svgSrc: "assets/icons/menu_upcoming.svg",
             press: () {
               setState(() {
-                currentIndex = 5;
+                currentIndex = 4;
+                BlocProvider.of<AppCubit>(context).onLoadingEvent();
               });
             },
           ),

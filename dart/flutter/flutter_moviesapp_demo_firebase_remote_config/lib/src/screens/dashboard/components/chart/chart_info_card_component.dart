@@ -7,12 +7,12 @@ class ChartInfoCardComponent extends StatelessWidget {
   const ChartInfoCardComponent({
     Key? key,
     required this.title,
-    required this.svgSrc,
+    required this.randomColor,
     required this.average,
     required this.numOfMovies,
   }) : super(key: key);
-
-  final String title, svgSrc, average;
+  final Color randomColor;
+  final String title,  average;
   final int numOfMovies;
 
   @override
@@ -28,11 +28,15 @@ class ChartInfoCardComponent extends StatelessWidget {
       ),
       child: Row(
         children: [
-          SizedBox(
-            height: 20,
-            width: 20,
-            child: SvgPicture.asset(svgSrc),
-          ),
+          Container(
+              padding: const EdgeInsets.all(defaultPadding * 0.75),
+              height: 10,
+              width: 10,
+              decoration:  BoxDecoration(
+                color: randomColor,
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+              ),
+            ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
