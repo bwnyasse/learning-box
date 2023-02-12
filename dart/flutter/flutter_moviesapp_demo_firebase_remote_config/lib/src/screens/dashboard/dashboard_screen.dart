@@ -3,6 +3,7 @@ import 'package:flutter_moviesapp_demo_firebase_remote_config/src/models/impl/mo
 import 'package:flutter_moviesapp_demo_firebase_remote_config/src/screens/dashboard/components/chart/chart_details_component.dart';
 
 import '../../constants.dart';
+import 'components/genres/genres2_component.dart';
 import 'components/genres/genres_component.dart';
 import 'components/header/header_component.dart';
 
@@ -29,7 +30,8 @@ class DashboardScreen extends StatelessWidget {
                   flex: 5,
                   child: Column(
                     children: [
-                     GenresComponent(genresInfo: response.genresInfo),
+                     //GenresComponent(genresInfo: response.genresInfo),
+                     Genres2Component(movies: response.movies),
                      const SizedBox(height: defaultPadding),
                       MoviesComponent(movies: response.movies),
                     ],
