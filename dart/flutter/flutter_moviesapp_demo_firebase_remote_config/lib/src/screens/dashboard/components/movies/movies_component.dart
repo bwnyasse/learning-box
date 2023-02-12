@@ -1,12 +1,14 @@
-import 'package:flutter_moviesapp_demo_firebase_remote_config/src/models/impl/RecentMovies.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_moviesapp_demo_firebase_remote_config/src/models/impl/movies.dart';
 
 import '../../../../constants.dart';
 
 class MoviesComponent extends StatelessWidget {
+  final List<Movie> movies;
   const MoviesComponent({
     Key? key,
+    required this.movies,
   }) : super(key: key);
 
   @override
@@ -38,10 +40,9 @@ class MoviesComponent extends StatelessWidget {
                   size: ColumnSize.S,
                 ),
               ],
-              //TODO: RecentFileDataRow to MovieDataRow
               rows: List.generate(
-                demoMovies.length,
-                (index) => moviesDataRow(demoMovies[index]),
+                movies.length,
+                (index) => moviesDataRow(movies[index]),
               ),
             ),
           ),
@@ -51,7 +52,7 @@ class MoviesComponent extends StatelessWidget {
   }
 }
 
-DataRow moviesDataRow(MovieItemInRow movieItem) {
+DataRow moviesDataRow(Movie item) {
   return DataRow(
     cells: [
       DataCell(
@@ -68,13 +69,13 @@ DataRow moviesDataRow(MovieItemInRow movieItem) {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-              child: Text(movieItem.title!),
+              child: Text(item.title),
             ),
           ],
         ),
       ),
-      DataCell(Text(movieItem.date!)),
-      DataCell(Text(movieItem.average!)),
+      DataCell(Text(item.releaseDate)),
+      DataCell(Text("${item.voteAverage}")),
     ],
   );
 }

@@ -20,10 +20,10 @@ class ApiService {
   MoviesResponse loadMockMovies() => MoviesResponse.fromJson(mock.mockMovies());
 
   Future<MoviesResponse> loadMovies() async {
-    final apiKey = '4205ec1d93b1e3465f636f0956a98c64';
-    final api = 'https://api.themoviedb.org/3';
-    final urlPath = 'movie/now_playing';
-    final path = '$api/$urlPath?api_key=$apiKey&language=en-US';
+    const apiKey = '4205ec1d93b1e3465f636f0956a98c64';
+    const api = 'https://api.themoviedb.org/3';
+    const urlPath = 'movie/now_playing';
+    const path = '$api/$urlPath?api_key=$apiKey&language=en-US';
 
     // appel asynchrone
     final response = await client.get(Uri.parse(path));
@@ -38,4 +38,6 @@ class ApiService {
 
     return MoviesResponse.fromJson(data);
   }
+
+  
 }

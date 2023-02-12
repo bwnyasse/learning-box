@@ -1,5 +1,8 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_moviesapp_demo_firebase_remote_config/src/models/models.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'dart:math' as math;
 
 part 'movies.g.dart';
 
@@ -16,12 +19,16 @@ class MoviesResponse extends Equatable {
   @JsonKey(name: 'results')
   final List<Movie> movies;
 
-  const MoviesResponse({
+  late List<GenreInfo> genresInfo;
+
+  MoviesResponse({
     required this.page,
     required this.totalPages,
     required this.totalResults,
     required this.movies,
-  });
+  }) {
+    genresInfo = buildGenresInfo();
+  }
 
   factory MoviesResponse.fromJson(Map<String, dynamic> json) =>
       _$MoviesResponseFromJson(json);
@@ -33,6 +40,28 @@ class MoviesResponse extends Equatable {
         totalResults,
         movies,
       ];
+
+  List<GenreInfo> buildGenresInfo() {
+    List<GenreInfo> results = [];
+    for (var genre in genres) {
+      List moviesWithThatGenre =
+          movies.where((movie) => movie.genreIds.contains(genre.id)).toList();
+      if (moviesWithThatGenre.isNotEmpty) {
+        Color randomColor =
+            Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+                .withOpacity(1.0);
+        double percentage = moviesWithThatGenre.length * 100 / movies.length;
+        results.add(GenreInfo(
+            svgSrc: genre.svg,
+            title: genre.name,
+            numOfMovies: moviesWithThatGenre.length,
+            percentage: percentage.toInt(),
+            color: randomColor));
+      }
+    }
+    results.sort();
+    return results;
+  }
 }
 
 @JsonSerializable()
@@ -62,8 +91,8 @@ class Movie extends Equatable {
 
   final String overview;
 
-  @JsonKey(name: 'gender_ids')
-  final List genreIds = [];
+  @JsonKey(name: 'genre_ids')
+  final List<int> genreIds;
 
   @JsonKey(name: 'backdrop_path')
   final String backdropPath;
@@ -76,7 +105,7 @@ class Movie extends Equatable {
   @JsonKey(defaultValue: false)
   final bool favorite;
 
-  Movie({
+  const Movie({
     required this.id,
     required this.video,
     required this.voteCount,
@@ -87,6 +116,7 @@ class Movie extends Equatable {
     required this.originalTitle,
     required this.adult,
     required this.overview,
+    required this.genreIds,
     required this.backdropPath,
     required this.popularity,
     required this.releaseDate,
