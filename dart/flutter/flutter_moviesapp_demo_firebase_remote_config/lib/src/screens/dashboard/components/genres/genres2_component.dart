@@ -14,7 +14,7 @@ class Genres2Component extends StatelessWidget {
   const Genres2Component({
     Key? key,
     required this.movies,
-    this.crossAxisCount = 4,
+    this.crossAxisCount = 3,
     this.childAspectRatio = 1,
   }) : super(key: key);
 

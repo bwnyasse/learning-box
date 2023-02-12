@@ -19,6 +19,7 @@ class MoviesResponse extends Equatable {
   @JsonKey(name: 'results')
   final List<Movie> movies;
 
+  @JsonKey(includeFromJson: false, includeToJson: false)
   late List<GenreInfo> genresInfo;
 
   MoviesResponse({
