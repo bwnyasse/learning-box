@@ -62,7 +62,7 @@ class Genre {
     required this.name,
   });
 
-  String get svg => "assets/flaticon/$id.svg";
+  String get svg => "assets/flaticon/12.svg";
 }
 
 class GenreInfo implements Comparable<GenreInfo> {
