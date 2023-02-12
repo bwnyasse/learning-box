@@ -29,8 +29,17 @@ class _SideMenuComponentState extends State<SideMenuComponent> {
             child: Column(
               children: [
                 Image.asset("assets/images/logo.png"),
-                Text("Country : ${LocationService.locationResponse.countryName}"),
-                 Text("City : ${LocationService.locationResponse.state}"),
+                Text(
+                    "Country : ${LocationService.locationResponse.countryName}"),
+                Text("City : ${LocationService.locationResponse.state}"),
+                if (firebaseRemoteConfigService.getLocationUsers())
+                  const Text(
+                    "Region enable for this feature !",
+                    style: TextStyle(
+                      color: Colors.yellow,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
               ],
             ),
           ),
