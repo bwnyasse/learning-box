@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' show Client;
 
-import '../../models/impl/geolocationdb.dart';
+import '../../models/models.dart';
+
 
 class LocationService {
   static late GeolocationDBResponse locationResponse;

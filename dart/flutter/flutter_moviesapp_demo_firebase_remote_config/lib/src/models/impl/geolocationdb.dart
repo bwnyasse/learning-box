@@ -1,8 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_moviesapp_demo_firebase_remote_config/src/models/models.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'dart:math' as math;
 
 part 'geolocationdb.g.dart';
 
@@ -14,7 +10,7 @@ class GeolocationDBResponse {
   @JsonKey(name: 'country_name')
   final String countryName;
 
-  @JsonKey(name: 'postal')
+  @JsonKey(name: 'postal',defaultValue: 'UNKNOWN')
   final String postal;
 
   @JsonKey(name: 'latitude')

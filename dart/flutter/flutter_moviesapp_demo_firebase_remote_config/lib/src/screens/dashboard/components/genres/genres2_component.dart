@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_moviesapp_demo_firebase_remote_config/src/models/impl/genres.dart';
+import '../../../../models/models.dart';
 
 import '../../../../constants.dart';
 import '../../../../models/models.dart';
