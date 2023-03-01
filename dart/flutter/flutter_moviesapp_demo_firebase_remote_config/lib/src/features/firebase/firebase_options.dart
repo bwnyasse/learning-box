@@ -53,12 +53,12 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBfPD-ccGgc90z-u5CA1uKHtiHjeQyu3EA',
-    appId: '1:852973800874:web:81a6754ce1b2e9dace6fd3',
-    messagingSenderId: '852973800874',
-    projectId: 'drip-tracker',
-    authDomain: 'drip-tracker.firebaseapp.com',
-    storageBucket: 'drip-tracker.appspot.com',
-    measurementId: 'G-9YXC03LNKL',
+    apiKey: 'AIzaSyA1mSVhEByfd3i4-MVHI5O48s8QsqORXj8',
+    appId: '1:553140087820:web:c6db42b98856c306d51229',
+    messagingSenderId: '553140087820',
+    projectId: 'learning-box-369917',
+    authDomain: 'learning-box-369917.firebaseapp.com',
+    storageBucket: 'learning-box-369917.appspot.com',
+    measurementId: 'G-KX4ZKD5MPR',
   );
 }

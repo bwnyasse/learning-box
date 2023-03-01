@@ -1,8 +1,8 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_moviesapp_demo_firebase_remote_config/src/models/impl/movies.dart';
 
 import '../../../../constants.dart';
+import '../../../../models/models.dart';
 
 class MoviesComponent extends StatelessWidget {
   final List<Movie> movies;

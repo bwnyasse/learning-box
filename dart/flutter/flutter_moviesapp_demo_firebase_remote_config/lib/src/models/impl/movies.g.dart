@@ -8,6 +8,7 @@ part of 'movies.dart';
 
 MoviesResponse _$MoviesResponseFromJson(Map<String, dynamic> json) =>
     MoviesResponse(
+      path: json['path'] as String,
       page: json['page'] as int,
       totalPages: json['total_pages'] as int,
       totalResults: json['total_results'] as int,
@@ -18,6 +19,7 @@ MoviesResponse _$MoviesResponseFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$MoviesResponseToJson(MoviesResponse instance) =>
     <String, dynamic>{
+      'path': instance.path,
       'page': instance.page,
       'total_results': instance.totalResults,
       'total_pages': instance.totalPages,

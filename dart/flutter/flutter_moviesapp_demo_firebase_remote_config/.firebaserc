@@ -1,5 +1,29 @@
 {
   "projects": {
-    "default": "drip-tracker"
-  }
+    "default": "learning-sandbox"
+  },
+  "targets": {
+    "bnyasse-sandbox": {
+      "hosting": {
+        "moviesapp-demo-firebase-remote-config": [
+          "flutter-moviesapp-demo-firebase-remote-config"
+        ]
+      }
+    },
+    "drip-tracker": {
+      "hosting": {
+        "moviesapp-demo-firebase-remote-config": [
+          "flutter-moviesapp-demo-firebase-remote-config"
+        ]
+      }
+    },
+    "learning-box-369917": {
+      "hosting": {
+        "moviesapp-demo-firebase-remote-config": [
+          "learning-sandox-flutter-moviesapp-demo"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

@@ -4,33 +4,21 @@ part 'geolocationdb.g.dart';
 
 @JsonSerializable()
 class GeolocationDBResponse {
-  @JsonKey(name: 'country_code')
-  final String countryCode;
+  @JsonKey(name: 'state_prov', defaultValue: 'UNKNOWN')
+  final String stateProv;
 
-  @JsonKey(name: 'country_name')
+  @JsonKey(name: 'country_name', defaultValue: 'UNKNOWN')
   final String countryName;
 
-  @JsonKey(name: 'postal',defaultValue: 'UNKNOWN')
-  final String postal;
-
-  @JsonKey(name: 'latitude')
-  final double latitude;
-
-  @JsonKey(name: 'longitude')
-  final double longitude;
-
-  @JsonKey(name: 'state')
-  final String state;
+  @JsonKey(name: 'city', defaultValue: 'UNKNOWN')
+  final String city;
 
   GeolocationDBResponse({
-    required this.countryCode,
+    required this.stateProv,
     required this.countryName,
-    required this.postal,
-    required this.latitude,
-    required this.longitude,
-    required this.state,
+    required this.city,
   });
 
-    factory GeolocationDBResponse.fromJson(Map<String, dynamic> json) =>
+  factory GeolocationDBResponse.fromJson(Map<String, dynamic> json) =>
       _$GeolocationDBResponseFromJson(json);
 }

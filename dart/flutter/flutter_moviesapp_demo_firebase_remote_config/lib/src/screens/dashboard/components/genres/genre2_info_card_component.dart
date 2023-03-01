@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../constants.dart';
-import '../../../../models/models.dart';
 import '../../../../models/models.dart';
 
 class Genre2InfoCardComponent extends StatelessWidget {

@@ -4,7 +4,6 @@ import 'package:http/http.dart' show Client;
 
 import '../../models/models.dart';
 
-
 class LocationService {
   static late GeolocationDBResponse locationResponse;
   final Client client;
@@ -14,9 +13,10 @@ class LocationService {
   Future<void> load() async {
     // appel asynchrone
     final response =
-        await client.get(Uri.parse("https://geolocation-db.com/json/"));
+        await client.get(Uri.parse("https://api.ipgeolocation.io/ipgeo?apiKey=18c2dc6c6cb644908f3e75e781cb1105"));
 
     if (response.statusCode != 200) {
+      //FIXME: better logging
       print('LocationService - Request Error: ${response.statusCode}');
     }
 

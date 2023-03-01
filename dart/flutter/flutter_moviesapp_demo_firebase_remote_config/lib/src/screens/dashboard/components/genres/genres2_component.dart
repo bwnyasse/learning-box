@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../models/models.dart';
 
 import '../../../../constants.dart';
-import '../../../../models/models.dart';
 import 'genre2_info_card_component.dart';
-import 'genre_info_card_component.dart';
 
 class Genres2Component extends StatelessWidget {
   final List<Movie> movies;

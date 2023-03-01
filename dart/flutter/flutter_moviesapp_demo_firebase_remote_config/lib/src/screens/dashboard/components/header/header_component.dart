@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../constants.dart';
+import '../../../../services/services.dart';
 
 class HeaderComponent extends StatelessWidget {
   const HeaderComponent({
@@ -33,47 +34,64 @@ class ProfileCard extends StatefulWidget {
 }
 
 class _ProfileCardState extends State<ProfileCard> {
-  final List<String> items = [
-    'Item1',
-    'Item2',
-    'Item3',
-    'Item4',
-    'Item5',
-    'Item6',
-    'Item7',
-    'Item8',
-  ];
-  String? selectedValue;
-
   @override
   Widget build(BuildContext context) {
-    return Visibility(
-      visible: true,
-      child: Container(
-        margin: const EdgeInsets.only(left: defaultPadding),
-        padding: const EdgeInsets.symmetric(
-          horizontal: defaultPadding,
-          vertical: defaultPadding / 2,
+    return Row(
+      children: [
+        OutlinedButton(
+          onPressed: () => _dialogBuilder(context),
+          child: const Text('Dynamic Terms and Conditions'),
         ),
-        decoration: BoxDecoration(
-          color: secondaryColor,
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-          border: Border.all(color: Colors.white10),
+        Container(
+          margin: const EdgeInsets.only(left: defaultPadding),
+          padding: const EdgeInsets.symmetric(
+            horizontal: defaultPadding,
+            vertical: defaultPadding / 2,
+          ),
+          decoration: BoxDecoration(
+            color: secondaryColor,
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+            border: Border.all(color: Colors.white10),
+          ),
+          child: Row(
+            children: [
+              Image.asset(
+                "assets/images/profile_pic.png",
+                height: 38,
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: defaultPadding / 2),
+                child: Text("Boris-Wilfried"),
+              ),
+            ],
+          ),
         ),
-        child: Row(
-          children: [
-            Image.asset(
-              "assets/images/profile_pic.png",
-              height: 38,
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-              child: Text("Boris-Wilfried"),
-            ),
-
-          ],
-        ),
-      ),
+      ],
     );
   }
+}
+
+Future<void> _dialogBuilder(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      FirebaseRemoteConfigService firebaseRemoteConfigService =
+          context.watch<FirebaseRemoteConfigService>();
+      return AlertDialog(
+        title: const Text('Terms and Conditions'),
+        content: Text(firebaseRemoteConfigService.getTermsAndConditions()),
+        actions: <Widget>[
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text('Disable'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }

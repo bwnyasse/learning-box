@@ -8,6 +8,8 @@ part 'movies.g.dart';
 
 @JsonSerializable()
 class MoviesResponse extends Equatable {
+  final String path;
+
   final int page;
 
   @JsonKey(name: 'total_results')
@@ -20,9 +22,10 @@ class MoviesResponse extends Equatable {
   final List<Movie> movies;
 
   @JsonKey(includeFromJson: false, includeToJson: false)
-  late List<GenreInfo> genresInfo;
+  late final List<GenreInfo> genresInfo;
 
   MoviesResponse({
+    required this.path,
     required this.page,
     required this.totalPages,
     required this.totalResults,

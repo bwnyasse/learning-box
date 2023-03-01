@@ -1,8 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import '../../../../models/models.dart';
 
 import '../../../../constants.dart';
+import '../../../../models/models.dart';
 
 class ChartComponent extends StatelessWidget {
   final List<GenreInfo> genresInfo;

@@ -1,8 +1,9 @@
+library providers;
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
-import '../../services/impl/location_service.dart';
 import '../../services/services.dart';
 
 ///

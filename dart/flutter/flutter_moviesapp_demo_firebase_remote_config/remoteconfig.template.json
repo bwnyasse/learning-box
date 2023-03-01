@@ -1,0 +1,139 @@
+{
+  "conditions": [
+    {
+      "name": "german_users",
+      "expression": "device.country in ['DE']",
+      "tagColor": "ORANGE"
+    },
+    {
+      "name": "indian_users",
+      "expression": "device.country in ['IN']",
+      "tagColor": "ORANGE"
+    },
+    {
+      "name": "canadian_users",
+      "expression": "device.country in ['CA']",
+      "tagColor": "BROWN"
+    },
+    {
+      "name": "usa_users",
+      "expression": "device.country in ['US']",
+      "tagColor": "PURPLE"
+    },
+    {
+      "name": "DEMO LIVE",
+      "expression": "dateTime >= dateTime('2023-02-23T14:00:00', 'America/New_York')",
+      "tagColor": "GREEN"
+    },
+    {
+      "name": "40% of the users",
+      "expression": "percent('pnw79mb7cwd0') between 0 and 40",
+      "tagColor": "INDIGO"
+    }
+  ],
+  "parameters": {
+    "terms_and_conditions": {
+      "defaultValue": {
+        "value": "The easiest way to generate a free terms and condition\n\nIt is formatted on the server\n\nWith those break lines"
+      },
+      "valueType": "STRING"
+    },
+    "demo_day": {
+      "defaultValue": {
+        "value": "false"
+      },
+      "conditionalValues": {
+        "DEMO LIVE": {
+          "value": "true"
+        }
+      },
+      "valueType": "BOOLEAN"
+    },
+    "title_current_path": {
+      "defaultValue": {
+        "value": "true"
+      },
+      "conditionalValues": {
+        "40% of the users": {
+          "value": "true"
+        }
+      },
+      "valueType": "BOOLEAN"
+    }
+  },
+  "parameterGroups": {
+    "Hosting-MoviesApp : Dashboard Component": {
+      "parameters": {
+        "grid_movies_enabled": {
+          "defaultValue": {
+            "value": "false"
+          },
+          "description": "Demo with my folks ! ",
+          "valueType": "BOOLEAN"
+        }
+      }
+    },
+    "Hosting-MoviesApp : Chart Component": {
+      "parameters": {
+        "chart_details_enabled": {
+          "defaultValue": {
+            "value": "true"
+          },
+          "valueType": "BOOLEAN"
+        }
+      }
+    },
+    "Hosting-MoviesApp : Side Menu": {
+      "parameters": {
+        "top_rated_enabled": {
+          "defaultValue": {
+            "value": "true"
+          },
+          "valueType": "BOOLEAN"
+        },
+        "upcoming_enabled": {
+          "defaultValue": {
+            "value": "true"
+          },
+          "valueType": "BOOLEAN"
+        },
+        "menu_list": {
+          "defaultValue": {
+            "value": "{\"title\":\"menu\",\"items\":[{\"id\":1,\"name\":\"Top rated\",\"path\":\"top_rated\"},{\"id\":2,\"name\":\"Now Playing\",\"path\":\"now_playing\"},{\"id\":3,\"name\":\"Upcoming\",\"path\":\"upcoming\"},{\"id\":4,\"name\":\"Popular\",\"path\":\"popular\"}]}"
+          },
+          "valueType": "JSON"
+        },
+        "menu_list_enabled": {
+          "defaultValue": {
+            "value": "true"
+          },
+          "valueType": "BOOLEAN"
+        }
+      }
+    },
+    "Hosting-MoviesApp : Location Users": {
+      "parameters": {
+        "location_users": {
+          "defaultValue": {
+            "value": "false"
+          },
+          "conditionalValues": {
+            "german_users": {
+              "value": "true"
+            },
+            "indian_users": {
+              "value": "false"
+            },
+            "canadian_users": {
+              "value": "true"
+            },
+            "usa_users": {
+              "value": "true"
+            }
+          },
+          "valueType": "BOOLEAN"
+        }
+      }
+    }
+  }
+}

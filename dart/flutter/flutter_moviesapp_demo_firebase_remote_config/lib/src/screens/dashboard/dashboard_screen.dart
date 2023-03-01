@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_moviesapp_demo_firebase_remote_config/src/models/impl/movies.dart';
-import 'package:flutter_moviesapp_demo_firebase_remote_config/src/screens/dashboard/components/chart/chart_details_component.dart';
-import 'package:flutter_moviesapp_demo_firebase_remote_config/src/services/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
+import '../../models/models.dart';
+import '../../services/services.dart';
+import 'components/chart/chart_details_component.dart';
 import 'components/genres/genres2_component.dart';
-import 'components/genres/genres_component.dart';
 import 'components/header/header_component.dart';
 
 import 'components/movies/movies_component.dart';
@@ -27,6 +26,9 @@ class DashboardScreen extends StatelessWidget {
           children: [
             const HeaderComponent(),
             const SizedBox(height: defaultPadding),
+            if (firebaseRemoteConfigService.isTitleCurrentPath())
+              Text("Current path : /${response.path}"),
+            const SizedBox(height: defaultPadding),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -35,16 +37,16 @@ class DashboardScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       //GenresComponent(genresInfo: response.genresInfo),
-                      if (firebaseRemoteConfigService.getChartDetailEnabled())
+                      if (firebaseRemoteConfigService.isGridMoviesEnabled())
                         Genres2Component(movies: response.movies),
-                      if (firebaseRemoteConfigService.getChartDetailEnabled())
+                      if (firebaseRemoteConfigService.isGridMoviesEnabled())
                         const SizedBox(height: defaultPadding),
                       MoviesComponent(movies: response.movies),
                     ],
                   ),
                 ),
                 const SizedBox(width: defaultPadding),
-                if (firebaseRemoteConfigService.getChartDetailEnabled())
+                if (firebaseRemoteConfigService.isChartDetailEnabled())
                   Expanded(
                     flex: 2,
                     child:

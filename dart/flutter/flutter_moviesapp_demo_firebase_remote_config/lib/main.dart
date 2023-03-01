@@ -3,7 +3,6 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter_moviesapp_demo_firebase_remote_config/src/constants.dart';
 import 'package:flutter_moviesapp_demo_firebase_remote_config/src/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_moviesapp_demo_firebase_remote_config/src/services/impl/location_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,7 +45,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter MoviesApp Demo',
+      title: 'PoC Firebase Remote Config',
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: bgColor,
         textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
