@@ -85,8 +85,8 @@ class InitStateWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FirebaseRemoteConfigService firebaseRemoteConfigService =
-        context.watch<FirebaseRemoteConfigService>();
+    FirebaseService firebaseRemoteConfigService =
+        context.watch<FirebaseService>();
     return Center(
       child: SizedBox(
         width: 300,

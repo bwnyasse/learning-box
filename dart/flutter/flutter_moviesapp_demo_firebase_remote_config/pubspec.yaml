@@ -35,6 +35,7 @@ dependencies:
   
   # Widgets that make it easy to integrate blocs and cubits into Flutter. Built to work with package:bloc.
   flutter_bloc: ^7.3.0
+  firebase_analytics_web: ^0.5.1+12
 
 dev_dependencies:
   flutter_test:

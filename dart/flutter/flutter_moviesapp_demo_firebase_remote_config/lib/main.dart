@@ -17,8 +17,8 @@ Future<void> main() async {
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  final firebaseRemoteConfigService = FirebaseRemoteConfigService(
-    firebaseRemoteConfig: FirebaseRemoteConfig.instance,
+  final firebaseRemoteConfigService = FirebaseService(
+    remoteConfig: FirebaseRemoteConfig.instance,
   );
   await firebaseRemoteConfigService.init();
 

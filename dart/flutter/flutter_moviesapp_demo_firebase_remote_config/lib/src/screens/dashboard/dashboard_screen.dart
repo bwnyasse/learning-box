@@ -16,8 +16,8 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FirebaseRemoteConfigService firebaseRemoteConfigService =
-        context.watch<FirebaseRemoteConfigService>();
+    FirebaseService firebaseRemoteConfigService =
+        context.watch<FirebaseService>();
     return SafeArea(
       child: SingleChildScrollView(
         primary: false,

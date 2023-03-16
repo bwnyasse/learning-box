@@ -75,8 +75,8 @@ Future<void> _dialogBuilder(BuildContext context) {
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
-      FirebaseRemoteConfigService firebaseRemoteConfigService =
-          context.watch<FirebaseRemoteConfigService>();
+      FirebaseService firebaseRemoteConfigService =
+          context.watch<FirebaseService>();
       return AlertDialog(
         title: const Text('Terms and Conditions'),
         content: Text(firebaseRemoteConfigService.getTermsAndConditions()),

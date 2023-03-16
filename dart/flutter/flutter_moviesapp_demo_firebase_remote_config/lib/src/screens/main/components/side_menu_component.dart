@@ -19,8 +19,8 @@ class SideMenuComponent extends StatefulWidget {
 
 class _SideMenuComponentState extends State<SideMenuComponent> {
   List<Widget> buildMenu() {
-    FirebaseRemoteConfigService firebaseRemoteConfigService =
-        context.watch<FirebaseRemoteConfigService>();
+    FirebaseService firebaseRemoteConfigService =
+        context.watch<FirebaseService>();
 
     if (firebaseRemoteConfigService.isMenuListEnabled()) {
       MenuItemResponse response = firebaseRemoteConfigService.getMenuItems();
@@ -90,8 +90,8 @@ class _SideMenuComponentState extends State<SideMenuComponent> {
 
   @override
   Widget build(BuildContext context) {
-    FirebaseRemoteConfigService firebaseRemoteConfigService =
-        context.watch<FirebaseRemoteConfigService>();
+    FirebaseService firebaseRemoteConfigService =
+        context.watch<FirebaseService>();
     return Drawer(
       child: ListView(
         children: [

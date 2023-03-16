@@ -13,7 +13,7 @@ import '../../services/services.dart';
 class AppProvider extends StatelessWidget {
   final Client httpClient;
   final Widget child;
-  final FirebaseRemoteConfigService firebaseRemoteConfigService;
+  final FirebaseService firebaseRemoteConfigService;
 
   final LocationService locationService;
 
@@ -31,7 +31,7 @@ class AppProvider extends StatelessWidget {
       providers: [
         Provider<ApiService>(create: (_) => ApiService(httpClient)),
         Provider<LocationService>(create: (_) => locationService),
-        Provider<FirebaseRemoteConfigService>(
+        Provider<FirebaseService>(
             create: (_) => firebaseRemoteConfigService),
       ],
       child: child,
