@@ -11,19 +11,7 @@ import 'helpers/constants.dart';
 import 'helpers/is_debug.dart';
 import 'helpers/theme.dart';
 import 'models/coffee.dart';
-
-class LoginInfo extends ChangeNotifier {
-  var _isLoggedIn = false;
-
-  bool get isLoggedIn => _isLoggedIn;
-
-  set isLoggedIn(bool value) {
-    _isLoggedIn = value;
-    notifyListeners();
-  }
-}
-
-final loginInfo = LoginInfo();
+import 'services/auth_service.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -33,7 +21,7 @@ class LoginScreen extends StatelessWidget {
         child: TextButton(
           child: Text('Login'),
           onPressed: () {
-            loginInfo.isLoggedIn = true;
+            AuthService.instance.loginInfo.isLoggedIn = true;
           },
         ),
       ),
@@ -43,18 +31,18 @@ class LoginScreen extends StatelessWidget {
 
 Future<void> main() async {
   final router = GoRouter(
-    // redirect: (GoRouterState state) {
-    //   final loggedIn = loginInfo.isLoggedIn;
+     redirect: (GoRouterState state) {
+       final loggedIn = AuthService.instance.loginInfo.isLoggedIn;
 
-    //   final isLogging = state.location == '/login';
+       final isLogging = state.location == '/';
 
-    //   if (!loggedIn && !isLogging) return '/login';
+       if (!loggedIn && !isLogging) return '/';
 
-    //   if (loggedIn && isLogging) return '/';
+      if (loggedIn && isLogging) return '/menu';
 
-    //   return null;
-    // },
-    refreshListenable: loginInfo,
+       return null;
+     },
+    refreshListenable: AuthService.instance.loginInfo,
     urlPathStrategy: UrlPathStrategy.path,
     debugLogDiagnostics: true,
     routes: [
@@ -127,7 +115,7 @@ Future<void> main() async {
           routerDelegate: router.routerDelegate,
           debugShowCheckedModeBanner: false,
           themeMode: ThemeMode.system,
-         theme: getTheme(),
+          theme: getTheme(),
         ),
       );
     },

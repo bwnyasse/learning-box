@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_auth0/services/auth_service.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_auth0/models/coffee_store.dart';
@@ -29,7 +30,7 @@ class HomeScreen extends StatelessWidget {
               style: Theme.of(context).textTheme.headline2,
               textAlign: TextAlign.center,
             ),
-             LoginButton(),
+            LoginButton(),
           ],
         ),
       ),
@@ -52,11 +53,12 @@ class LoginButton extends StatelessWidget {
         children: <Widget>[
           if (loginState == LoaderState.pending) CircularProgressIndicator(),
           CommonButton(
-            onPressed: loginState == LoaderState.pending
+            /*onPressed: loginState == LoaderState.pending
                 ? null
                 : () {
                     coffeeStore.auth.login(context);
-                  },
+                  },*/
+            onPressed: AuthService.instance.login,
             text: 'Sign In / Sign Up',
           ),
           if (loginState == LoaderState.rejected) Text('Error!'),

@@ -8,6 +8,8 @@ import 'package:flutter_auth0/screens/home.dart';
 import 'package:flutter_auth0/services/coffee_router.dart';
 import 'package:flutter_auth0/widgets/button.dart';
 
+import '../services/auth_service.dart';
+
 class ProfileScreen extends StatelessWidget {
   static String routeName = 'ProfileScreen';
   static Route<ProfileScreen> route() {
@@ -43,13 +45,14 @@ class ProfileScreen extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
           child: CommonButton(
-            onPressed: () async {
+            /*onPressed: () async {
               GoRouter.of(context).goNamed('home');
 
               /// -----------------------------------
               ///  perform logout and if success disconnect chat and redirect to home screen
               /// -----------------------------------
-            },
+            },*/
+            onPressed: AuthService.instance.logout,
             text: 'Logout',
           ),
         ),

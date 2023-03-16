@@ -1,3 +1,16 @@
+import 'package:flutter/material.dart';
+
+class _LoginInfo extends ChangeNotifier {
+  var _isLoggedIn = false;
+
+  bool get isLoggedIn => _isLoggedIn;
+
+  set isLoggedIn(bool value) {
+    _isLoggedIn = value;
+    notifyListeners();
+  }
+}
+
 /// -----------------------------------
 ///   Auth0 environment variables
 /// -----------------------------------
@@ -14,6 +27,10 @@ class AuthService {
 
   AuthService._internal();
 
+  final _loginInfo = _LoginInfo();
+
+  get loginInfo => _loginInfo;
+
   /// -----------------------------------
   ///  1- instantiate appAuth
   /// -----------------------------------
@@ -29,6 +46,9 @@ class AuthService {
   /// -----------------------------------
   ///  4- login
   /// -----------------------------------
+  login() {
+    _loginInfo.isLoggedIn = true;
+  }
 
   /// -----------------------------------
   ///  5- setProfileAndIdToken
@@ -37,7 +57,9 @@ class AuthService {
   /// -----------------------------------
   ///  6- logout
   /// -----------------------------------
-
+  logout() {
+    _loginInfo.isLoggedIn = false;
+  }
   /// -----------------------------------
   ///  7- parseIdToken
   /// -----------------------------------
