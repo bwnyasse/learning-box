@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_appauth/flutter_appauth.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+import '../helpers/constants.dart';
 
 class _LoginInfo extends ChangeNotifier {
   var _isLoggedIn = false;
@@ -34,6 +38,8 @@ class AuthService {
   /// -----------------------------------
   ///  1- instantiate appAuth
   /// -----------------------------------
+  final FlutterAppAuth appAuth = FlutterAppAuth();
+  final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 
   /// -----------------------------------
   ///  2- instantiate secure storage
@@ -46,7 +52,26 @@ class AuthService {
   /// -----------------------------------
   ///  4- login
   /// -----------------------------------
-  login() {
+
+  login() async {
+    final authorizationTokenRequest = AuthorizationTokenRequest(
+      AUTH0_CLIENT_ID,
+      AUTH0_REDIRECT_URI,
+      issuer: AUTH0_ISSUER,
+      scopes: [
+        'openid',
+        'profile',
+        'offline_access',
+        'email',
+      ],
+    );
+
+    final AuthorizationTokenResponse? result =
+        await appAuth.authorizeAndExchangeCode(
+      authorizationTokenRequest,
+    );
+
+    print(result);
     _loginInfo.isLoggedIn = true;
   }
 
@@ -60,6 +85,7 @@ class AuthService {
   logout() {
     _loginInfo.isLoggedIn = false;
   }
+
   /// -----------------------------------
   ///  7- parseIdToken
   /// -----------------------------------
