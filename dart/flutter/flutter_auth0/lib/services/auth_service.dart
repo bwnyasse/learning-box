@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../helpers/constants.dart';
+import '../models/auth0_id_token.dart';
 
 class _LoginInfo extends ChangeNotifier {
   var _isLoggedIn = false;
@@ -71,7 +74,8 @@ class AuthService {
       authorizationTokenRequest,
     );
 
-    print(result);
+    final idToken = parseIdToken(result!.idToken!);
+    print(idToken);
     _loginInfo.isLoggedIn = true;
   }
 
@@ -89,6 +93,20 @@ class AuthService {
   /// -----------------------------------
   ///  7- parseIdToken
   /// -----------------------------------
+  Auth0IdToken parseIdToken(String idToken) {
+    final parts = idToken.split(r'.');
+    assert(parts.length == 3);
+
+    final Map<String, dynamic> json = jsonDecode(
+      utf8.decode(
+        base64Url.decode(
+          base64Url.normalize(parts[1]),
+        ),
+      ),
+    );
+
+    return Auth0IdToken.fromJson(json);
+  }
 
   /// -----------------------------------
   ///  8- getUserDetails
