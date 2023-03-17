@@ -126,8 +126,7 @@ class AuthService {
   Future<String> login() async {
     return errorHandler(() async {
       final authorizationTokenRequest = AuthorizationTokenRequest(
-        AUTH0_CLIENT_ID,
-        AUTH0_REDIRECT_URI,
+        AUTH0_CLIENT_ID, AUTH0_REDIRECT_URI,
         issuer: AUTH0_ISSUER,
         scopes: [
           'openid',
@@ -135,6 +134,9 @@ class AuthService {
           'offline_access',
           'email',
         ],
+        promptValues: [
+          'login'
+        ], // force the user to login if the refreshtoken doesn't exist
       );
 
       final AuthorizationTokenResponse? result =
@@ -153,7 +155,13 @@ class AuthService {
   /// -----------------------------------
   ///  6- logout
   /// -----------------------------------
-  logout() {
+  Future<void> logout() async {
+    await secureStorage.delete(key: REFRESH_TOKEN_KEY);
+    final sessionRequest = EndSessionRequest(
+        idTokenHint: jsonEncode(idToken!.toJson()),
+        issuer: AUTH0_ISSUER,
+        postLogoutRedirectUrl: '$BUNDLE_IDENTIFIER:/');
+    await appAuth.endSession(sessionRequest);
     _loginInfo.isLoggedIn = false;
   }
 
