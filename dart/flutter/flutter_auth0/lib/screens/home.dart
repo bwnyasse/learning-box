@@ -6,6 +6,8 @@ import 'package:flutterauth0/models/coffee_store.dart';
 import 'package:flutterauth0/widgets/button.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -13,7 +15,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    AuthService.instance.init();
     super.initState();
   }
 
@@ -41,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
               style: Theme.of(context).textTheme.headline2,
               textAlign: TextAlign.center,
             ),
-            LoginButton(),
+            const LoginButton(),
           ],
         ),
       ),
@@ -69,10 +70,16 @@ class LoginButton extends StatelessWidget {
                 : () {
                     coffeeStore.auth.login(context);
                   },*/
-            onPressed: AuthService.instance.login,
+            onPressed: () async {
+              final result = await AuthService.instance.login();
+              if (result != 'Success') {
+                final snackBar = SnackBar(content: Text(result));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+            },
             text: 'Sign In / Sign Up',
           ),
-          if (loginState == LoaderState.rejected) Text('Error!'),
+          if (loginState == LoaderState.rejected) const Text('Error!'),
         ],
       );
     });

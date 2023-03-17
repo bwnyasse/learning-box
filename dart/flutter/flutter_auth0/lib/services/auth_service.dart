@@ -1,12 +1,16 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../helpers/constants.dart';
 import '../models/auth0_id_token.dart';
 import '../models/auth0_user.dart';
+
+typedef AsyncCallbackString = Future<String> Function();
 
 class _LoginInfo extends ChangeNotifier {
   var _isLoggedIn = false;
@@ -56,16 +60,16 @@ class AuthService {
   /// -----------------------------------
   ///  3- init
   /// -----------------------------------
-  Future<bool> init() async {
-    final storedRefreshToken = await secureStorage.read(
-      key: REFRESH_TOKEN_KEY,
-    );
+  Future<String> init() async {
+    return errorHandler(() async {
+      final storedRefreshToken = await secureStorage.read(
+        key: REFRESH_TOKEN_KEY,
+      );
 
-    if (storedRefreshToken == null) {
-      return false;
-    }
+      if (storedRefreshToken == null) {
+        return 'You need to login';
+      }
 
-    try {
       final TokenResponse? result = await appAuth.token(
         TokenRequest(
           AUTH0_CLIENT_ID,
@@ -74,13 +78,8 @@ class AuthService {
           refreshToken: storedRefreshToken,
         ),
       );
-      final String setResult = await _setLocalVariables(result);
-      return setResult == 'Success';
-    } catch (e, s) {
-      print('error on refresh token: $e - stack: $s');
-      // logOut() possibly
-      return false;
-    }
+      return _setLocalVariables(result);
+    });
   }
 
   /// -----------------------------------
@@ -113,25 +112,38 @@ class AuthService {
     }
   }
 
+  Future<String> errorHandler(AsyncCallbackString callback) async {
+    try {
+      return await callback();
+    } on PlatformException catch (e) {
+      return e.message ?? 'Something is Wrong! Code: ${e.code}';
+    } catch (e, s) {
+      print('Login Uknown erorr $e, $s');
+      return 'Unkown Error ${e.runtimeType}';
+    }
+  }
+
   Future<String> login() async {
-    final authorizationTokenRequest = AuthorizationTokenRequest(
-      AUTH0_CLIENT_ID,
-      AUTH0_REDIRECT_URI,
-      issuer: AUTH0_ISSUER,
-      scopes: [
-        'openid',
-        'profile',
-        'offline_access',
-        'email',
-      ],
-    );
+    return errorHandler(() async {
+      final authorizationTokenRequest = AuthorizationTokenRequest(
+        AUTH0_CLIENT_ID,
+        AUTH0_REDIRECT_URI,
+        issuer: AUTH0_ISSUER,
+        scopes: [
+          'openid',
+          'profile',
+          'offline_access',
+          'email',
+        ],
+      );
 
-    final AuthorizationTokenResponse? result =
-        await appAuth.authorizeAndExchangeCode(
-      authorizationTokenRequest,
-    );
+      final AuthorizationTokenResponse? result =
+          await appAuth.authorizeAndExchangeCode(
+        authorizationTokenRequest,
+      );
 
-    return _setLocalVariables(result);
+      return await _setLocalVariables(result);
+    });
   }
 
   /// -----------------------------------

@@ -31,20 +31,21 @@ class LoginScreen extends StatelessWidget {
 
 Future<void> main() async {
   final router = GoRouter(
-     redirect: (GoRouterState state) {
-       final loggedIn = AuthService.instance.loginInfo.isLoggedIn;
+    redirect: (GoRouterState state) {
+      final loggedIn = AuthService.instance.loginInfo.isLoggedIn;
 
-       final isLogging = state.location == '/';
+      final isLogging = state.location == '/';
 
-       if (!loggedIn && !isLogging) return '/';
+      if (!loggedIn && !isLogging) return '/';
 
       if (loggedIn && isLogging) return '/menu';
 
-       return null;
-     },
+      return null;
+    },
     refreshListenable: AuthService.instance.loginInfo,
     urlPathStrategy: UrlPathStrategy.path,
     debugLogDiagnostics: true,
+    initialLocation: AuthService.instance.loginInfo.isLoggedIn ? '/menu' : '/',
     routes: [
       GoRoute(
         name: 'home',
@@ -94,13 +95,14 @@ Future<void> main() async {
     ),
   );
 
-  WidgetsFlutterBinding.ensureInitialized();
-
   runZonedGuarded<Future<void>>(
     () async {
+      WidgetsFlutterBinding.ensureInitialized();
       await SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp],
       );
+
+      await AuthService.instance.init();
 
       runApp(
         // MaterialApp(
