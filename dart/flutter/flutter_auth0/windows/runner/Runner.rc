@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "flutter_auth0" "\0"
+            VALUE "CompanyName", "net.bwnyasse" "\0"
+            VALUE "FileDescription", "flutterauth0" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "flutter_auth0" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "flutter_auth0.exe" "\0"
-            VALUE "ProductName", "flutter_auth0" "\0"
+            VALUE "InternalName", "flutterauth0" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2023 net.bwnyasse. All rights reserved." "\0"
+            VALUE "OriginalFilename", "flutterauth0.exe" "\0"
+            VALUE "ProductName", "flutterauth0" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

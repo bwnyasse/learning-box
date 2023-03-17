@@ -1,4 +1,4 @@
-# flutter_auth0
+# flutterauth0
 
 A new Flutter project.
 

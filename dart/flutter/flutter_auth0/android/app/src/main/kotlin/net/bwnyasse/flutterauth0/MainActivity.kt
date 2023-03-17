@@ -1,4 +1,4 @@
-package com.example.ios
+package net.bwnyasse.flutterauth0
 
 import io.flutter.embedding.android.FlutterActivity
 

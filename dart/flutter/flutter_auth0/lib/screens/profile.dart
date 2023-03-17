@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_auth0/models/coffee_store.dart';
-import 'package:flutter_auth0/screens/home.dart';
-import 'package:flutter_auth0/services/coffee_router.dart';
-import 'package:flutter_auth0/widgets/button.dart';
+import 'package:flutterauth0/models/coffee_store.dart';
+import 'package:flutterauth0/screens/home.dart';
+import 'package:flutterauth0/services/coffee_router.dart';
+import 'package:flutterauth0/widgets/button.dart';
 
 import '../services/auth_service.dart';
 

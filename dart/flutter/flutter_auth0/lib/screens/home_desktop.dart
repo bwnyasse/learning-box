@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:macos_ui/macos_ui.dart';
-import 'package:flutter_auth0/helpers/constants.dart';
-import 'package:flutter_auth0/widgets/button.dart';
+import 'package:flutterauth0/helpers/constants.dart';
+import 'package:flutterauth0/widgets/button.dart';
 import 'package:go_router/go_router.dart';
 
 import 'menu.dart';

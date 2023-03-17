@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
-import 'package:flutter_auth0/models/coffee.dart';
-import 'package:flutter_auth0/helpers/constants.dart';
+import 'package:flutterauth0/models/coffee.dart';
+import 'package:flutterauth0/helpers/constants.dart';
 import 'package:go_router/go_router.dart';
 
 class ListTileBuilderWidget extends StatelessWidget {

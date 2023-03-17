@@ -1,6 +1,6 @@
 {
-    "name": "flutter_auth0",
-    "short_name": "flutter_auth0",
+    "name": "flutterauth0",
+    "short_name": "flutterauth0",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

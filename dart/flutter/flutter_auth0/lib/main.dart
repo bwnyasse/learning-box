@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_auth0/screens/home.dart';
-import 'package:flutter_auth0/screens/menu.dart';
-import 'package:flutter_auth0/screens/menu_detail.dart';
+import 'package:flutterauth0/screens/home.dart';
+import 'package:flutterauth0/screens/menu.dart';
+import 'package:flutterauth0/screens/menu_detail.dart';
 
 import 'helpers/constants.dart';
 import 'helpers/is_debug.dart';

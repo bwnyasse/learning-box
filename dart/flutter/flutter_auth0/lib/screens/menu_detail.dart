@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_auth0/widgets/button.dart';
+import 'package:flutterauth0/widgets/button.dart';
 import '../widgets/coffee_additions.dart';
 import '../widgets/coffee_count.dart';
 import '../widgets/coffee_size.dart';

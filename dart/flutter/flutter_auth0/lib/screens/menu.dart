@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_auth0/screens/profile.dart';
-import 'package:flutter_auth0/screens/support.dart';
+import 'package:flutterauth0/screens/profile.dart';
+import 'package:flutterauth0/screens/support.dart';
 
 import '../helpers/constants.dart';
 import './menu_list.dart';

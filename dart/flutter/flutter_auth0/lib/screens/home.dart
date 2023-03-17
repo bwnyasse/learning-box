@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_auth0/services/auth_service.dart';
+import 'package:flutterauth0/services/auth_service.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_auth0/models/coffee_store.dart';
-import 'package:flutter_auth0/widgets/button.dart';
+import 'package:flutterauth0/models/coffee_store.dart';
+import 'package:flutterauth0/widgets/button.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
