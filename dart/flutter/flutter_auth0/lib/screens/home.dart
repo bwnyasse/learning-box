@@ -5,7 +5,18 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutterauth0/models/coffee_store.dart';
 import 'package:flutterauth0/widgets/button.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    AuthService.instance.init();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

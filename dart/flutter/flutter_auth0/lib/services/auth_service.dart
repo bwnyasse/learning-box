@@ -6,6 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../helpers/constants.dart';
 import '../models/auth0_id_token.dart';
+import '../models/auth0_user.dart';
 
 class _LoginInfo extends ChangeNotifier {
   var _isLoggedIn = false;
@@ -38,25 +39,81 @@ class AuthService {
 
   get loginInfo => _loginInfo;
 
+  Auth0User? profile;
+  Auth0IdToken? idToken;
+  String? auth0AccessToken;
+
   /// -----------------------------------
   ///  1- instantiate appAuth
   /// -----------------------------------
   final FlutterAppAuth appAuth = FlutterAppAuth();
-  final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 
   /// -----------------------------------
   ///  2- instantiate secure storage
   /// -----------------------------------
+  final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 
   /// -----------------------------------
   ///  3- init
   /// -----------------------------------
+  Future<bool> init() async {
+    final storedRefreshToken = await secureStorage.read(
+      key: REFRESH_TOKEN_KEY,
+    );
+
+    if (storedRefreshToken == null) {
+      return false;
+    }
+
+    try {
+      final TokenResponse? result = await appAuth.token(
+        TokenRequest(
+          AUTH0_CLIENT_ID,
+          AUTH0_REDIRECT_URI,
+          issuer: AUTH0_ISSUER,
+          refreshToken: storedRefreshToken,
+        ),
+      );
+      final String setResult = await _setLocalVariables(result);
+      return setResult == 'Success';
+    } catch (e, s) {
+      print('error on refresh token: $e - stack: $s');
+      // logOut() possibly
+      return false;
+    }
+  }
 
   /// -----------------------------------
   ///  4- login
   /// -----------------------------------
 
-  login() async {
+  bool _isAuthResultValid(result) {
+    return result != null &&
+        result.accessToken != null &&
+        result.idToken != null;
+  }
+
+  Future<String> _setLocalVariables(result) async {
+    if (_isAuthResultValid(result)) {
+      auth0AccessToken = result.accessToken;
+      idToken = parseIdToken(result.idToken!);
+
+      if (result.refreshToken != null) {
+        await secureStorage.write(
+          key: REFRESH_TOKEN_KEY,
+          value: result.refreshToken,
+        );
+      }
+
+      _loginInfo.isLoggedIn = true;
+
+      return 'Success';
+    } else {
+      return 'Something is Wrong!';
+    }
+  }
+
+  Future<String> login() async {
     final authorizationTokenRequest = AuthorizationTokenRequest(
       AUTH0_CLIENT_ID,
       AUTH0_REDIRECT_URI,
@@ -74,9 +131,7 @@ class AuthService {
       authorizationTokenRequest,
     );
 
-    final idToken = parseIdToken(result!.idToken!);
-    print(idToken);
-    _loginInfo.isLoggedIn = true;
+    return _setLocalVariables(result);
   }
 
   /// -----------------------------------
