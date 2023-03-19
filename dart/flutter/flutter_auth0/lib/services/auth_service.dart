@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:http/http.dart' as http;
 
 import '../helpers/constants.dart';
 import '../models/auth0_id_token.dart';
@@ -96,6 +97,7 @@ class AuthService {
     if (_isAuthResultValid(result)) {
       auth0AccessToken = result.accessToken;
       idToken = parseIdToken(result.idToken!);
+      profile = await getUserDetails(result.accessToken!);
 
       if (result.refreshToken != null) {
         await secureStorage.write(
@@ -115,6 +117,8 @@ class AuthService {
   Future<String> errorHandler(AsyncCallbackString callback) async {
     try {
       return await callback();
+    } on UserInfoException catch (e) {
+      return e.message;
     } on PlatformException catch (e) {
       return e.message ?? 'Something is Wrong! Code: ${e.code}';
     } catch (e, s) {
@@ -157,11 +161,11 @@ class AuthService {
   /// -----------------------------------
   Future<void> logout() async {
     await secureStorage.delete(key: REFRESH_TOKEN_KEY);
-    final sessionRequest = EndSessionRequest(
+    /*final sessionRequest = EndSessionRequest(
         idTokenHint: jsonEncode(idToken!.toJson()),
         issuer: AUTH0_ISSUER,
         postLogoutRedirectUrl: '$BUNDLE_IDENTIFIER:/');
-    await appAuth.endSession(sessionRequest);
+    await appAuth.endSession(sessionRequest);*/ // FIXME: This code breaks the app 
     _loginInfo.isLoggedIn = false;
   }
 
@@ -186,9 +190,34 @@ class AuthService {
   /// -----------------------------------
   ///  8- getUserDetails
   /// -----------------------------------
+  Future<Auth0User> getUserDetails(String accessToken) async {
+    final url = Uri.https(
+      AUTH0_DOMAIN,
+      '/userinfo',
+    );
+
+    final response = await http.get(
+      url,
+      headers: {'Authorization': 'Bearer $accessToken'},
+    );
+
+    if (response.statusCode == 200) {
+      Auth0User user = Auth0User.fromJson(jsonDecode(response.body));
+      print(user.toJson());
+      return user;
+    } else {
+      throw const UserInfoException('Failed to get user details');
+    }
+  }
 
   /// -----------------------------------
   ///  9- availableCustomerService
   /// -----------------------------------
 
+}
+
+class UserInfoException implements Exception {
+  final String message;
+
+  const UserInfoException(this.message);
 }
