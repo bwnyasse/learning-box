@@ -6,12 +6,14 @@ import 'package:go_router/go_router.dart';
 import 'package:flutterauth0/screens/home.dart';
 import 'package:flutterauth0/screens/menu.dart';
 import 'package:flutterauth0/screens/menu_detail.dart';
+import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 import 'helpers/constants.dart';
 import 'helpers/is_debug.dart';
 import 'helpers/theme.dart';
 import 'models/coffee.dart';
 import 'services/auth_service.dart';
+import 'services/chat_service.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -102,8 +104,12 @@ Future<void> main() async {
         [DeviceOrientation.portraitUp],
       );
 
-      await AuthService.instance.init();
+      final result = await AuthService.instance.init();
 
+      if (result == 'Success') {
+        await ChatService.instance.connectUser(AuthService.instance.profile);
+      }
+      
       runApp(
         // MaterialApp(
         //   debugShowCheckedModeBanner: false,
@@ -118,6 +124,12 @@ Future<void> main() async {
           debugShowCheckedModeBanner: false,
           themeMode: ThemeMode.system,
           theme: getTheme(),
+          builder: (context, child) {
+            return StreamChat(
+              child: child,
+              client: ChatService.instance.client,
+            );
+          },
         ),
       );
     },

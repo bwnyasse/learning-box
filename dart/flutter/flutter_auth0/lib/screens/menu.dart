@@ -28,7 +28,8 @@ class _MenuScreenState extends State<MenuScreen> {
     /// -----------------------------------
     ///  CommunityView or ChatView based on role
     /// -----------------------------------
-    if (true) CommunityView() else ChatView(),
+    //if (true) CommunityView() else ChatView(),
+    ChatView(),
 
     ProfileScreen(),
   ];

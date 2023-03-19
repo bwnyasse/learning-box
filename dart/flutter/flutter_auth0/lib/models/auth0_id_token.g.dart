@@ -18,6 +18,9 @@ Auth0IdToken _$Auth0IdTokenFromJson(Map<String, dynamic> json) {
     aud: json['aud'] as String,
     iat: json['iat'] as int,
     exp: json['exp'] as int,
+    authTime: json['auth_time'] as int?,
+    streamChatUserToken:
+        json['https://getstream.flutter_auth0.app/user_token'] as String,
   );
 }
 
@@ -33,4 +36,7 @@ Map<String, dynamic> _$Auth0IdTokenToJson(Auth0IdToken instance) =>
       'email': instance.email,
       'iat': instance.iat,
       'exp': instance.exp,
+      'auth_time': instance.authTime,
+      'https://getstream.flutter_auth0.app/user_token':
+          instance.streamChatUserToken,
     };

@@ -13,17 +13,21 @@ class Auth0User {
     required this.email,
     required this.picture,
     required this.updatedAt,
-    required this.sub
+    required this.sub,
+    required this.streamChatUserToken,
   });
 
   bool get hasImage => picture.isNotEmpty;
-  
+
   final String nickname;
   final String name;
   final String picture;
 
   @JsonKey(name: 'updated_at')
   final String updatedAt;
+
+  @JsonKey(name: 'https://getstream.flutter_auth0.app/user_token')
+  final String streamChatUserToken;
 
   // userID getter to understand it easier
   // GetStream doesn't not accept | in the userId, so we need to remove it

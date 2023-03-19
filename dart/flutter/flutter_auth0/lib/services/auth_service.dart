@@ -183,7 +183,6 @@ class AuthService {
         ),
       ),
     );
-
     return Auth0IdToken.fromJson(json);
   }
 

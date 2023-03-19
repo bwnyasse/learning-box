@@ -5,8 +5,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutterauth0/models/coffee_store.dart';
 import 'package:flutterauth0/widgets/button.dart';
 
+import '../services/chat_service.dart';
+
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
