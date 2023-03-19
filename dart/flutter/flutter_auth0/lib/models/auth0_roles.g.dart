@@ -47,7 +47,7 @@ K _$enumDecode<K, V>(
 }
 
 const _$RoleEnumMap = {
-  Role.Employee: 'Employee',
   Role.Admin: 'Admin',
-  Role.Customer: 'Customer',
+  Role.Internal: 'Internal',
+  Role.External: 'External',
 };

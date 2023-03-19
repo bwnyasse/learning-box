@@ -99,6 +99,9 @@ class AuthService {
       idToken = parseIdToken(result.idToken!);
       profile = await getUserDetails(result.accessToken!);
 
+      print('roles ${idToken!.roles}');
+      print('permissions ${idToken!.permissions}');
+
       if (result.refreshToken != null) {
         await secureStorage.write(
           key: REFRESH_TOKEN_KEY,
@@ -165,7 +168,7 @@ class AuthService {
         idTokenHint: jsonEncode(idToken!.toJson()),
         issuer: AUTH0_ISSUER,
         postLogoutRedirectUrl: '$BUNDLE_IDENTIFIER:/');
-    await appAuth.endSession(sessionRequest);*/ // FIXME: This code breaks the app 
+    await appAuth.endSession(sessionRequest);*/ // FIXME: This code breaks the app
     _loginInfo.isLoggedIn = false;
   }
 

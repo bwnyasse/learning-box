@@ -20,7 +20,8 @@ class Auth0IdToken {
     required this.exp,
     this.authTime,
     required this.streamChatUserToken,
-
+    required this.roles,
+    required this.permissions,
   });
 
   final String nickname;
@@ -46,7 +47,13 @@ class Auth0IdToken {
 
   @JsonKey(name: 'https://getstream.flutter_auth0.app/user_token')
   final String streamChatUserToken;
-  
+
+  @JsonKey(name: 'https://users.flutter_auth0.app/roles')
+  final List<Auth0Role> roles;
+
+  @JsonKey(name: 'https://users.flutter_auth0.app/permissions')
+  final List<Auth0Permission> permissions;
+
   factory Auth0IdToken.fromJson(Map<String, dynamic> json) =>
       _$Auth0IdTokenFromJson(json);
 

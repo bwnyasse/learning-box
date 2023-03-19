@@ -21,6 +21,13 @@ Auth0IdToken _$Auth0IdTokenFromJson(Map<String, dynamic> json) {
     authTime: json['auth_time'] as int?,
     streamChatUserToken:
         json['https://getstream.flutter_auth0.app/user_token'] as String,
+    roles: (json['https://users.flutter_auth0.app/roles'] as List<dynamic>)
+        .map((e) => Auth0Role.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    permissions:
+        (json['https://users.flutter_auth0.app/permissions'] as List<dynamic>)
+            .map((e) => Auth0Permission.fromJson(e as Map<String, dynamic>))
+            .toList(),
   );
 }
 
@@ -39,4 +46,6 @@ Map<String, dynamic> _$Auth0IdTokenToJson(Auth0IdToken instance) =>
       'auth_time': instance.authTime,
       'https://getstream.flutter_auth0.app/user_token':
           instance.streamChatUserToken,
+      'https://users.flutter_auth0.app/roles': instance.roles,
+      'https://users.flutter_auth0.app/permissions': instance.permissions,
     };
