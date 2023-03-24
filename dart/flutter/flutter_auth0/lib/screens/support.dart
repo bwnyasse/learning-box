@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
+import '../models/auth0_permissions.dart';
 import '../models/auth0_user.dart';
 import '../services/auth_service.dart';
 import '../services/chat_service.dart';
@@ -64,11 +65,10 @@ class _ChatViewState extends State<ChatView> {
                       child: MessageListView(),
                     ),
                     MessageInput(
-                     // actions: [_closeChat()],
-                     // disableAttachments: !profile!.can(UserPermissions.upload),
+                      disableAttachments: !profile!.can(UserPermissions.upload),
                       sendButtonLocation: SendButtonLocation.inside,
                       actionsLocation: ActionsLocation.leftInside,
-                     // showCommandsButton: !profile?.isCustomer,
+                      showCommandsButton: !profile?.isInternal,
                     ),
                   ],
                 ),

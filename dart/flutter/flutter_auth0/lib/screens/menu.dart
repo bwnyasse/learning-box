@@ -3,6 +3,7 @@ import 'package:flutterauth0/screens/profile.dart';
 import 'package:flutterauth0/screens/support.dart';
 
 import '../helpers/constants.dart';
+import '../services/auth_service.dart';
 import './menu_list.dart';
 import 'community.dart';
 
@@ -28,8 +29,10 @@ class _MenuScreenState extends State<MenuScreen> {
     /// -----------------------------------
     ///  CommunityView or ChatView based on role
     /// -----------------------------------
-    //if (true) CommunityView() else ChatView(),
-    ChatView(),
+    if (AuthService.instance.profile?.isInternal)
+      CommunityView()
+    else
+      ChatView(),
 
     ProfileScreen(),
   ];
