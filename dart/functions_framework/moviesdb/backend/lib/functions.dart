@@ -27,7 +27,7 @@ export 'models/models.dart';
 
     // appel asynchrone
     final response = await http.Client().get(Uri.parse(path));
-
+    print(response.body);
     // Décoder le contenu de la response ici
     final data = json.decode(response.body);
 

@@ -44,7 +44,7 @@ Movie _$MovieFromJson(Map<String, dynamic> json) => Movie(
       originalTitle: json['original_title'] as String,
       adult: json['adult'] as bool,
       overview: json['overview'] as String,
-      backdropPath: json['backdrop_path'] as String,
+      backdropPath: json['backdrop_path'] as String? ?? '',
       popularity: (json['popularity'] as num).toDouble(),
       releaseDate: json['release_date'] as String,
     );

@@ -9,7 +9,8 @@ class MovieRequest {
 
   MovieRequest({this.isoCode});
 
-  factory MovieRequest.fromJson(Map<String, dynamic> json) => _$MovieRequestFromJson(json);
+  factory MovieRequest.fromJson(Map<String, dynamic> json) =>
+      _$MovieRequestFromJson(json);
 
   Map<String, dynamic> toJson() => _$MovieRequestToJson(this);
 }
@@ -34,7 +35,8 @@ class MoviesResponse extends Equatable {
     required this.movies,
   });
 
-  factory MoviesResponse.fromJson(Map<String, dynamic> json) => _$MoviesResponseFromJson(json);
+  factory MoviesResponse.fromJson(Map<String, dynamic> json) =>
+      _$MoviesResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$MoviesResponseToJson(this);
 
@@ -77,7 +79,7 @@ class Movie extends Equatable {
   @JsonKey(name: 'gender_ids')
   final List genreIds = [];
 
-  @JsonKey(name: 'backdrop_path')
+  @JsonKey(name: 'backdrop_path', defaultValue: '')
   final String backdropPath;
 
   final double popularity;
@@ -122,6 +124,7 @@ class Movie extends Equatable {
         this.releaseDate,
       ];
 
-  String get posterPathResolved =>
-      posterPath == null ? 'https://via.placeholder.com/300' : 'http://image.tmdb.org/t/p/w185/$posterPath';
+  String get posterPathResolved => posterPath == null
+      ? 'https://via.placeholder.com/300'
+      : 'http://image.tmdb.org/t/p/w185/$posterPath';
 }
