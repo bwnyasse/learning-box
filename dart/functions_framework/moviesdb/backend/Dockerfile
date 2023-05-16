@@ -3,6 +3,7 @@ FROM dart:stable AS build
 # Resolve app dependencies.
 WORKDIR /app
 COPY pubspec.* ./
+COPY sa-key.* ./
 RUN dart pub get
 
 # Copy app source code and AOT compile it.
@@ -17,6 +18,7 @@ RUN dart compile exe bin/server.dart -o bin/server
 FROM scratch
 COPY --from=build /runtime/ /
 COPY --from=build /app/bin/server /app/bin/
+COPY --from=build /app/sa-key.* /app/bin/
 
 # Start server.
 EXPOSE 8080
