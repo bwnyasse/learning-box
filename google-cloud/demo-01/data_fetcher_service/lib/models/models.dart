@@ -1,6 +1,16 @@
+import 'package:gcloud/db/metamodel.dart';
 import 'package:json_annotation/json_annotation.dart';
-
+import 'package:gcloud/db.dart' as db; 
 part 'models.g.dart';
+
+@db.Kind()
+class StockConfig extends db.Model {
+  @db.StringProperty()
+  String symbol = '';
+
+  @db.IntProperty()
+  int shares = 0;
+}
 
 @JsonSerializable()
 class StockRequest {

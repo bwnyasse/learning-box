@@ -13,6 +13,7 @@ Future<StockResponse> function(
     StockRequest request, RequestContext context) async {
   final symbol = request.symbol; // TODO: Default is ... ? Break the cloud run
 
+
   StockResponse response = await service.fetchStock(symbol);
 
   service.writeToStorage(symbol, jsonEncode(response.toJson()));

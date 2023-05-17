@@ -1,9 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:gcloud/db.dart';
 import 'package:gcloud/storage.dart';
+import 'package:gcloud/datastore.dart' as datastore;
 import 'package:googleapis_auth/auth_io.dart' as auth;
 import 'package:http/http.dart' as http;
+import 'package:gcloud/service_scope.dart' as ss;
 import 'package:intl/intl.dart';
 import 'package:path/path.dart' as p;
 
@@ -26,6 +29,32 @@ String getSAKey() => File(p.join(
       isRunningInDockerContainer(),
       'sa-key.json',
     )).readAsStringSync();
+
+void loadStockConfiguration() async {
+  // Read the service account credentials from the file.
+  final accountCredentials =
+      auth.ServiceAccountCredentials.fromJson(getSAKey());
+
+  final client = await auth.clientViaServiceAccount(
+      accountCredentials, datastore.Datastore.Scopes);
+
+  try {
+    ss.fork(() async {
+      final db = DatastoreDB(datastore.Datastore(client, 'learning-sandbox'));
+      // register the services in the new service scope.
+      registerDbService(db);
+
+      // Run application using these services.
+      var person = StockConfig()
+        ..symbol = 'HOLA'
+        ..shares = 42;
+      await dbService.commit(inserts: [person]);
+      // var stocks = (await db.query<StockConfig>().run()).toList();
+    });
+  } finally {
+    client.close();
+  }
+}
 
 Future<StockResponse> fetchStock(String symbol) async {
   final apiKey = getApiKey();
