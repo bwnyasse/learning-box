@@ -1,7 +1,7 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:functions_framework/functions_framework.dart';
-
 import 'models/models.dart';
 import 'service/service.dart' as service;
 
@@ -11,14 +11,17 @@ export 'models/models.dart';
 @CloudFunction()
 Future<StockResponse> function(
     StockRequest request, RequestContext context) async {
-  final symbol = request.symbol; // TODO: Default is ... ? Break the cloud run
+  //List<StockConfig> stocks = await service.loadStockConfiguration();
 
+  //for (var element in stocks) {
+    var symbol = 'COST';
+    StockResponse response = await service.fetchStock(symbol);
 
-  StockResponse response = await service.fetchStock(symbol);
+    service.writeToStorage(symbol, jsonEncode(response.toJson()));
 
-  service.writeToStorage(symbol, jsonEncode(response.toJson()));
+    context.logger.info(
+        'Context - symbol : $symbol - Response: ${response.toJson()}');
+ // }
 
-  context.logger
-      .info('Context - symbol : $symbol - Response: ${response.toJson()}');
-  return response;
+  return StockResponse.fromJson({});
 }

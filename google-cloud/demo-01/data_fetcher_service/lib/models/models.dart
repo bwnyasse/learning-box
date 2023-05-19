@@ -1,6 +1,6 @@
-import 'package:gcloud/db/metamodel.dart';
+import 'package:gcloud/db.dart' as db;
 import 'package:json_annotation/json_annotation.dart';
-import 'package:gcloud/db.dart' as db; 
+
 part 'models.g.dart';
 
 @db.Kind()

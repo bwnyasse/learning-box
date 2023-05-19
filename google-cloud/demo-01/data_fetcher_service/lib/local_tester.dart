@@ -4,7 +4,7 @@ import 'models/models.dart';
 import 'service/service.dart' as service;
 
 void main(List<String> args) async {
-   service.loadStockConfiguration();
+  // service.loadStockConfiguration();
 
   //StockResponse response = await service.fetchStock('COST');
 
