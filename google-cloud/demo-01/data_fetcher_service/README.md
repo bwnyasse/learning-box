@@ -1,8 +1,29 @@
 # DataFetcherService
 
-DataFetcherService is a Cloud Run service written in Dart that fetches financial data from the IEXCloud API and stores it in Cloud Storage. It provides a simple and efficient solution for retrieving and storing stock data for further processing or analysis.
+DataFetcherService is a Dart application that showcases the usage of Google Cloud resources using the Dart programming language. It demonstrates how to build a scalable and portable Google Cloud pipeline to fetch NASDAQ stock data from the IEXCloud API, store it in Google Cloud Storage, and utilize Cloud Datastore for configuration management.
 
-## Objective
+## Requirements
 
-The objective of the DataFetcherService is to automate the retrieval of stock data from the IEXCloud API and store it in Cloud Storage. By running this service, you can easily access up-to-date financial data for various stocks and utilize it for your application or analysis purposes.
+- Dart SDK
+- Google Cloud Platform account
+- IEXCloud API credentials
+- Service account credentials for Google Cloud Platform
 
+## Getting Started
+
+1. Obtain IEXCloud API credentials:
+
+Sign up for an account on the IEXCloud platform (https://iexcloud.io/) and obtain your API token.
+Replace the placeholder in the sa-key-iexcloud file with your actual IEXCloud API token. This file is used to store the API key securely.
+
+2. Provide Service Account Credentials:
+
+Replace the sa-key.json file with the service account credentials JSON file corresponding to your Google Cloud Platform project. This file contains the necessary credentials for authentication.
+
+3. Install dependencies:
+
+    dart pub get
+
+## Contributing
+
+Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.

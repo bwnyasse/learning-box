@@ -1,49 +1,57 @@
 import 'dart:convert';
-import 'dart:io';
 
-import 'package:gcloud/db.dart';
+import 'package:data_fetcher_service/utils/utils.dart' as utils;
 import 'package:gcloud/storage.dart';
-import 'package:gcloud/datastore.dart' as datastore;
 import 'package:googleapis_auth/auth_io.dart' as auth;
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:path/path.dart' as p;
 
 import '../models/models.dart';
 
-extension CleanBodyResponse on String {
-  String cleanValue() => replaceAll('"', '').trim();
-}
-
-String isRunningInDockerContainer() =>
-    Platform.environment["FETCHER_SERVICE_IN_DOCKER"] == 'true' ? '' : 'assets';
-String getApiKey() => File(p.join(
-      Directory.current.path,
-      isRunningInDockerContainer(),
-      'sa-key-iexcloud',
-    )).readAsStringSync();
-
-String getSAKey() => File(p.join(
-      Directory.current.path,
-      isRunningInDockerContainer(),
-      'sa-key.json',
-    )).readAsStringSync();
-
-/*Future<List<StockConfig>> loadStockConfiguration() async {
+/// Loads the stock configuration asynchronously.
+///
+/// This function retrieves the stock configuration from a cloud resource (e.g., Cloud Datastore) or another cloud service.
+/// Note that due to the limitation of `dart:mirrors` not being supported with `dart compile`, the current implementation
+/// does not use Cloud Datastore.
+///
+/// Returns a [Future] that resolves to a [List] of [StockConfig] objects representing the stock configuration.
+Future<List<StockConfig>> loadStockConfiguration() async {
   // Read the service account credentials from the file.
   final accountCredentials =
-      auth.ServiceAccountCredentials.fromJson(getSAKey());
+      auth.ServiceAccountCredentials.fromJson(utils.getSAKey());
 
-  final client = await auth.clientViaServiceAccount(
-      accountCredentials, datastore.Datastore.Scopes);
+  //TODO: Next step will be to retrieve the configuration fron Cloud Datastore or another Cloud resource ?
+  // For the moment, it is not possible to use Cloud Datastore , because of dart:mirrors not supported with dart compile
+  // https://github.com/dart-lang/gcloud/issues/163
 
+  /*
+  final client = await auth.clientViaServiceAccount(accountCredentials, datastore.Datastore.Scopes);
   final db = DatastoreDB(datastore.Datastore(client, 'learning-box-369917'));
+  await (db.query<StockConfig>().run()).toList()
+   */
 
-  return await (db.query<StockConfig>().run()).toList();
-}*/
+  return [
+    StockConfig(symbol: 'O'),
+    StockConfig(symbol: 'AMZN'),
+    StockConfig(symbol: 'WMT'),
+    StockConfig(symbol: 'WM'),
+    StockConfig(symbol: 'COST'),
+    StockConfig(symbol: 'MSFT'),
+    StockConfig(symbol: 'HD'),
+  ];
+}
 
+/// Fetches stock information for the given symbol asynchronously.
+///
+/// This function retrieves various stock information for the specified symbol using the IEX Cloud API. It makes multiple API calls
+/// to fetch different data points such as the latest price, dividend amount, company name, security name, industry, sector, and
+/// issue type.
+///
+/// - [symbol]: The stock symbol for which to fetch the information.
+///
+/// Returns a [Future] that resolves to a [StockResponse] object containing the fetched stock information.
 Future<StockResponse> fetchStock(String symbol) async {
-  final apiKey = getApiKey();
+  final apiKey = utils.getApiKey();
   final api = 'https://cloud.iexapis.com';
 
   final urls = [
@@ -57,40 +65,46 @@ Future<StockResponse> fetchStock(String symbol) async {
     '$api/stable/data-points/$symbol/ISSUETYPE?token=$apiKey',
   ];
 
-  List<Future<http.Response>> apiCalls =
-      urls.map((url) => http.Client().get(Uri.parse(url))).toList();
+  final client = http.Client();
+  final responses = await Future.wait(urls.map((url) => client.get(Uri.parse(url))));
 
-  final responses = await Future.wait(apiCalls);
+  client.close();
+
   return StockResponse.fromJson({
     'symbol': symbol,
     'lastPrice': responses[0].body.cleanValue(),
     'dividend': responses[1].body.cleanValue(),
     'companyName': responses[2].body.cleanValue(),
     'securityName': responses[4].body.cleanValue(),
-    'industry': responses[4].body.cleanValue(),
-    'sector': responses[5].body.cleanValue(),
-    'issueType': responses[6].body.cleanValue(),
+    'industry': responses[5].body.cleanValue(),
+    'sector': responses[6].body.cleanValue(),
+    'issueType': responses[7].body.cleanValue(),
   });
 }
 
+/// Writes the given data to the storage asynchronously.
+///
+/// This function writes the provided data to a storage service, such as Google Cloud Storage. It uses the service account credentials
+/// obtained from a file to authenticate the client.
+///
+/// - [symbol]: The symbol associated with the data.
+/// - [bodyAsString]: The data to be written as a string.
+///
+/// Returns a [Future] that completes when the data has been successfully written to the storage.
 Future<void> writeToStorage(String symbol, String bodyAsString) async {
-  // Read the service account credentials from the file.
-  final accountCredentials =
-      auth.ServiceAccountCredentials.fromJson(getSAKey());
+  final accountCredentials = auth.ServiceAccountCredentials.fromJson(utils.getSAKey());
 
-  // When running on Google Computer Engine, AppEngine or GKE credentials can
-  // be obtained from a meta-data server as follows.
-  final client =
-      await auth.clientViaServiceAccount(accountCredentials, Storage.SCOPES);
-  try {
-    final storage = Storage(client, 'learning-sandbox');
-    final b = storage.bucket('test-bucket-learning-sandbox');
-    DateTime now = DateTime.now();
-    String formatDate = DateFormat('yyyy-MM-dd-hhmmss').format(now);
+  final client = await auth.clientViaServiceAccount(accountCredentials, Storage.SCOPES);
+  final storage = Storage(client, 'learning-sandbox');
+  final bucket = storage.bucket('test-bucket-learning-sandbox');
 
-    await b.writeBytes(
-        'stocks/$symbol-$formatDate.json', utf8.encode(bodyAsString));
-  } finally {
-    client.close();
-  }
+  final now = DateTime.now();
+  final formattedDate = DateFormat('yyyy-MM-dd-hhmmss').format(now);
+
+  final filePath = 'stocks/${now.year}/${now.month}/${now.day}/$symbol/$symbol-$formattedDate.json';
+  final fileBytes = utf8.encode(bodyAsString);
+
+  await bucket.writeBytes(filePath, fileBytes);
+
+  client.close();
 }

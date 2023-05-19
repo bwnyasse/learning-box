@@ -7,7 +7,7 @@ part of 'models.dart';
 // **************************************************************************
 
 StockRequest _$StockRequestFromJson(Map<String, dynamic> json) => StockRequest(
-      symbol: json['symbol'] as String,
+      json['symbol'] as String,
     );
 
 Map<String, dynamic> _$StockRequestToJson(StockRequest instance) =>

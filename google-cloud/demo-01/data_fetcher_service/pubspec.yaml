@@ -10,7 +10,6 @@ dependencies:
   json_annotation: ^4.8.1
   shelf: ^1.0.0
   gcloud: ^0.8.8
-  googleapis_auth: ^1.4.0
   intl: ^0.18.1
   path: ^1.8.3
 

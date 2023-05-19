@@ -9,19 +9,21 @@ import 'service/service.dart' as service;
 export 'models/models.dart';
 
 @CloudFunction()
-Future<StockResponse> function(
-    StockRequest request, RequestContext context) async {
-  //List<StockConfig> stocks = await service.loadStockConfiguration();
+Future<void> function(StockRequest request, RequestContext context) async {
+  try {
+    List<StockConfig> stocks = await service.loadStockConfiguration();
 
-  //for (var element in stocks) {
-    var symbol = 'COST';
-    StockResponse response = await service.fetchStock(symbol);
+    List<Future<void>> apiCalls = stocks.map((element) async {
+      StockResponse response = await service.fetchStock(element.symbol);
+      await service.writeToStorage(
+          element.symbol, jsonEncode(response.toJson()));
+      context.logger.info(
+          'Context - symbol : ${element.symbol} - Response: ${response.toJson()}');
+    }).toList();
 
-    service.writeToStorage(symbol, jsonEncode(response.toJson()));
-
-    context.logger.info(
-        'Context - symbol : $symbol - Response: ${response.toJson()}');
- // }
-
-  return StockResponse.fromJson({});
+    await Future.wait(apiCalls);
+  } catch (error, stackTrace) {
+    context.logger.error('An error occurred: $error\n$stackTrace');
+    // Handle or report the error accordingly.
+  }
 }

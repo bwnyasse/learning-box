@@ -3,20 +3,22 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'models.g.dart';
 
-@db.Kind()
-class StockConfig extends db.Model {
-  @db.StringProperty()
-  String symbol = '';
+class StockConfig {
+  final String symbol;
 
-  @db.IntProperty()
-  int shares = 0;
+  int shares;
+
+  StockConfig({
+    required this.symbol,
+    this.shares = 0,
+  });
 }
 
 @JsonSerializable()
 class StockRequest {
   final String symbol;
 
-  StockRequest({required this.symbol});
+  StockRequest(this.symbol);
 
   factory StockRequest.fromJson(Map<String, dynamic> json) =>
       _$StockRequestFromJson(json);
