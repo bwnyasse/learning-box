@@ -1,0 +1,86 @@
+[
+  {
+    "stock": "O",
+    "security_name": "Realty Income Corp",
+    "exchange": "NYSE",
+    "industry": "REIT_Retail",
+    "sector": "Real Estate",
+    "shares": "70",
+    "frequency": 12,
+    "last_dividend_amount": "0,26",
+    "last_dividend_payment_date": "30/06/2023",
+    "is_etf": false
+  },
+  {
+    "stock": "AMZN",
+    "security_name": "Amazon.com Inc",
+    "exchange": "NASDAQ",
+    "industry": "Internet Retail",
+    "sector": "Consumer Cyclical",
+    "shares": "11",
+    "frequency": 0,
+    "last_dividend_amount": "0,00",
+    "last_dividend_payment_date": "",
+    "is_etf": false
+  },
+  {
+    "stock": "WMT",
+    "security_name": "Walmart Inc",
+    "exchange": "NYSE",
+    "industry": "Discount Stores",
+    "sector": "Consumer Defensive",
+    "shares": "10",
+    "frequency": 4,
+    "last_dividend_amount": "0,57",
+    "last_dividend_payment_date": "04/05/2023",
+    "is_etf": false
+  },
+  {
+    "stock": "WM",
+    "security_name": "Waste Management Inc",
+    "exchange": "NYSE",
+    "industry": "Waste Management",
+    "sector": "Industrials",
+    "shares": "6",
+    "frequency": 4,
+    "last_dividend_amount": "0,70",
+    "last_dividend_payment_date": "01/06/2023",
+    "is_etf": false
+  },
+  {
+    "stock": "COST",
+    "security_name": "Costco Wholesale Corp",
+    "exchange": "NASDAQ",
+    "industry": "Discount Stores",
+    "sector": "Consumer Defensive",
+    "shares": "4",
+    "frequency": 4,
+    "last_dividend_amount": "1,02",
+    "last_dividend_payment_date": "04/05/2023",
+    "is_etf": false
+  },
+  {
+    "stock": "MSFT",
+    "security_name": "Microsoft Corp",
+    "exchange": "NASDAQ",
+    "industry": "Software_Infrastructure",
+    "sector": "Technology",
+    "shares": "4",
+    "frequency": 4,
+    "last_dividend_amount": "0,68",
+    "last_dividend_payment_date": "17/05/2023",
+    "is_etf": false
+  },
+  {
+    "stock": "HD",
+    "security_name": "Home Depot Inc_The",
+    "exchange": "NYSE",
+    "industry": "Home Improvement Retail",
+    "sector": "Consumer Cyclical",
+    "shares": "3,5",
+    "frequency": 4,
+    "last_dividend_amount": "2,09",
+    "last_dividend_payment_date": "31/05/2023",
+    "is_etf": false
+  }
+]

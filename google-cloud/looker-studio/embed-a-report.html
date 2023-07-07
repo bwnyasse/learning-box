@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Looker Studio Embed POC</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
+    <style>
+		iframe {
+			display: block;
+			margin: 0 auto;
+			width: 70%;
+			height: 600px;
+			border: none;
+		}
+        .embedding-footer {
+            display:none;
+        }
+	</style>
+
+</head>
+<body>
+	<div class="container mt-5">
+		<h1 class="text-center mb-3">Looker Studio Embed POC</h1>
+		<p class="lead text-center mb-5">This is a proof of concept for embedding Looker Studio in a web page.</p>
+		<div class="embed-responsive embed-responsive-16by9">
+			<iframe src="https://lookerstudio.google.com/embed/reporting/6bd41e36-7f90-45bb-96c0-b48501d44951/page/rU8KD" frameborder="0" style="border:0" allowfullscreen></iframe>
+		</div>
+	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

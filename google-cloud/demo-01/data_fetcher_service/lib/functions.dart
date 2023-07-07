@@ -4,12 +4,13 @@ import 'dart:convert';
 import 'package:functions_framework/functions_framework.dart';
 import 'models/models.dart';
 import 'service/service.dart' as service;
+import 'package:shelf/shelf.dart';
 
 // Export models so builder can use them when generating `bin/server.dart`.
 export 'models/models.dart';
 
 @CloudFunction()
-Future<void> function(StockRequest request, RequestContext context) async {
+Future<Response> function(Request request , RequestContext context) async {
   try {
     List<StockConfig> stocks = await service.loadStockConfiguration();
 
@@ -26,4 +27,6 @@ Future<void> function(StockRequest request, RequestContext context) async {
     context.logger.error('An error occurred: $error\n$stackTrace');
     // Handle or report the error accordingly.
   }
+
+  Response.ok('Hello, World!');
 }
