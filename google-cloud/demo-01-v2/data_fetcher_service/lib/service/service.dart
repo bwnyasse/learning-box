@@ -71,7 +71,22 @@ Future<StockQuoteResponse> fetchStockQuote(
 ///
 /// Returns a [Future] that completes when the data has been successfully written to the storage.
 Future<void> writeToStorage(String symbol, String bodyAsString) async {
-  //
-  //
-  //TODO: 3- Write to Storage
+  final accountCredentials =
+      auth.ServiceAccountCredentials.fromJson(utils.getSAKey());
+
+  final client =
+      await auth.clientViaServiceAccount(accountCredentials, Storage.SCOPES);
+  final storage = Storage(client, 'learning-sandbox');
+  final bucket = storage.bucket('test-bucket-learning-sandbox');
+
+  final now = DateTime.now();
+  final formattedDate = DateFormat('yyyy-MM-dd-hhmmss').format(now);
+
+  final filePath =
+      'stocks/${now.year}/${now.month}/${now.day}/$symbol/$symbol-$formattedDate.json';
+  final fileBytes = utf8.encode(bodyAsString);
+
+  await bucket.writeBytes(filePath, fileBytes);
+
+  client.close();
 }

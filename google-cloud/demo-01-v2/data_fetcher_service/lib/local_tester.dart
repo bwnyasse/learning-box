@@ -29,7 +29,6 @@ Future<void> demoFetchStockQuote() async {
 }
 
 Future<void> demowriteToStorage() async {
-  //
-  //
-  //TODO: 3- Write to Storage - DEMO
+  service.writeToStorage('DEMO',
+      jsonEncode({"stock": "DEMO", "security_name": "Flutter Montreal"}));
 }
