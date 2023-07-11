@@ -49,3 +49,41 @@ Map<String, dynamic> mergeJson(
   mergedJson.addAll(json2);
   return mergedJson;
 }
+
+String jsonPrettyPrint(String jsonString) {
+  var buffer = StringBuffer();
+  var pos = 0;
+  var indent = 0;
+  var length = jsonString.length;
+  var char;
+
+  void writeIndent() {
+    for (var i = 0; i < indent; i++) {
+      buffer.write('  ');
+    }
+  }
+
+  while (pos < length) {
+    char = jsonString[pos];
+    if (char == '{' || char == '[') {
+      buffer.write(char);
+      buffer.write('\n');
+      indent++;
+      writeIndent();
+    } else if (char == '}' || char == ']') {
+      buffer.write('\n');
+      indent--;
+      writeIndent();
+      buffer.write(char);
+    } else if (char == ',') {
+      buffer.write(char);
+      buffer.write('\n');
+      writeIndent();
+    } else {
+      buffer.write(char);
+    }
+    pos++;
+  }
+
+  return buffer.toString();
+}

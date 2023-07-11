@@ -16,24 +16,11 @@ import '../models/models.dart';
 ///
 /// Returns a [Future] that resolves to a [List] of [StockConfig] objects representing the stock configuration.
 Future<List<StockConfig>> loadStockConfiguration() async {
-  // Read the service account credentials from the file.
-  final accountCredentials =
-      auth.ServiceAccountCredentials.fromJson(utils.getSAKey());
+  //
+  //
+  //TODO: 1- Load Stock Configuration
 
-  //TODO: Next step will be to retrieve the configuration from Cloud Datastore or another Cloud resource ?
-  // For the moment, it is not possible to use Cloud Datastore , because of dart:mirrors not supported with dart compile
-  // https://github.com/dart-lang/gcloud/issues/163
-
-  /*
-  final client = await auth.clientViaServiceAccount(accountCredentials, datastore.Datastore.Scopes);
-  final db = DatastoreDB(datastore.Datastore(client, 'learning-box-369917'));
-  await (db.query<StockConfig>().run()).toList()
-   */
-
-  // Workaround : Reading the configuration from assets
-  final stockJsonAsString = utils.getStockConfig();
-  final List<dynamic> stockAsDynamicLit = json.decode(stockJsonAsString);
-  return stockAsDynamicLit.map((json) => StockConfig.fromJson(json)).toList();
+  return Future.value([]);
 }
 
 /// Fetches stock quote for the given stock asynchronously.
@@ -44,22 +31,11 @@ Future<List<StockConfig>> loadStockConfiguration() async {
 /// Returns a [Future] that resolves to a [StockResponse] object containing the fetched stock information.
 Future<StockQuoteResponse> fetchStockQuote(
     String stock, String exchange) async {
-  final apiKey = utils.getApiKey();
-  final path =
-      'https://api.twelvedata.com/quote?apikey=$apiKey&symbol=$stock&exchange=$exchange';
+  //
+  //
+  //TODO: 2- Fetch Stock Quote
 
-  final client = http.Client();
-  final response = await client.get(Uri.parse(path));
-
-  client.close();
-
-
-   final data = json.decode(response.body);
-
-  return StockQuoteResponse.fromJson({
-    'stock': stock,
-    'lastPrice': data['close'],
-  });
+  return StockQuoteResponse.fromJson({});
 }
 
 /// Writes the given data to the storage asynchronously.
@@ -72,22 +48,7 @@ Future<StockQuoteResponse> fetchStockQuote(
 ///
 /// Returns a [Future] that completes when the data has been successfully written to the storage.
 Future<void> writeToStorage(String symbol, String bodyAsString) async {
-  final accountCredentials =
-      auth.ServiceAccountCredentials.fromJson(utils.getSAKey());
-
-  final client =
-      await auth.clientViaServiceAccount(accountCredentials, Storage.SCOPES);
-  final storage = Storage(client, 'learning-sandbox');
-  final bucket = storage.bucket('test-bucket-learning-sandbox');
-
-  final now = DateTime.now();
-  final formattedDate = DateFormat('yyyy-MM-dd-hhmmss').format(now);
-
-  final filePath =
-      'stocks/${now.year}/${now.month}/${now.day}/$symbol/$symbol-$formattedDate.json';
-  final fileBytes = utf8.encode(bodyAsString);
-
-  await bucket.writeBytes(filePath, fileBytes);
-
-  client.close();
+  //
+  //
+  //TODO: 3- Write to Storage
 }
