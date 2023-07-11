@@ -16,11 +16,24 @@ import '../models/models.dart';
 ///
 /// Returns a [Future] that resolves to a [List] of [StockConfig] objects representing the stock configuration.
 Future<List<StockConfig>> loadStockConfiguration() async {
-  //
-  //
-  //TODO: 1- Load Stock Configuration
+  // Read the service account credentials from the file.
+  final accountCredentials =
+      auth.ServiceAccountCredentials.fromJson(utils.getSAKey());
 
-  return Future.value([]);
+  //FIXME: Next step will be to retrieve the configuration from Cloud Datastore or another Cloud resource ?
+  // For the moment, it is not possible to use Cloud Datastore , because of dart:mirrors not supported with dart compile
+  // https://github.com/dart-lang/gcloud/issues/163
+
+  /*
+  final client = await auth.clientViaServiceAccount(accountCredentials, datastore.Datastore.Scopes);
+  final db = DatastoreDB(datastore.Datastore(client, 'learning-box-369917'));
+  await (db.query<StockConfig>().run()).toList()
+   */
+
+  // Workaround : Reading the configuration from assets
+  final stockJsonAsString = utils.getStockConfig();
+  final List<dynamic> stockAsDynamicLit = json.decode(stockJsonAsString);
+  return stockAsDynamicLit.map((json) => StockConfig.fromJson(json)).toList();
 }
 
 /// Fetches stock quote for the given stock asynchronously.

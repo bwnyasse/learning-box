@@ -13,9 +13,11 @@ void main(List<String> args) async {
 }
 
 Future<void> demoLoadStockConfiguration() async {
-  //
-  //
-  //TODO: 1- Load Stock Configuration - DEMO
+  final List<StockConfig> stockConfigs = await service.loadStockConfiguration();
+
+  final jsonString = jsonEncode(stockConfigs);
+  print("---- LOCAL TESTER : LOAD STOCK CONFIG ----");
+  print(jsonPrettyPrint(jsonString));
 }
 
 Future<void> demoFetchStockQuote() async {
