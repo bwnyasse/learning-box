@@ -21,9 +21,11 @@ Future<void> demoLoadStockConfiguration() async {
 }
 
 Future<void> demoFetchStockQuote() async {
-  //
-  //
-  //TODO: 2- Fetch Stock Quote - DEMO
+  final StockQuoteResponse quote = await service.fetchStockQuote('HD', 'NYSE');
+
+  final jsonString = jsonEncode(quote);
+  print("---- LOCAL TESTER : FETCH A STOCK QUOTE ----");
+  print(jsonPrettyPrint(jsonString));
 }
 
 Future<void> demowriteToStorage() async {

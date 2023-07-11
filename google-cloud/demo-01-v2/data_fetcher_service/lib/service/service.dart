@@ -44,11 +44,21 @@ Future<List<StockConfig>> loadStockConfiguration() async {
 /// Returns a [Future] that resolves to a [StockResponse] object containing the fetched stock information.
 Future<StockQuoteResponse> fetchStockQuote(
     String stock, String exchange) async {
-  //
-  //
-  //TODO: 2- Fetch Stock Quote
+  final apiKey = utils.getApiKey();
+  final path =
+      'https://api.twelvedata.com/quote?apikey=$apiKey&symbol=$stock&exchange=$exchange';
 
-  return StockQuoteResponse.fromJson({});
+  final client = http.Client();
+  final response = await client.get(Uri.parse(path));
+
+  client.close();
+
+  final data = json.decode(response.body);
+
+  return StockQuoteResponse.fromJson({
+    'stock': stock,
+    'lastPrice': data['close'],
+  });
 }
 
 /// Writes the given data to the storage asynchronously.
