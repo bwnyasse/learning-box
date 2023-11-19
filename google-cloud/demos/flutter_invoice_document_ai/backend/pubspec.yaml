@@ -1,0 +1,26 @@
+name: flutter_invoice_document_ai_backend
+
+# version: 0.1.0
+# homepage: https://www.example.com
+publish_to: none
+
+environment:
+  sdk: ^3.0.0
+
+dependencies:
+  build_runner: ^2.4.6
+  functions_framework: ^0.4.3+1
+  gcloud: ^0.8.11
+  googleapis: ^11.4.0
+  googleapis_auth: ^1.4.1
+  json_annotation: ^4.8.1
+  json_serializable: ^6.7.1
+  path: ^1.8.3
+  shelf: ^1.0.0
+
+dev_dependencies:
+  functions_framework_builder: ^0.4.10
+  http: '>=0.13.0 <2.0.0'
+  dart_flutter_team_lints: ^1.0.0
+  test: ^1.15.7
+  test_process: ^2.0.0
