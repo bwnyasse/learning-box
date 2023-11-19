@@ -1,7 +1,7 @@
 steps:
   # Step to access the secret and write it to the desired location
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['secrets', 'versions', 'access', 'latest', '--secret=service-account-json-key', '>', '/workspace/google-cloud/demos/flutter_invoice_document_ai/backend/assets/sa-key.json']
+    args: ['secrets', 'versions', 'access', 'latest', '--secret=service-account-json-key > /workspace/google-cloud/demos/flutter_invoice_document_ai/backend/assets/sa-key.json']
     secretEnv: ['SERVICE_ACCOUNT_JSON_KEY']
 
   # Step to build the Docker image
