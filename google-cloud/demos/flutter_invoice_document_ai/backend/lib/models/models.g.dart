@@ -6,6 +6,28 @@ part of 'models.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+InvoiceResponse _$InvoiceResponseFromJson(Map<String, dynamic> json) =>
+    InvoiceResponse(
+      invoices: (json['invoices'] as List<dynamic>)
+          .map((e) => Invoice.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$InvoiceResponseToJson(InvoiceResponse instance) =>
+    <String, dynamic>{
+      'invoices': instance.invoices,
+    };
+
+Invoice _$InvoiceFromJson(Map<String, dynamic> json) => Invoice(
+      gcsUri: json['gcs_uri'] as String,
+      data: InvoiceData.fromJson(json['data'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$InvoiceToJson(Invoice instance) => <String, dynamic>{
+      'gcs_uri': instance.gcsUri,
+      'data': instance.data,
+    };
+
 InvoiceData _$InvoiceDataFromJson(Map<String, dynamic> json) => InvoiceData(
       invoiceDate: json['invoice_date'] as String,
       invoiceId: json['invoice_id'] as String,

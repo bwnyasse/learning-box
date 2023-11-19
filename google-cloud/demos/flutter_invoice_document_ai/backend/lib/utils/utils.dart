@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:convert';
 import 'package:flutter_invoice_document_ai_backend/models/models.dart';
 import 'package:googleapis/documentai/v1.dart';
 import 'package:path/path.dart' as p;
@@ -54,7 +53,7 @@ String jsonPrettyPrint(String jsonString) {
   var pos = 0;
   var indent = 0;
   var length = jsonString.length;
-  var char;
+  var char = '';
 
   void writeIndent() {
     for (var i = 0; i < indent; i++) {
@@ -118,10 +117,10 @@ class ProcessUtils {
         lineItems.add(lineItem);
 
         print('* Line Item:');
-        print('  - Description: ${lineItem.description} (${conf}% confident)');
-        print('  - Quantity: ${lineItem.quantity} (${conf}% confident)');
-        print('  - Unit Price: ${lineItem.unitPrice} (${conf}% confident)');
-        print('  - Amount: ${lineItem.amount} (${conf}% confident)');
+        print('  - Description: ${lineItem.description} ($conf% confident)');
+        print('  - Quantity: ${lineItem.quantity} ($conf% confident)');
+        print('  - Unit Price: ${lineItem.unitPrice} ($conf% confident)');
+        print('  - Amount: ${lineItem.amount} ($conf% confident)');
       } else {
         // Map other entities to respective fields
         var textValue = entity.textAnchor?.content ?? '';
@@ -165,7 +164,7 @@ class ProcessUtils {
           // Add any other cases as needed
         }
 
-        print('* "${entity.type}": "$textValue" (${conf}% confident)');
+        print('* "${entity.type}": "$textValue" ($conf% confident)');
       }
     }
 
