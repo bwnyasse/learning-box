@@ -16,7 +16,7 @@ steps:
     dir: 'google-cloud/demos/flutter_invoice_document_ai/backend'
 
 images:
-  - 'gcr.io/$PROJECT_ID/flutter-invoice-backend'
+  - 'gcr.io/$PROJECT_ID/github.com/bwnyasse/learning-box/google-cloud/demos/flutter_invoice_document_ai/backend'
 
 availableSecrets:
   secretManager:
