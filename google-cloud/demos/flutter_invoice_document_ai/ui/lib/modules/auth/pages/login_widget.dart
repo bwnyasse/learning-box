@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
-class AuthPage extends StatelessWidget {
-  const AuthPage({super.key});
+import '../bloc/auth_bloc.dart';
+import '../bloc/auth_event.dart';
+
+AuthBloc get authBloc => Modular.get<AuthBloc>();
+
+class OnboardingPageConstants {
+  static const String coverImageUrl = "assets/login_background.jpg";
+}
+
+class LoginWidget extends StatelessWidget {
+  const LoginWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,8 +20,8 @@ class AuthPage extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(
-                "assets/login_background.jpg"), // Replace with your background image
+            image: AssetImage(OnboardingPageConstants
+                .coverImageUrl), // Replace with your background image
             fit: BoxFit.cover,
           ),
         ),
@@ -42,8 +52,8 @@ class AuthPage extends StatelessWidget {
                     width: 16,
                   ),
                   label: const Text('Sign in with Google'),
-                  onPressed: () {
-                    // Implement your Google sign-in logic
+                  onPressed: () async {
+                    authBloc.add(AuthLoginWithGoogleEvent());
                   },
                 ),
               ),

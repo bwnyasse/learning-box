@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:logging/logging.dart';
 
-final log = Logger('AmoraJourney');
+final log = Logger('flutter_invoice_document_ai_ui');
 
 void main() async {
   Logger.root.level = Level.ALL;

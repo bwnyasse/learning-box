@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+import '../../auth/auth_service.dart';
+
+AuthService get authService => Modular.get<AuthService>();
+
+class InvoicesPage extends StatelessWidget {
+  const InvoicesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,24 +20,23 @@ class HomePage extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            const DrawerHeader(
-              decoration: BoxDecoration(
+             DrawerHeader(
+              decoration: const BoxDecoration(
                 color: Colors.black,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(
-                        'https://avatars.githubusercontent.com/u/5323628?v=4'),
+                   CircleAvatar(
+                    backgroundImage: NetworkImage(authService.getUser().photoURL),
                     radius: 40,
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   Text(
-                    'Boris-Wilfried Nyasse',
-                    style: TextStyle(
+                    'Welcome, ${authService.getUser().displayName.split(' ')[0]}',
+                    style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 24,
+                      fontSize: 18,
                     ),
                   ),
                 ],
@@ -41,8 +45,8 @@ class HomePage extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text('Log Out'),
-              onTap: () {
-                // Implement logout logic
+              onTap: () async {
+                authService.signOut();
               },
             ),
           ],
