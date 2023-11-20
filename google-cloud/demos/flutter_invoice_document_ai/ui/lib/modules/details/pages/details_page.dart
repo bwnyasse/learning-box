@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../modules/invoices/models/invoice_models.dart';
+import '../../invoices/models/invoice_models.dart';
 
 class DetailsPage extends StatelessWidget {
   final InvoiceData invoiceData;

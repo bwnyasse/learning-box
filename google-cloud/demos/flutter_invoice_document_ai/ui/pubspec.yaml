@@ -27,6 +27,7 @@ dependencies:
   flutter_modular: ^6.3.2
   asuka: ^2.2.0
   logging: ^1.2.0
+  http: ^1.1.0
 
 dev_dependencies:
   flutter_test:
