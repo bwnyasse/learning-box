@@ -29,15 +29,25 @@ class _ChartViewPageState extends State<ChartViewPage> {
       ),
       body: CustomChartWidget(
         title: 'Breakdown per categories',
-        indicators: [
-          for (var entry in invoicesService.totalPerCategory.entries)
-            Indicator(
-              color:
-                  entry.value.color, // Use the color from the Category object
-              text: "${entry.key} : ${entry.value.value}", // Use the category name as text
-              isSquare: true,
+        indicators: List.generate(invoicesService.totalPerCategory.length, (i) {
+          final entry = invoicesService.totalPerCategory.entries.elementAt(i);
+          final isTouched =
+              i == touchedIndex; // Check if the current index is touched
+          final fontSize =
+              isTouched ? 14.0 : 12.0; // Increase font size if touched
+          final fontBold=
+              isTouched ? FontWeight.bold : FontWeight.normal; 
+          return Indicator(
+            color: entry.value.color, // Use the color from the Category object
+            text:
+                "${entry.key} : ${entry.value.value}", // Use the category name and value as text
+            textStyle: TextStyle(
+              fontSize: fontSize, // Set the dynamic font size
+              fontWeight: fontBold,
             ),
-        ],
+            isSquare: true,
+          );
+        }),
         chart: PieChart(
           PieChartData(
             pieTouchData: PieTouchData(

@@ -9,36 +9,6 @@ import '../modules/invoices/models/invoice_models.dart';
 //
 //
 
-List<BarChartGroupData> convertToBarChartData(Map<String, double> data) {
-  final List<BarChartGroupData> barGroups = [];
-  final colors = [
-    Colors.blue,
-    Colors.yellow,
-    Colors.purple,
-    Colors.green
-  ]; // Color palette
-  int barIndex = 0;
-
-  data.forEach((key, value) {
-    final color = colors[barIndex % colors.length];
-    barGroups.add(
-      BarChartGroupData(
-        x: barIndex, // x-axis position of the bar
-        barRods: [
-          BarChartRodData(
-            toY: value,
-            color: color,
-            width: 22, // Width of the bar
-          ),
-        ],
-      ),
-    );
-    barIndex++;
-  });
-
-  return barGroups;
-}
-
 List<PieChartSectionData> convertToPieChartData(Map<String, Category> data, int touchedIndex) {
   final total = data.values.fold(0.0, (sum, category) => sum + category.value);
 
