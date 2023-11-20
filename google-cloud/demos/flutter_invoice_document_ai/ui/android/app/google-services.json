@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "553140087820",
+    "project_id": "learning-box-369917",
+    "storage_bucket": "learning-box-369917.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:553140087820:android:16fd84cb211c7cb6d51229",
+        "android_client_info": {
+          "package_name": "net.bwnyasse.flutter_invoice_document_ai_ui"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "553140087820-d0pah0f5t3i7q2j0gqt9j23jrgur6out.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHk-o2MoCxroAM5rjhVsGI77RZi2drqfM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "553140087820-d0pah0f5t3i7q2j0gqt9j23jrgur6out.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

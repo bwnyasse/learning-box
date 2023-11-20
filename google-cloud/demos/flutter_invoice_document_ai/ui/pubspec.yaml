@@ -1,0 +1,41 @@
+name: flutter_invoice_document_ai_ui
+description: "A new Flutter project."
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.2.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  flutter_svg: ^2.0.9
+  json_annotation: ^4.8.1
+  json_serializable: ^6.7.1
+  build_runner: ^2.4.6
+  fl_chart: ^0.64.0
+  go_router: ^12.1.1
+  google_sign_in: ^6.1.6
+  firebase_auth: ^4.14.0
+  firebase_core: ^2.22.0
+  flutter_bloc: ^8.1.3
+  provider: ^6.1.1
+  flutter_modular: ^6.3.2
+  asuka: ^2.2.0
+  logging: ^1.2.0
+  http: ^1.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
