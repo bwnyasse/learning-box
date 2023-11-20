@@ -1,12 +1,12 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_invoice_document_ai_ui/models/models.dart';
 import 'package:flutter_invoice_document_ai_ui/views/chartview_page.dart';
 import 'package:flutter_invoice_document_ai_ui/views/details_page.dart';
 import 'package:flutter_invoice_document_ai_ui/views/home_page.dart';
-import 'package:flutter_invoice_document_ai_ui/views/login_page.dart';
 import 'package:go_router/go_router.dart';
+
+import 'modules/auth/auth_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/',
           builder: (BuildContext context, GoRouterState state) =>
-              const LoginPage(),
+              const AuthPage(),
         ),
         GoRoute(
           path: '/home',
