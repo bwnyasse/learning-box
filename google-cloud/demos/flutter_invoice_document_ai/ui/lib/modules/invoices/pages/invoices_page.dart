@@ -79,13 +79,13 @@ class _InvoicesPageState extends State<InvoicesPage> {
         // bloc: BlocProvider.of<InvoicesBloc>(context),
         listener: (context, state) {
           if (state is InvoicesLoadingState) {
-            AsukaSnackbar.warning("InvoicesLoadingState").show();
+          //  AsukaSnackbar.warning("InvoicesLoadingState").show();
           }
           if (state is InvoicesErrorState) {
-            AsukaSnackbar.alert("InvoicesErrorState").show();
+             //AsukaSnackbar.alert("InvoicesErrorState").show();
           }
           if (state is InvoicesSuccessState) {
-            AsukaSnackbar.success("InvoicesSuccessState").show();
+             //AsukaSnackbar.success("InvoicesSuccessState").show();
           }
         },
         child: BlocBuilder<InvoicesBloc, InvoicesState>(
@@ -107,6 +107,8 @@ class _InvoicesPageState extends State<InvoicesPage> {
                     onTap: () {
                       // Navigate to the invoice details page
                       // You might pass the invoice data or id to the details page
+                      Modular.to.navigate('/details/',
+                          arguments: invoice);
                     },
                   );
                 },

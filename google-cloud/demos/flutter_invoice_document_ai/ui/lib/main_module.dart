@@ -2,6 +2,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import 'modules/auth/auth_module.dart';
 import 'modules/auth/auth_service.dart';
+import 'modules/details/details_module.dart';
 import 'modules/invoices/invoices_service.dart';
 import 'modules/auth/bloc/auth_bloc.dart';
 import 'modules/invoices/invoices_module.dart';
@@ -20,5 +21,6 @@ class MainModule extends Module {
     r.child('/', child: (context) => const SplashPage());
     r.module('/auth', module: AuthModule());
     r.module('/invoices', module: InvoicesModule());
+    r.module('/details', module: DetailsModule());
   }
 }
