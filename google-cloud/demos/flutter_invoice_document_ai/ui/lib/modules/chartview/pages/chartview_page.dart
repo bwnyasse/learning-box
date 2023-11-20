@@ -1,5 +1,12 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+
+import '../../../utils/utils.dart' as utils;
+import '../../invoices/invoices_service.dart';
+import 'custom_chartview.dart';
+
+InvoicesService get invoicesService => Modular.get<InvoicesService>();
 
 class ChartViewPage extends StatefulWidget {
   static const String routeKey = 'chartview';
@@ -20,146 +27,41 @@ class _ChartViewPageState extends State<ChartViewPage> {
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Indicator(color: Colors.blue, text: 'First', isSquare: true),
-                  SizedBox(height: 4),
-                  Indicator(
-                      color: Colors.yellow, text: 'Second', isSquare: true),
-                  SizedBox(height: 4),
-                  Indicator(
-                      color: Colors.purple, text: 'Third', isSquare: true),
-                  SizedBox(height: 4),
-                  Indicator(
-                      color: Colors.green, text: 'Fourth', isSquare: true),
-                ],
-              ),
+      body: CustomChartWidget(
+        title: 'Breakdown per categories',
+        indicators: [
+          for (var entry in invoicesService.totalPerCategory.entries)
+            Indicator(
+              color:
+                  entry.value.color, // Use the color from the Category object
+              text: "${entry.key} : ${entry.value.value}", // Use the category name as text
+              isSquare: true,
             ),
-            Expanded(
-              child: PieChart(
-                PieChartData(
-                  pieTouchData: PieTouchData(
-                    touchCallback: (FlTouchEvent event, pieTouchResponse) {
-                      setState(() {
-                        if (!event.isInterestedForInteractions ||
-                            pieTouchResponse == null ||
-                            pieTouchResponse.touchedSection == null) {
-                          touchedIndex = -1;
-                          return;
-                        }
-                        touchedIndex = pieTouchResponse
-                            .touchedSection!.touchedSectionIndex;
-                      });
-                    },
-                  ),
-                  borderData: FlBorderData(show: false),
-                  sectionsSpace: -0,
-                  centerSpaceRadius: 100,
-                  sections: showingSections(),
-                ),
-              ),
+        ],
+        chart: PieChart(
+          PieChartData(
+            pieTouchData: PieTouchData(
+              touchCallback: (FlTouchEvent event, pieTouchResponse) {
+                setState(() {
+                  if (!event.isInterestedForInteractions ||
+                      pieTouchResponse == null ||
+                      pieTouchResponse.touchedSection == null) {
+                    touchedIndex = -1;
+                    return;
+                  }
+                  touchedIndex =
+                      pieTouchResponse.touchedSection!.touchedSectionIndex;
+                });
+              },
             ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  List<PieChartSectionData> showingSections() {
-    return List.generate(4, (i) {
-      final isTouched = i == touchedIndex;
-      final fontSize = isTouched ? 25.0 : 16.0;
-      final radius = isTouched ? 60.0 : 50.0;
-      switch (i) {
-        case 0:
-          return PieChartSectionData(
-            color: Colors.blue,
-            value: 40,
-            title: '40%',
-            radius: radius,
-            titleStyle: TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          );
-        case 1:
-          return PieChartSectionData(
-            color: Colors.yellow,
-            value: 30,
-            title: '30%',
-            radius: radius,
-            titleStyle: TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          );
-        case 2:
-          return PieChartSectionData(
-            color: Colors.purple,
-            value: 15,
-            title: '15%',
-            radius: radius,
-            titleStyle: TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          );
-        case 3:
-          return PieChartSectionData(
-            color: Colors.green,
-            value: 15,
-            title: '15%',
-            radius: radius,
-            titleStyle: TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          );
-        default:
-          throw Error();
-      }
-    });
-  }
-}
-
-class Indicator extends StatelessWidget {
-  final Color color;
-  final String text;
-  final bool isSquare;
-
-  const Indicator({
-    super.key,
-    required this.color,
-    required this.text,
-    this.isSquare = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Container(
-          width: isSquare ? 32 : 24,
-          height: isSquare ? 32 : 24,
-          decoration: BoxDecoration(
-            shape: isSquare ? BoxShape.rectangle : BoxShape.circle,
-            color: color,
+            borderData: FlBorderData(show: false),
+            sectionsSpace: -0,
+            centerSpaceRadius: 100,
+            sections: utils.convertToPieChartData(
+                invoicesService.totalPerCategory, touchedIndex),
           ),
         ),
-        const SizedBox(width: 8),
-        Text(text),
-      ],
+      ),
     );
   }
 }

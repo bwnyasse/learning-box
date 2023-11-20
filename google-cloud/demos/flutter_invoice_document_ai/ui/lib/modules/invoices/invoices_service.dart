@@ -1,10 +1,13 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../../utils/utils.dart';
 import 'models/invoice_models.dart';
 
 class InvoicesService {
   InvoiceResponse invoiceResponse = InvoiceResponse(invoices: []);
+  Map<String, Category> totalPerCategory = {};
 
   // Real API call
   Future<InvoiceResponse> _fetchInvoicesFromApi() async {
@@ -37,6 +40,24 @@ class InvoicesService {
 
       // Comment out the below line when switching to the real API
       invoiceResponse = await _fetchMockInvoices();
+      // Total per category (assuming description denotes category)
+      for (var invoice in invoiceResponse.invoices) {
+        for (var item in invoice.data.lineItems) {
+          double amount = double.parse(item.amount.replaceAll(',', ''));
+
+          // Check if the category already exists
+          if (totalPerCategory.containsKey(item.description)) {
+            totalPerCategory[item.description]!.addValue(amount);
+          } else {
+            // Assign a new color for new category
+            Color categoryColor =
+                getRandomColor(); // Function to generate a random color
+
+            totalPerCategory[item.description] =
+                Category(value: amount, color: categoryColor);
+          }
+        }
+      }
     }
 
     return invoiceResponse;
