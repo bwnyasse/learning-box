@@ -1,8 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'models/user.dart';
+
+void handleAuthNavigation() {
+  FirebaseAuth.instance.authStateChanges().listen((User? user) {
+    if (user == null) {
+      Modular.to.navigate('/auth/');
+    } else {
+      Modular.to.navigate('/invoices/');
+    }
+  });
+}
 
 class AuthServiceException implements Exception {
   final Object error;

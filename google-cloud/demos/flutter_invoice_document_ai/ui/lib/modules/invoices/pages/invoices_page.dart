@@ -1,7 +1,8 @@
-import 'package:asuka/asuka.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:asuka/asuka.dart';
 
 import '../../auth/auth_service.dart';
 import '../bloc/invoices_bloc.dart';
@@ -24,6 +25,7 @@ class _InvoicesPageState extends State<InvoicesPage> {
   @override
   void initState() {
     super.initState();
+    handleAuthNavigation();
     BlocProvider.of<InvoicesBloc>(context).add(InvoicesLoadEvent());
   }
 
