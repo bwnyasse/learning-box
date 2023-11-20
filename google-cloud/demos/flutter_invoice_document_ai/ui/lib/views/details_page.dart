@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_invoice_document_ai_ui/models/models.dart';
+
+import '../modules/invoices/models/invoice_models.dart';
 
 class DetailsPage extends StatelessWidget {
   final InvoiceData invoiceData;
@@ -37,7 +38,7 @@ class DetailsPage extends StatelessWidget {
               ),
             ),
             Container(
-                  color: Colors.black, // Set background color to black
+              color: Colors.black, // Set background color to black
               child: Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: Column(
@@ -57,14 +58,18 @@ class DetailsPage extends StatelessWidget {
                     // Add more fields as needed
                     SizedBox(height: 20),
                     Text('Line Items:',
-                        style:
-                            TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white)),
                     for (var item in invoiceData.lineItems)
                       ListTile(
-                        title: Text(item.description, style: TextStyle(color: Colors.white)),
+                        title: Text(item.description,
+                            style: TextStyle(color: Colors.white)),
                         subtitle: Text(
                             'Quantity: ${item.quantity}, Unit Price: ${item.unitPrice}'),
-                       trailing: Text('Amount: ${item.amount}', style: TextStyle(color: Colors.white)),
+                        trailing: Text('Amount: ${item.amount}',
+                            style: TextStyle(color: Colors.white)),
                       ),
                   ],
                 ),
@@ -76,5 +81,3 @@ class DetailsPage extends StatelessWidget {
     );
   }
 }
-
-
