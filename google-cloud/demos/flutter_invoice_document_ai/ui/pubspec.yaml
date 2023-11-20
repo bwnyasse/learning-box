@@ -19,6 +19,11 @@ dependencies:
   build_runner: ^2.4.6
   fl_chart: ^0.64.0
   go_router: ^12.1.1
+  google_sign_in: ^6.1.6
+  firebase_auth: ^4.14.0
+  firebase_core: ^2.22.0
+  flutter_bloc: ^8.1.3
+  provider: ^6.1.1
 
 dev_dependencies:
   flutter_test:
