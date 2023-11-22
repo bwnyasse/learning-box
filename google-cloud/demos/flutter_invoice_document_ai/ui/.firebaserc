@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "learning-box-369917"
+  },
+  "targets": {
+    "learning-box-369917": {
+      "hosting": {
+        "ui": [
+          "learning-box-flutter-invoice-documentai"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

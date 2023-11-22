@@ -8,7 +8,7 @@ import '../bloc/auth_event.dart';
 AuthBloc get authBloc => Modular.get<AuthBloc>();
 
 class OnboardingPageConstants {
-  static const String coverImageUrl = "assets/login_background.jpg";
+  static const String coverImageUrl = "images/login_background.jpg";
 }
 
 class LoginWidget extends StatelessWidget {
@@ -48,7 +48,7 @@ class LoginWidget extends StatelessWidget {
                     foregroundColor: Colors.black, // Text color
                   ),
                   icon: SvgPicture.asset(
-                    "assets/google.svg",
+                    "images/google.svg",
                     width: 16,
                   ),
                   label: const Text('Sign in with Google'),
