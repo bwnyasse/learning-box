@@ -1,16 +1,18 @@
-# flutter_invoice_document_ai_ui
+# Flutter UI for Invoice Parser Application
 
-A new Flutter project.
+This is the Flutter-based user interface for the Invoice Parser Application. It displays data processed by the backend service interacting with Google Cloud's DocumentAI.
 
-## Getting Started
+## Installation
+1. Ensure you have Flutter installed on your system.
+2. Clone the repository and navigate to the `ui` directory.
+3. Run `flutter pub get` to install dependencies.
+4. Connect a device or emulator and run `flutter run` to start the app.
 
-This project is a starting point for a Flutter application.
+## Usage
+The UI allows users to view and interact with invoice data parsed by the DocumentAI service. It's designed for simplicity and ease of use.
 
-A few resources to get you started if this is your first Flutter project:
+## Contributing
+We welcome contributions! Please open an issue or a pull request to suggest improvements or add features.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## License
+This UI is released under the MIT License. See the LICENSE file for more details.
