@@ -36,10 +36,10 @@ class InvoicesService {
   Future<InvoiceResponse> fetchInvoices() async {
     if (invoiceResponse.invoices.isEmpty) {
       // Uncomment the below line when you want to use the real API
-      //invoiceResponse = await _fetchInvoicesFromApi();
+      invoiceResponse = await _fetchInvoicesFromApi();
 
       // Comment out the below line when switching to the real API
-      invoiceResponse = await _fetchMockInvoices();
+      //invoiceResponse = await _fetchMockInvoices();
       // Total per category (assuming description denotes category)
       for (var invoice in invoiceResponse.invoices) {
         for (var item in invoice.data.lineItems) {

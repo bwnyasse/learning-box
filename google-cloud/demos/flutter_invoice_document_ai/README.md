@@ -14,3 +14,11 @@ Contributions to this project are welcome! Please read the contribution guidelin
 
 ## License
 This project is licensed under the MIT License - see the LICENSE file in each sub-directory for details.
+
+
+
+# DEMO 
+
+fvm flutter run -d chrome --web-renderer html --web-browser-flag "--disable-web-security" 
+
+dart bin/main.dart processDocumentWithFormParser -p f2ffeccf6bdc85ae -f example/input/form.pdf

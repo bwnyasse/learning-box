@@ -27,7 +27,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthFailedState());
       }
     } catch (_) {
-      print("1");
+      //print("1");
       emit(AuthErrorState());
     }
   }
@@ -46,7 +46,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthFailedState());
       }
     } catch (e) {
-      print("2");
+     // print("2");
       emit(AuthErrorState());
     }
   }
@@ -71,7 +71,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (currentUser != null) {
       return AuthSuccessState(user: currentUser);
     } else {
-      print("3");
+     // print("3");
       return AuthErrorState();
     }
   }

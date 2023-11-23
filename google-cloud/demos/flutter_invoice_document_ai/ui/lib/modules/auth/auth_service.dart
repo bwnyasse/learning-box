@@ -20,7 +20,7 @@ class AuthServiceException implements Exception {
   final String message;
 
   AuthServiceException(this.message, this.error) {
-    print(error);
+    //print(error);
   }
 }
 

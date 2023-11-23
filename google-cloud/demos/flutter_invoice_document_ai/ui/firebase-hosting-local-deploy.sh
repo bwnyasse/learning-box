@@ -12,7 +12,7 @@ readonly HOSTING_TARGET_TO_USE='ui'
 readonly HOSTING_SITE_TO_USE='learning-box-flutter-invoice-documentai'
 
 # Need to have fvm & flutter installed on the local machine
-fvm flutter build web --web-renderer html
+fvm flutter build web --web-renderer html --web-browser-flag "--disable-web-security"
 
 # Need to have firebase cli installed on the local machine
 firebase use $FIREBASE_PROJECT_NAME

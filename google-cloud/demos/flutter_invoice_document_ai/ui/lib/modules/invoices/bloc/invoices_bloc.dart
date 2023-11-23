@@ -22,8 +22,7 @@ class InvoicesBloc extends Bloc<InvoicesEvent, InvoicesState> {
       // Capture more specific error information
       String errorMessage = 'Failed to load invoices';
 
-      print(
-          '$e\n$s'); // Optional: Print the error and stack trace for debugging purposes
+     // print( '$e\n$s'); // Optional: Print the error and stack trace for debugging purposes
       emit(InvoicesErrorState(message: errorMessage));
     }
   }
