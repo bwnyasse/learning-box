@@ -8,7 +8,6 @@ ENV PYTHONUNBUFFERED TRUE
 
 WORKDIR $APP_HOME
 COPY . .
-COPY assets/sa-key* .
 
 # Install production dependencies.
 RUN pip install functions-framework
