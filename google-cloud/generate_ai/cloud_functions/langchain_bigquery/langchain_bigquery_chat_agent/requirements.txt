@@ -1,0 +1,10 @@
+langchain 
+openai 
+chromadb 
+tiktoken 
+tabulate 
+sqlalchemy 
+sqlalchemy-bigquery 
+google-cloud-bigquery
+google-cloud-secret-manager
+flask
