@@ -85,7 +85,7 @@ def query_agent(request):
     with open('/app/sa-key-openai.txt', 'r') as file:
         openai_secret_key = file.read().strip()  # strip() to remove any trailing newline or spaces
     
-    os.environ["OPENAI_API_KEY"] = 'openai_secret_key'
+    os.environ["OPENAI_API_KEY"] = openai_secret_key
     
 
     # Initialize LangChain agent with your specific configurations

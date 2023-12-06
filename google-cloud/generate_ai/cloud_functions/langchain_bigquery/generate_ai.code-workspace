@@ -2,6 +2,12 @@
     "folders": [
         {
             "path": "langchain_bigquery_chat_agent"
+        },
+        {
+            "path": "../.."
+        },
+        {
+            "path": "../../../demos/flutter_invoice_document_ai"
         }
     ]
 }
