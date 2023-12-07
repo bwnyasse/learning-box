@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:xterm/xterm.dart';
+
 import 'main_module.dart';
 import 'main_widget.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +24,6 @@ void main() async {
 
 void _mainInZone() async {
   WidgetsFlutterBinding.ensureInitialized();
-
 
   return runApp(ModularApp(
     module: MainModule(),

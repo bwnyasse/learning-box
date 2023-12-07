@@ -7,7 +7,7 @@ class SearchInitState extends SearchState {}
 class SearchLoadingState extends SearchState {}
 
 class SearchLoadedState extends SearchState {
-  final SearchResponse response;
+  final SearchOutPut response;
 
   SearchLoadedState({required this.response});
 }

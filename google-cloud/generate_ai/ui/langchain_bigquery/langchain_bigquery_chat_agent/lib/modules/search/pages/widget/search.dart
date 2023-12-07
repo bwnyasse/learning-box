@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:animated_tree_view/animated_tree_view.dart';
+import 'package:xterm/xterm.dart';
+import 'package:ansi_styles/ansi_styles.dart';
 
 import '../../bloc/search_bloc.dart';
 import '../../bloc/search_event.dart';
 import '../../bloc/search_state.dart';
-import '../../models/model.dart';
+import 'terminal_result.dart';
 
 class Search extends StatefulWidget {
   const Search({super.key});
@@ -15,6 +16,11 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
+  Terminal terminal = Terminal();
+
+  // Variable to hold the selected radio button value
+  String _selectedAI = 'open_ai';
+
   // Create a text controller and use it to retrieve the current value
   // of the TextField.
   final myController = TextEditingController();
@@ -37,23 +43,24 @@ class _SearchState extends State<Search> {
         }
       },
       child: Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                'images/logo.png',
-                height: 100,
-              ),
-              const SizedBox(height: 20),
-              _buildSearchBar(),
-              const SizedBox(height: 20),
-              _buildSearchButton(),
-              const SizedBox(height: 20),
-              Expanded(
-                  child: Center(child: _buildSearchResults())), // Use Expanded
-            ],
-          ),
+        body: Column(
+          //mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Image.asset(
+              'images/logo.png',
+              height: 100,
+            ),
+            const SizedBox(height: 20),
+            _buildSearchBar(),
+            const SizedBox(height: 20),
+            _buildRadioButtons(),
+            const SizedBox(height: 20), // Add the radio buttons here
+            _buildSearchButton(),
+            const SizedBox(height: 20),
+            Expanded(
+              child: _buildSearchResults(),
+            ), // Use Expanded
+          ],
         ),
       ),
     );
@@ -91,6 +98,35 @@ class _SearchState extends State<Search> {
     );
   }
 
+  // Method to build radio buttons
+  Widget _buildRadioButtons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Radio<String>(
+          value: 'open_ai',
+          groupValue: _selectedAI,
+          onChanged: (String? value) {
+            setState(() {
+              _selectedAI = value!;
+            });
+          },
+        ),
+        const Text('OpenAI'),
+        Radio<String>(
+          value: 'vertex_ai',
+          groupValue: _selectedAI,
+          onChanged: (String? value) {
+            setState(() {
+              _selectedAI = value!;
+            });
+          },
+        ),
+        const Text('VertexAI'),
+      ],
+    );
+  }
+
   Widget _buildSearchButton() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -107,8 +143,10 @@ class _SearchState extends State<Search> {
             onPressed: () {
               String value = myController.text;
               if (value.isNotEmpty) {
-                BlocProvider.of<SearchBloc>(context)
-                    .add(SearchLoadEvent(prompt: value));
+                BlocProvider.of<SearchBloc>(context).add(SearchLoadEvent(
+                  prompt: value,
+                  option: _selectedAI, // Use the selected AI value
+                ));
               }
             },
           ),
@@ -124,7 +162,7 @@ class _SearchState extends State<Search> {
             label: const Text('Reset'),
             onPressed: () {
               myController.clear(); // Clear the text field
-
+              terminal = Terminal();
               BlocProvider.of<SearchBloc>(context).add(SearchResetEvent());
             },
           ),
@@ -141,66 +179,16 @@ class _SearchState extends State<Search> {
             child: CircularProgressIndicator(),
           );
         } else if (state is SearchLoadedState) {
-          return ListView.builder(
-            itemCount:
-                state.response.ai.length + 1, // Add 1 for the finalAnswer
-            itemBuilder: (context, index) {
-              if (index == state.response.ai.length) {
-                // Special item for finalAnswer
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    color: Colors.green, // Set the card color to green
-                    elevation: 2,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        "Final answer => ${state.response.finalAnswer}",
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
-                      ),
-                    ),
-                  ),
-                );
-              } else {
-                // Subtract 1 from index because the first item is finalAnswer
-                AIResponse aiResponse = state.response.ai[index];
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    elevation: 2,
-                    child: ListTile(
-                      title: Text("Thought: ${aiResponse.thought}",
-                          style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w500)),
-                      subtitle: Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            if (aiResponse.action != null &&
-                                aiResponse.action!.isNotEmpty)
-                              Text('Action: ${aiResponse.action}',
-                                  style: TextStyle(color: Colors.grey[600])),
-                            if (aiResponse.action != null &&
-                                aiResponse.action!.isNotEmpty)
-                              const SizedBox(height: 4),
-                            if (aiResponse.actionInput != null &&
-                                aiResponse.actionInput!.isNotEmpty)
-                              Text('Action Input: ${aiResponse.actionInput}',
-                                  style: TextStyle(color: Colors.grey[600])),
-                            if (aiResponse.actionInput != null &&
-                                aiResponse.actionInput!.isNotEmpty)
-                              const SizedBox(height: 4),
-                            // Add other items in a similar manner
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              }
-            },
+          // Assuming state.response is of type SearchOutPut
+
+          final forTerminal = formatForTerminal(state.response.output);
+
+          terminal.write(forTerminal.$2); // Write the output to the terminal
+
+          // Display the terminal using TerminalView
+          return TerminalResultWidget(
+            terminal: terminal,
+            finalAnswer: AnsiStyles.strip(forTerminal.$1),
           );
         } else {
           return const Center(child: Text(''));
@@ -208,4 +196,32 @@ class _SearchState extends State<Search> {
       },
     );
   }
+}
+
+(String, String) formatForTerminal(String text) {
+  // Split the text into lines
+  var lines = text.split('\n');
+
+  // Add '\r\n' to the end of each line
+  var formattedLines = lines.map((line) => line + '\r\n').toList();
+
+  // Join the lines back into a single string
+  return (extractFinalAnswer(text), formattedLines.join());
+}
+
+String extractFinalAnswer(String text) {
+  // Define a regular expression pattern to capture text between 'Final Answer:' and '> Finished chain.'
+  final RegExp regExp = RegExp(r'Final Answer:(.*?)> Finished chain\.',
+      dotAll: true); // dotAll: true allows '.' to match newline characters
+
+  // Find the first match in the text
+  final match = regExp.firstMatch(text);
+
+  if (match != null && match.groupCount >= 1) {
+    // Return the captured group, which is the content between the markers
+    return match.group(1)?.trim() ??
+        ""; // trim to remove leading/trailing whitespaces
+  }
+
+  return ""; // Return an empty string if no match is found
 }

@@ -23,7 +23,10 @@ class SearchService {
     return SearchResponse.fromJson(json.decode(fakeJson));
   }
 
-  Future<SearchResponse> searchQuery(String prompt) async {
+  Future<SearchOutPut> searchQuery({
+    required String prompt,
+    required String option,
+  }) async {
     final response = await http.post(
       Uri.parse(
           'https://langchain-bigquery-chat-agent-o2f4t6inaa-nn.a.run.app'),
@@ -32,33 +35,12 @@ class SearchService {
       },
       body: jsonEncode(<String, String>{
         'prompt': prompt,
+        'option': option,
       }),
     );
-
+    print(response.body);
     if (response.statusCode == 200) {
-      String responseBody = response.body;
-
-      // Remove additional quotes if they are wrapping the JSON string
-      if (responseBody.startsWith('"') && responseBody.endsWith('"')) {
-        responseBody = responseBody.substring(1, responseBody.length - 1);
-      }
-
-      // Replace escaped characters if necessary
-      responseBody =
-          responseBody.replaceAll(r'\n', '\n').replaceAll(r'\"', '"');
-
-      // Replace the sequence of escaped backslash and quote (\\\") with a single backslash followed by a quote (\")
-      responseBody = responseBody.replaceAll(r'\\\"', '\"');
-
-// Now replace remaining escaped backslashes
-      responseBody = responseBody.replaceAll(r'\\', '\\');
-
-      print(responseBody);
-      try {
-        return SearchResponse.fromJson(json.decode(responseBody));
-      } catch (e) {
-        throw Exception('Error parsing JSON: $e');
-      }
+      return SearchOutPut(output: response.body);
     } else {
       throw Exception('Failed to load data');
     }

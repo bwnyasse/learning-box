@@ -21,8 +21,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       SearchLoadEvent event, Emitter<SearchState> emit) async {
     try {
       emit(SearchLoadingState());
-      SearchResponse response = await service.searchQuery(event.prompt);
-      emit(SearchLoadedState(response: response));
+      SearchOutPut output = await service.searchQuery(
+        prompt: event.prompt,
+        option: event.option,
+      );
+      emit(SearchLoadedState(response: output));
     } catch (e, _) {
       print(e);
       // Capture more specific error information

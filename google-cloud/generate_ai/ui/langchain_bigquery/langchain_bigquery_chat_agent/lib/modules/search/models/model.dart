@@ -2,6 +2,14 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'model.g.dart';
 
+class SearchOutPut {
+  String output;
+
+  SearchOutPut({
+    required this.output,
+  });
+}
+
 @JsonSerializable()
 class SearchResponse {
   List<AIResponse> ai;

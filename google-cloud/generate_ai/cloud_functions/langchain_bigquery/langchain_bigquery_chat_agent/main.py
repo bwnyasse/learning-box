@@ -8,10 +8,12 @@ from langchain.agents import create_sql_agent
 from langchain.agents.agent_toolkits import SQLDatabaseToolkit
 from langchain.sql_database import SQLDatabase
 from langchain.llms.openai import OpenAI
+from langchain.llms import VertexAI
 from langchain.agents import AgentExecutor
 
 import json
 import re
+import vertexai
 
 def remove_ansi_escape_codes(text):
     # ANSI escape code regex
@@ -72,14 +74,21 @@ def query_agent(request):
     request_json = request.get_json(silent=True)
     request_args = request.args
 
-    if request_json and 'prompt' in request_json:
-        prompt = request_json['prompt']
-    elif request_args and 'prompt' in request_args:
-        prompt = request_args['prompt']
+    # Extract 'prompt' and 'option' from the request JSON
+    if request_json:
+        prompt = request_json.get('prompt')
+        option = request_json.get('option')
     else:
+        return 'Invalid request', 400
+
+    if not prompt:
         return 'No prompt provided', 400
 
     # Setup and authentication (use Secret Manager for OpenAI key)
+
+    # Init Vertex AI
+    project_id = "learning-box-369917"
+    vertexai.init(project=project_id, location="northamerica-northeast1")
 
     # Read the OpenAI secret key from the file
     with open('/app/sa-key-openai.txt', 'r') as file:
@@ -87,13 +96,19 @@ def query_agent(request):
     
     os.environ["OPENAI_API_KEY"] = openai_secret_key
     
+    # Initialize llm based on the selected option
+    if option == 'open_ai':
+        llm = OpenAI(model="text-davinci-003", temperature=0)
+    elif option == 'vertex_ai':
+        llm = VertexAI(model_name="text-bison@001", temperature=0)
+    else:
+        raise ValueError("Invalid option selected")
 
     # Initialize LangChain agent with your specific configurations
-    project_id = "learning-box-369917"
-    dataset = "langchain_test_churn_table" #@param {type:"string"}
+    dataset = "langchain_test_churn_table" 
     sqlalchemy_url = f'bigquery://{project_id}/{dataset}?credentials_path=/app/sa-key-langchain-test-over-bigquery.json'
     db = SQLDatabase.from_uri(sqlalchemy_url)
-    llm = OpenAI(temperature=0, model="text-davinci-003")
+    
     toolkit = SQLDatabaseToolkit(db=db, llm=llm)
     agent_executor = create_sql_agent(
         llm=llm,
@@ -105,4 +120,5 @@ def query_agent(request):
     # Execute and respond
     response_text = capture_console_output(agent_executor.run, {prompt})
     json_output = parse_response_to_json(response_text)
-    return json.dumps(json_output)
+    #return json.dumps(json_output)
+    return response_text
