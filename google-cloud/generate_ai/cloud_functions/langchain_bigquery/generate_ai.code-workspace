@@ -1,10 +1,10 @@
 {
     "folders": [
         {
-            "path": "langchain_bigquery_chat_agent"
+            "path": "../../../../../../../cloud-source/formation-dart-flutter"
         },
         {
-            "path": "../.."
+            "path": "../../../../../codelabs-builder"
         }
     ]
 }
