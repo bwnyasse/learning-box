@@ -4,28 +4,30 @@ import 'package:flutter_web_search_and_conversation/src/platform_view_registry.d
 
 // Unique identifier for the search widget container
 const String viewTypeId = 'search-widget-container';
+const String inputForBooks = 'searchWidgetTriggerBooks';
+const String inputForWebsites = 'searchWidgetTriggerWebsites';
 
+// Entry point for the application
 void main() {
   // Register the view factory for the search widget container
   platformViewRegistry.registerViewFactory(
     viewTypeId,
     (int viewId) {
-      // Create an input element that triggers the search widget Books
-      final inputBooks = html.InputElement()
-        ..id = 'searchWidgetTriggerBooks'
-        ..style.display = 'none'; // Hide the input element
-      // Create an input element that triggers the search widget Books
-      final inputWebsites = html.InputElement()
-        ..id = 'searchWidgetTriggerWebsites'
-        ..style.display = 'none'; // Hide the input element
-      // Return a div element that contains the input
+      // Create and return a div element that contains the input elements
       return html.DivElement()
-        ..append(inputBooks)
-        ..append(inputWebsites);
+        ..append(_createInputElement(inputForBooks))
+        ..append(_createInputElement(inputForWebsites));
     },
   );
 
   runApp(MyApp());
+}
+
+// Utility function to create a hidden input element
+html.InputElement _createInputElement(String id) {
+  return html.InputElement()
+    ..id = id
+    ..style.display = 'none'; // Hide the input element
 }
 
 class MyApp extends StatelessWidget {
@@ -38,8 +40,7 @@ class MyApp extends StatelessWidget {
         ),
         body: Center(
           child: Column(
-            mainAxisSize: MainAxisSize
-                .min, // This centers the Column's content vertically.
+            mainAxisSize: MainAxisSize.min, // This centers the Column's content vertically.
             children: [
               const SizedBox(
                 height: 0, // Specify the height
@@ -48,20 +49,14 @@ class MyApp extends StatelessWidget {
               ),
               // Button for launching a search for books
               FloatingActionButton.extended(
-                onPressed: () {
-                  // Programmatically click the hidden input element to trigger the search widget
-                  html.querySelector('#searchWidgetTriggerBooks')?.click();
-                },
+                onPressed: () => _triggerSearch(inputForBooks),
                 icon: const Icon(Icons.book),
                 label: const Text('Search Books'),
               ),
               const SizedBox(height: 20), // Spacing between the buttons
               // Button for exploring websites
               FloatingActionButton.extended(
-                onPressed: () {
-                  // Implement your functionality for exploring websites here
-                  html.querySelector('#searchWidgetTriggerWebsites')?.click();
-                },
+                onPressed: () => _triggerSearch(inputForWebsites),
                 icon: const Icon(Icons.explore),
                 label: const Text('Explore Websites'),
               ),
@@ -70,5 +65,10 @@ class MyApp extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  // Utility function to trigger the search widget
+  void _triggerSearch(String triggerId) {
+    html.querySelector('#$triggerId')?.click();
   }
 }
