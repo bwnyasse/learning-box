@@ -1,4 +1,5 @@
-import 'dart:html' as html;
+import 'package:universal_html/html.dart' as html;
+// Conditional imports
 import 'package:flutter/material.dart';
 import 'package:flutter_web_search_and_conversation/src/platform_view_registry.dart';
 
@@ -31,6 +32,8 @@ html.InputElement _createInputElement(String id) {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -40,7 +43,8 @@ class MyApp extends StatelessWidget {
         ),
         body: Center(
           child: Column(
-            mainAxisSize: MainAxisSize.min, // This centers the Column's content vertically.
+            mainAxisSize: MainAxisSize
+                .min, // This centers the Column's content vertically.
             children: [
               const SizedBox(
                 height: 0, // Specify the height
