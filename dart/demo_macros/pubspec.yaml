@@ -1,0 +1,10 @@
+name: demo_macros
+description: Demo Macros
+version: 1.0.0
+
+environment:
+  # Make sure you have Dart version 3.5.0-152 or later. 
+  sdk: ^3.5.0-152
+
+dependencies:
+  json: ^0.20.2
