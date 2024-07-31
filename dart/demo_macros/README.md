@@ -12,4 +12,4 @@ curl https://ollama-cloud-run-llama3-o2f4t6inaa-ue.a.run.app/api/generate -d \
 
   http://192.168.1.10:11434
 
-  OCO_OLLAMA_API_URL='https://ollama-cloud-run-llama3-o2f4t6inaa-ue.a.run.app/api/chat' opencommit
+  OCO_OLLAMA_API_URL='https://ollama-cloud-run-llama3-o2f4t6inaa-ue.a.run.app/api/generate' opencommit
