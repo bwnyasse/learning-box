@@ -1,0 +1,23 @@
+<div class="post-hero">
+    {{ if .Params.image }}
+    <div class="post-hero-image">
+        <img src="{{ .Params.image }}" alt="{{ .Title }}">
+    </div>
+    {{ end }}
+    <div class="post-hero-overlay"></div>
+    <div class="container">
+        <div class="post-hero-content">
+            {{ range .Params.categories }}
+                <span class="category-tag">{{ . }}</span>
+            {{ end }}
+            <h1 class="post-hero-title">{{ .Title }}</h1>
+            {{ with .Description }}
+                <p class="post-hero-description">{{ . }}</p>
+            {{ end }}
+            <div class="post-meta">
+                <span class="post-date">{{ .Date.Format "January 2, 2006" }}</span>
+                <span class="reading-time">{{ .ReadingTime }} min read</span>
+            </div>
+        </div>
+    </div>
+</div>
