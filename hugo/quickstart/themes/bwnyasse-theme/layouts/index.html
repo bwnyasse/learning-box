@@ -1,0 +1,16 @@
+{{ define "main" }}
+<div class="home">
+    <h1>Welcome to {{ .Site.Title }}</h1>
+    <div class="posts-list">
+        {{ range where .Site.RegularPages "Type" "posts" }}
+        <article>
+            <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+            <time>{{ .Date.Format "2006-01-02" }}</time>
+            <div class="summary">
+                {{ .Summary }}
+            </div>
+        </article>
+        {{ end }}
+    </div>
+</div>
+{{ end }}

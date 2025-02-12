@@ -1,0 +1,14 @@
+{{ define "main" }}
+<div class="section-page">
+    <h1>{{ .Title }}</h1>
+    {{ range .Pages }}
+    <article>
+        <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+        <time>{{ .Date.Format "2006-01-02" }}</time>
+        <div class="summary">
+            {{ .Summary }}
+        </div>
+    </article>
+    {{ end }}
+</div>
+{{ end }}
