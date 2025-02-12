@@ -4,7 +4,9 @@
         <div class="author-info">
             <img src="/images/author.jpg" alt="Author" class="author-avatar">
             <h3 class="author-name">John Doe</h3>
-            <p class="author-bio">Tech enthusiast and frequent traveler. Writing about technology, travel, and life experiences.</p>
+            <p class="author-bio">Tech enthusiast and frequent traveler. Writing about technology, travel, and life
+                experiences.</p>
+            <a href="/about" class="know-more-btn">Know More</a>
         </div>
     </div>
 
@@ -34,7 +36,7 @@
         <ul class="category-list">
             {{ range $name, $taxonomy := .Site.Taxonomies.categories }}
             <li>
-                <a href="{{ "/categories/" | relLangURL }}{{ $name | urlize }}">
+                <a href="{{ " /categories/" | relLangURL }}{{ $name | urlize }}">
                     {{ $name }}
                     <span class="category-count">{{ $taxonomy.Count }}</span>
                 </a>
@@ -48,7 +50,7 @@
         <h3 class="widget-title">Popular Tags</h3>
         <div class="tags-cloud">
             {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
-            <a href="{{ "/tags/" | relLangURL }}{{ $name | urlize }}" class="tag-link">
+            <a href="{{ " /tags/" | relLangURL }}{{ $name | urlize }}" class="tag-link">
                 {{ $name }}
             </a>
             {{ end }}
