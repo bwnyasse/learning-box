@@ -1,7 +1,15 @@
 baseURL = 'https://example.org/'
 languageCode = 'en-us'
-title = 'My New Hugo Site'
+title = 'Boris-Wilfried'
 theme = 'bwnyasse-theme'
 
 [pagination]
   pagerSize = 4
+
+[params.social]
+facebook = "https://facebook.com/yourpage"
+linkedin = "https://linkedin.com/in/yourprofile"
+tiktok = "https://tiktok.com/@yourhandle"
+instagram = "https://instagram.com/yourprofile"
+youtube = "https://youtube.com/yourchannel"
+twitter = "https://twitter.com/yourhandle"
