@@ -540,29 +540,6 @@ body {
     text-decoration: none;
 }
 
-.newsletter-form {
-    display: flex;
-    gap: var(--spacing-unit);
-}
-
-.newsletter-form input {
-    flex: 1;
-    padding: calc(var(--spacing-unit) * 1.5);
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 4px;
-    background: rgba(255,255,255,0.1);
-    color: white;
-}
-
-.newsletter-form button {
-    padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 3);
-    background: var(--primary-color);
-    border: none;
-    border-radius: 4px;
-    color: white;
-    cursor: pointer;
-}
-
 .footer-bottom {
     border-top: 1px solid rgba(255,255,255,0.1);
     padding: calc(var(--spacing-unit) * 3) 0;
@@ -770,12 +747,6 @@ body {
     color: white;
 }
 
-/* Newsletter Form */
-.newsletter-form p {
-    margin-bottom: 16px;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-}
 
 .form-group {
     display: flex;
