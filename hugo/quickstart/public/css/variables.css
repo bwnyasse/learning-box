@@ -17,4 +17,8 @@
     --spacing-unit: 8px;
     --container-width: 1200px;
     --grid-gap: 2rem;
+
+    --primary-color-dark: #00a57a;
+    --background-light: #f5f5f5;
+    --border-color: #e0e0e0;
 }

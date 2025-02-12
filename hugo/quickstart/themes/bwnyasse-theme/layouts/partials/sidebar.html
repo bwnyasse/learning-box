@@ -1,9 +1,18 @@
 <aside class="sidebar">
+    <!-- Author Widget -->
+    <div class="sidebar-widget author-widget">
+        <div class="author-info">
+            <img src="/images/author.jpg" alt="Author" class="author-avatar">
+            <h3 class="author-name">John Doe</h3>
+            <p class="author-bio">Tech enthusiast and frequent traveler. Writing about technology, travel, and life experiences.</p>
+        </div>
+    </div>
+
     <!-- Recent Posts Widget -->
     <div class="sidebar-widget">
         <h3 class="widget-title">Recent Posts</h3>
         <div class="recent-posts">
-            {{ range first 5 (where .Site.RegularPages "Type" "posts") }}
+            {{ range first 3 (where .Site.RegularPages "Type" "posts") }}
             <div class="recent-post-item">
                 {{ if .Params.image }}
                 <div class="recent-post-image">
@@ -34,15 +43,27 @@
         </ul>
     </div>
 
-    <!-- Social Links Widget -->
+    <!-- Tags Cloud Widget -->
     <div class="sidebar-widget">
-        <h3 class="widget-title">Follow Us</h3>
-        <div class="social-links">
-            {{ with .Site.Params.social }}
-                {{ with .twitter }}<a href="{{ . }}" class="social-link twitter">Twitter</a>{{ end }}
-                {{ with .github }}<a href="{{ . }}" class="social-link github">GitHub</a>{{ end }}
-                {{ with .linkedin }}<a href="{{ . }}" class="social-link linkedin">LinkedIn</a>{{ end }}
+        <h3 class="widget-title">Popular Tags</h3>
+        <div class="tags-cloud">
+            {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
+            <a href="{{ "/tags/" | relLangURL }}{{ $name | urlize }}" class="tag-link">
+                {{ $name }}
+            </a>
             {{ end }}
         </div>
+    </div>
+
+    <!-- Newsletter Widget -->
+    <div class="sidebar-widget">
+        <h3 class="widget-title">Newsletter</h3>
+        <form class="newsletter-form">
+            <p>Stay updated with our latest posts</p>
+            <div class="form-group">
+                <input type="email" placeholder="Your email address" required>
+                <button type="submit">Subscribe</button>
+            </div>
+        </form>
     </div>
 </aside>

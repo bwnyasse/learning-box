@@ -1,8 +1,9 @@
 +++
-title = 'Post 2'
+title = 'An Experiential Guide to Explore this Kingdom'
 date = 2023-02-15T10:00:00-07:00
 draft = false
 tags = ['red','green']
+categories = ['Travel', 'Guide']
 image =  "/images/1.jpg"
 +++
 

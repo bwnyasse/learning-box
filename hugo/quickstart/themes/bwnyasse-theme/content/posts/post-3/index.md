@@ -1,8 +1,9 @@
 +++
-title = 'Post 3'
+title = 'Alaska Cruises Will Restart As Biden Signs New Tourism Law'
 date = 2023-03-15T11:00:00-07:00
 draft = false
 tags = ['red','green','blue']
+categories = ['Auto']
 image =  "/images/1.jpg"
 +++
 
