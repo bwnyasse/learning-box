@@ -1,0 +1,24 @@
+{{ if gt .Paginator.TotalPages 1 }}
+<nav class="pagination">
+    {{ $paginator := .Paginator }}
+    
+    <!-- Previous arrow (show only if not on first page) -->
+    {{ if and (ne $paginator.PageNumber 1) }}
+        <a class="page-item nav-arrow" href="{{ $paginator.Prev.URL }}" aria-label="Previous">←</a>
+    {{ end }}
+    
+    <!-- Page numbers -->
+    {{ range $paginator.Pagers }}
+        {{ if eq . $paginator }}
+            <span class="page-item active">{{ .PageNumber }}</span>
+        {{ else }}
+            <a class="page-item" href="{{ .URL }}">{{ .PageNumber }}</a>
+        {{ end }}
+    {{ end }}
+    
+    <!-- Next arrow (show only if not on last page) -->
+    {{ if and (ne $paginator.PageNumber $paginator.TotalPages) }}
+        <a class="page-item nav-arrow" href="{{ $paginator.Next.URL }}" aria-label="Next">→</a>
+    {{ end }}
+</nav>
+{{ end }}

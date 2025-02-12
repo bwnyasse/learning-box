@@ -929,3 +929,45 @@ body {
         font-size: 1.5rem;
     }
 }
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.page-item {
+    min-width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 12px;
+    border-radius: 4px;
+    background: white;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+.page-item.nav-arrow {
+    font-size: 1.2rem;
+    padding: 0 8px;
+}
+
+.page-item:hover {
+    background: var(--background-light);
+    color: var(--primary-color);
+}
+
+.page-item.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    cursor: default;
+}
