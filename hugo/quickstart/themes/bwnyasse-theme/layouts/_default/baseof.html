@@ -1,16 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ .Site.LanguageCode | default "en" }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ .Site.Title }}{{ with .Title }} | {{ . }}{{ end }}</title>
-    {{ partial "head.html" . }}
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ "css/variables.css" | relURL }}">
+    <link rel="stylesheet" href="{{ "css/main.css" | relURL }}">
 </head>
 <body>
     {{ partial "header.html" . }}
-    <main>
+    <main class="site-main">
         {{ block "main" . }}{{ end }}
     </main>
     {{ partial "footer.html" . }}
+
+    <!-- Scripts -->
+    <script src="{{ "js/main.js" | relURL }}" defer></script>
 </body>
 </html>

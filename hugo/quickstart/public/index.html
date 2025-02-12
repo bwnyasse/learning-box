@@ -1,60 +1,128 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-us">
 <head>
 	<meta name="generator" content="Hugo 0.143.1"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My New Hugo Site | Home</title>
-    <link rel="stylesheet" href="/css/style.css">
-
+    <title>My New Hugo Site</title>
+    
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    
+    <link rel="stylesheet" href="/css/variables.css">
+    <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-    <header>
-    <nav>
-        <a href="http://localhost:1313/">Home</a>
-        
-        <a href="/">Home</a>
-        
-        <a href="/posts/">Posts</a>
-        
-        <a href="/tags/">Tags</a>
-        
-    </nav>
-</header>
+    <header class="site-header js-header">
+    <div class="container">
+        <div class="header-content">
+            <a href="http://localhost:1313/" class="site-logo">
+                
+                    <span class="logo-text">My New Hugo Site</span>
+                
+            </a>
 
-    <main>
+            <nav class="main-nav">
+                
+                
+                <a href="/" class="nav-link active">
+                    Home
+                </a>
+                
+                <a href="/posts/" class="nav-link ">
+                    Posts
+                </a>
+                
+                <a href="/tags/" class="nav-link ">
+                    Tags
+                </a>
+                
+            </nav>
+
+            <div class="header-actions">
+                <div class="language-selector">
+                    <select>
+                        <option value="en">En</option>
+                    </select>
+                </div>
+
+                <div class="search-box">
+                    <input type="text" placeholder="Search..." aria-label="Search">
+                    <button type="submit" aria-label="Submit search">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+    <main class="site-main">
         
-<div class="home">
-    <h1>Welcome to My New Hugo Site</h1>
-    <div class="posts-list">
+<div class="container">
+    <section class="hero">
+    <div class="container">
         
-        <article>
-            <h2><a href="http://localhost:1313/posts/post-3/">Post 3</a></h2>
-            <time>2023-03-15</time>
-            <div class="summary">
-                <p>Occaecat aliqua consequat laborum ut ex aute aliqua culpa quis irure esse magna dolore quis. Proident fugiat labore eu laboris officia Lorem enim. Ipsum occaecat cillum ut tempor id sint aliqua incididunt nisi incididunt reprehenderit. Voluptate ad minim sint est aute aliquip esse occaecat tempor officia qui sunt. Aute ex ipsum id ut in est velit est laborum incididunt. Aliqua qui id do esse sunt eiusmod id deserunt eu nostrud aute sit ipsum. Deserunt esse cillum Lorem non magna adipisicing mollit amet consequat.</p>
+            <h1 class="hero-title">Latest Articles</h1>
+        
+    </div>
+</section>
+    
+    <div class="articles-grid">
+        
+        
+        <article class="article-card">
+            
+            <div class="article-content">
+                <div class="article-categories">
+                    
+                </div>
+                <h2 class="article-title">
+                    <a href="http://localhost:1313/posts/post-3/">Post 3</a>
+                </h2>
+                <p class="article-excerpt"><p>Occaecat aliqua consequat laborum ut ex aute aliqua culpa quis irure esse magna dolore quis. Proident fugiat labore eu laboris officia Lorem enim. Ipsum occaecat cillum ut tempor id sint aliqua incididunt nisi incididunt reprehenderit. Voluptate ad minim sint est aute aliquip esse occaecat tempor officia qui sunt. Aute ex ipsum id ut in est velit est laborum incididunt. Aliqua qui id do esse sunt eiusmod id deserunt eu nostrud aute sit ipsum. Deserunt esse cillum Lorem non magna adipisicing mollit amet consequat.</p></p>
+                <a href="http://localhost:1313/posts/post-3/" class="read-more">Read Full Article</a>
             </div>
         </article>
         
-        <article>
-            <h2><a href="http://localhost:1313/posts/post-2/">Post 2</a></h2>
-            <time>2023-02-15</time>
-            <div class="summary">
-                <p>Anim eiusmod irure incididunt sint cupidatat. Incididunt irure irure irure nisi ipsum do ut quis fugiat consectetur proident cupidatat incididunt cillum. Dolore voluptate occaecat qui mollit laborum ullamco et. Ipsum laboris officia anim laboris culpa eiusmod ex magna ex cupidatat anim ipsum aute. Mollit aliquip occaecat qui sunt velit ut cupidatat reprehenderit enim sunt laborum. Velit veniam in officia nulla adipisicing ut duis officia.</p>
-<p>Exercitation voluptate irure in irure tempor mollit Lorem nostrud ad officia. Velit id fugiat occaecat do tempor. Sit officia Lorem aliquip eu deserunt consectetur. Aute proident deserunt in nulla aliquip dolore ipsum Lorem ut cupidatat consectetur sit sint laborum. Esse cupidatat sit sint sunt tempor exercitation deserunt. Labore dolor duis laborum est do nisi ut veniam dolor et nostrud nostrud.</p>
+        <article class="article-card">
+            
+            <div class="article-content">
+                <div class="article-categories">
+                    
+                </div>
+                <h2 class="article-title">
+                    <a href="http://localhost:1313/posts/post-2/">Post 2</a>
+                </h2>
+                <p class="article-excerpt"><p>Anim eiusmod irure incididunt sint cupidatat. Incididunt irure irure irure nisi ipsum do ut quis fugiat consectetur proident cupidatat incididunt cillum. Dolore voluptate occaecat qui mollit laborum ullamco et. Ipsum laboris officia anim laboris culpa eiusmod ex magna ex cupidatat anim ipsum aute. Mollit aliquip occaecat qui sunt velit ut cupidatat reprehenderit enim sunt laborum. Velit veniam in officia nulla adipisicing ut duis officia.</p>
+<p>Exercitation voluptate irure in irure tempor mollit Lorem nostrud ad officia. Velit id fugiat occaecat do tempor. Sit officia Lorem aliquip eu deserunt consectetur. Aute proident deserunt in nulla aliquip dolore ipsum Lorem ut cupidatat consectetur sit sint laborum. Esse cupidatat sit sint sunt tempor exercitation deserunt. Labore dolor duis laborum est do nisi ut veniam dolor et nostrud nostrud.</p></p>
+                <a href="http://localhost:1313/posts/post-2/" class="read-more">Read Full Article</a>
             </div>
         </article>
         
-        <article>
-            <h2><a href="http://localhost:1313/posts/post-1/">Post 1</a></h2>
-            <time>2023-01-15</time>
-            <div class="summary">
-                <p>Tempor proident minim aliquip reprehenderit dolor et ad anim Lorem duis sint eiusmod. Labore ut ea duis dolor. Incididunt consectetur proident qui occaecat incididunt do nisi Lorem. Tempor do laborum elit laboris excepteur eiusmod do. Eiusmod nisi excepteur ut amet pariatur adipisicing Lorem.</p>
-<p>Occaecat nulla excepteur dolore excepteur duis eiusmod ullamco officia anim in voluptate ea occaecat officia. Cillum sint esse velit ea officia minim fugiat. Elit ea esse id aliquip pariatur cupidatat id duis minim incididunt ea ea. Anim ut duis sunt nisi. Culpa cillum sit voluptate voluptate eiusmod dolor. Enim nisi Lorem ipsum irure est excepteur voluptate eu in enim nisi. Nostrud ipsum Lorem anim sint labore consequat do.</p>
+        <article class="article-card">
+            
+            <div class="article-content">
+                <div class="article-categories">
+                    
+                </div>
+                <h2 class="article-title">
+                    <a href="http://localhost:1313/posts/post-1/">Post 1</a>
+                </h2>
+                <p class="article-excerpt"><p>Tempor proident minim aliquip reprehenderit dolor et ad anim Lorem duis sint eiusmod. Labore ut ea duis dolor. Incididunt consectetur proident qui occaecat incididunt do nisi Lorem. Tempor do laborum elit laboris excepteur eiusmod do. Eiusmod nisi excepteur ut amet pariatur adipisicing Lorem.</p>
+<p>Occaecat nulla excepteur dolore excepteur duis eiusmod ullamco officia anim in voluptate ea occaecat officia. Cillum sint esse velit ea officia minim fugiat. Elit ea esse id aliquip pariatur cupidatat id duis minim incididunt ea ea. Anim ut duis sunt nisi. Culpa cillum sit voluptate voluptate eiusmod dolor. Enim nisi Lorem ipsum irure est excepteur voluptate eu in enim nisi. Nostrud ipsum Lorem anim sint labore consequat do.</p></p>
+                <a href="http://localhost:1313/posts/post-1/" class="read-more">Read Full Article</a>
             </div>
         </article>
         
     </div>
+
+    
 </div>
 
     </main>
@@ -62,5 +130,8 @@
     <p>&copy; 2025 My New Hugo Site</p>
 </footer>
 
+
+    
+    <script src="/js/main.js" defer></script>
 </body>
 </html>

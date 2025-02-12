@@ -1,0 +1,12 @@
+<section class="hero">
+    <div class="container">
+        {{ if .IsHome }}
+            <h1 class="hero-title">Latest Articles</h1>
+        {{ else }}
+            <h1 class="hero-title">{{ .Title }}</h1>
+            {{ with .Description }}
+                <p class="hero-description">{{ . }}</p>
+            {{ end }}
+        {{ end }}
+    </div>
+</section>

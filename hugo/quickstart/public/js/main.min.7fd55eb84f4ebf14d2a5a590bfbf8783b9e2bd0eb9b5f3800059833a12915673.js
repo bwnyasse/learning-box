@@ -1,0 +1,1 @@
+(()=>{document.addEventListener("DOMContentLoaded",function(){const e=document.querySelector(".js-header");let t=window.scrollY;window.addEventListener("scroll",()=>{const n=window.scrollY;n>t?e.classList.add("header-hidden"):e.classList.remove("header-hidden"),n>100?e.classList.add("header-sticky"):e.classList.remove("header-sticky"),t=n})})})()

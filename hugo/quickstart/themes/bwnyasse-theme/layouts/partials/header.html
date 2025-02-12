@@ -1,8 +1,40 @@
-<header>
-    <nav>
-        <a href="{{ .Site.BaseURL }}">Home</a>
-        {{ range .Site.Menus.main }}
-        <a href="{{ .URL }}">{{ .Name }}</a>
-        {{ end }}
-    </nav>
+<header class="site-header js-header">
+    <div class="container">
+        <div class="header-content">
+            <a href="{{ .Site.BaseURL }}" class="site-logo">
+                {{ with .Site.Params.logo }}
+                    <img src="{{ . }}" alt="{{ $.Site.Title }}" class="logo-img">
+                {{ else }}
+                    <span class="logo-text">{{ .Site.Title }}</span>
+                {{ end }}
+            </a>
+
+            <nav class="main-nav">
+                {{ $currentPage := . }}
+                {{ range .Site.Menus.main }}
+                <a href="{{ .URL }}" class="nav-link {{ if $currentPage.IsMenuCurrent "main" . }}active{{ end }}">
+                    {{ .Name }}
+                </a>
+                {{ end }}
+            </nav>
+
+            <div class="header-actions">
+                <div class="language-selector">
+                    <select>
+                        <option value="en">En</option>
+                    </select>
+                </div>
+
+                <div class="search-box">
+                    <input type="text" placeholder="Search..." aria-label="Search">
+                    <button type="submit" aria-label="Submit search">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>

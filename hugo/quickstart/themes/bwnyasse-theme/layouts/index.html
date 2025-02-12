@@ -1,16 +1,36 @@
 {{ define "main" }}
-<div class="home">
-    <h1>Welcome to {{ .Site.Title }}</h1>
-    <div class="posts-list">
-        {{ range where .Site.RegularPages "Type" "posts" }}
-        <article>
-            <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
-            <time>{{ .Date.Format "2006-01-02" }}</time>
-            <div class="summary">
-                {{ .Summary }}
+<div class="container">
+    {{ partial "hero.html" . }}
+    
+    <div class="articles-grid">
+        {{ $paginator := .Paginate (where .Site.RegularPages "Type" "posts") }}
+        {{ range $paginator.Pages }}
+        <article class="article-card">
+            {{ if .Params.image }}
+            <div class="article-image">
+                <img src="{{ .Params.image }}" alt="{{ .Title }}">
+                <div class="article-meta">
+                    <span class="reading-time">{{ .ReadingTime }} MINUTES READ</span>
+                    <span class="post-date">{{ .Date.Format "02 JAN 2006" }}</span>
+                </div>
+            </div>
+            {{ end }}
+            <div class="article-content">
+                <div class="article-categories">
+                    {{ range .Params.categories }}
+                        <span class="category-tag">{{ . }}</span>
+                    {{ end }}
+                </div>
+                <h2 class="article-title">
+                    <a href="{{ .Permalink }}">{{ .Title }}</a>
+                </h2>
+                <p class="article-excerpt">{{ .Summary }}</p>
+                <a href="{{ .Permalink }}" class="read-more">Read Full Article</a>
             </div>
         </article>
         {{ end }}
     </div>
+
+    {{ template "_internal/pagination.html" . }}
 </div>
 {{ end }}

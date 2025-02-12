@@ -1,9 +1,28 @@
 {{ define "main" }}
-<article class="post">
-    <h1>{{ .Title }}</h1>
-    <time>{{ .Date.Format "2006-01-02" }}</time>
-    <div class="content">
-        {{ .Content }}
+<article class="single-post">
+    {{ if .Params.image }}
+    <div class="post-hero">
+        <img src="{{ .Params.image }}" alt="{{ .Title }}">
+    </div>
+    {{ end }}
+    
+    <div class="container">
+        <header class="post-header">
+            <div class="post-meta">
+                {{ range .Params.categories }}
+                    <span class="category-tag">{{ . }}</span>
+                {{ end }}
+                <time class="post-date">{{ .Date.Format "January 2, 2006" }}</time>
+            </div>
+            <h1 class="post-title">{{ .Title }}</h1>
+            {{ with .Description }}
+                <p class="post-description">{{ . }}</p>
+            {{ end }}
+        </header>
+
+        <div class="post-content">
+            {{ .Content }}
+        </div>
     </div>
 </article>
 {{ end }}
