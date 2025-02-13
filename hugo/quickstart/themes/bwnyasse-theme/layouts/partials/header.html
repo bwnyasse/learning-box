@@ -1,14 +1,26 @@
-<header class="fixed top-0 left-0 right-0 bg-white z-50 shadow-sm transition-transform duration-300" x-data="{ isHidden: false, lastScrollPosition: 0 }" 
-        @scroll.window="
-            const position = window.pageYOffset;
-            isHidden = position > lastScrollPosition && position > 80;
-            lastScrollPosition = position;
-        "
-        :class="{ '-translate-y-full': isHidden }">
+<header class="fixed top-0 left-0 right-0 bg-white dark:bg-gray-900 z-50 shadow-sm transition-all duration-300"
+        x-data="{ 
+            isOpen: false,
+            isScrolled: false,
+            lastScrollPosition: 0,
+            init() {
+                window.addEventListener('scroll', () => {
+                    this.isScrolled = window.pageYOffset > 0;
+                    const position = window.pageYOffset;
+                    if (position > this.lastScrollPosition && position > 80) {
+                        this.$el.style.transform = 'translateY(-100%)';
+                    } else {
+                        this.$el.style.transform = 'translateY(0)';
+                    }
+                    this.lastScrollPosition = position;
+                });
+            }
+        }"
+        :class="{ 'shadow-md': isScrolled }">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16 md:h-20">
             <!-- Logo -->
-            <a href="{{ .Site.BaseURL }}" class="text-xl font-bold text-dark hover:text-primary transition">
+            <a href="{{ .Site.BaseURL }}" class="text-xl font-bold text-dark dark:text-white hover:text-primary transition">
                 {{ .Site.Title }}
             </a>
 
@@ -17,20 +29,31 @@
                 {{ $currentPage := . }}
                 {{ range .Site.Menus.main }}
                 <a href="{{ .URL }}" 
-                   class="text-text-secondary hover:text-primary transition {{ if $currentPage.IsMenuCurrent "main" . }}text-primary{{ end }}">
+                   class="text-text-secondary dark:text-gray-300 hover:text-primary dark:hover:text-primary transition">
                     {{ .Name }}
                 </a>
                 {{ end }}
             </nav>
 
-            <!-- Search -->
-            <div class="flex items-center">
+            <!-- Dark Mode Toggle & Search -->
+            <div class="flex items-center gap-4">
+                <button @click="darkMode = !darkMode; localStorage.setItem('darkMode', darkMode)"
+                        class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                    <svg x-show="!darkMode" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                    </svg>
+                    <svg x-show="darkMode" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"/>
+                    </svg>
+                </button>
                 <div class="relative">
                     <input type="text" placeholder="Search..." 
-                           class="w-48 pl-4 pr-10 py-2 border rounded-lg focus:outline-none focus:border-primary">
-                    <button class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary">
+                           class="w-48 pl-4 pr-10 py-2 border rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-white focus:outline-none focus:border-primary dark:focus:border-primary">
+                    <button class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary dark:hover:text-primary">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                         </svg>
                     </button>
                 </div>
