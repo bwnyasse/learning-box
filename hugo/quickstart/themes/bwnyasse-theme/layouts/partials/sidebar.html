@@ -1,60 +1,62 @@
-<aside class="sidebar">
+<aside class="space-y-8">
     <!-- Author Widget -->
-    <div class="sidebar-widget author-widget">
-        <div class="author-info">
-            <img src="/images/author.jpg" alt="Author" class="author-avatar">
-            <h3 class="author-name">John Doe</h3>
-            <p class="author-bio">Tech enthusiast and frequent traveler. Writing about technology, travel, and life
-                experiences.</p>
-            <a href="/about" class="know-more-btn">Know More</a>
-        </div>
+    <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+        <img src="/images/author.jpg" alt="Author" class="w-32 h-32 rounded-full mx-auto mb-4">
+        <h3 class="text-xl font-semibold mb-2">John Doe</h3>
+        <p class="text-text-secondary mb-4">Tech enthusiast and frequent traveler. Writing about technology, travel, and life experiences.</p>
+        <a href="/about" class="inline-block bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition">
+            Know More
+        </a>
     </div>
 
-    <!-- Recent Posts Widget -->
-    <div class="sidebar-widget">
-        <h3 class="widget-title">Recent Posts</h3>
-        <div class="recent-posts">
+    <!-- Recent Posts -->
+    <div class="bg-white rounded-lg shadow-lg p-6">
+        <h3 class="text-lg font-semibold mb-4 pb-2 border-b border-primary">Recent Posts</h3>
+        <div class="space-y-4">
             {{ range first 3 (where .Site.RegularPages "Type" "posts") }}
-            <div class="recent-post-item">
+            <div class="flex gap-4">
                 {{ if .Params.image }}
-                <div class="recent-post-image">
-                    <img src="{{ .Params.image }}" alt="{{ .Title }}">
-                </div>
+                <img src="{{ .Params.image }}" alt="{{ .Title }}" class="w-20 h-20 object-cover rounded">
                 {{ end }}
-                <div class="recent-post-content">
-                    <h4><a href="{{ .Permalink }}">{{ .Title }}</a></h4>
-                    <span class="post-date">{{ .Date.Format "Jan 2, 2006" }}</span>
+                <div>
+                    <h4 class="font-medium leading-snug">
+                        <a href="{{ .Permalink }}" class="hover:text-primary transition">{{ .Title }}</a>
+                    </h4>
+                    <span class="text-sm text-text-secondary">{{ .Date.Format "Jan 2, 2006" }}</span>
                 </div>
             </div>
             {{ end }}
         </div>
     </div>
 
-    <!-- Categories Widget -->
-    <div class="sidebar-widget">
-        <h3 class="widget-title">Categories</h3>
-        <ul class="category-list">
+    <!-- Categories -->
+    <div class="bg-white rounded-lg shadow-lg p-6">
+        <h3 class="text-lg font-semibold mb-4 pb-2 border-b border-primary">Categories</h3>
+        <ul class="space-y-2">
             {{ range $name, $taxonomy := .Site.Taxonomies.categories }}
             <li>
-                <a href="{{ " /categories/" | relLangURL }}{{ $name | urlize }}">
+                <a href="{{ "/categories/" | relLangURL }}{{ $name | urlize }}" 
+                   class="flex justify-between items-center py-2 px-3 rounded hover:bg-gray-50 transition">
                     {{ $name }}
-                    <span class="category-count">{{ $taxonomy.Count }}</span>
+                    <span class="bg-gray-100 text-text-secondary px-2 py-1 rounded-full text-sm">
+                        {{ $taxonomy.Count }}
+                    </span>
                 </a>
             </li>
             {{ end }}
         </ul>
     </div>
 
-    <!-- Tags Cloud Widget -->
-    <div class="sidebar-widget">
-        <h3 class="widget-title">Popular Tags</h3>
-        <div class="tags-cloud">
+    <!-- Tags Cloud -->
+    <div class="bg-white rounded-lg shadow-lg p-6">
+        <h3 class="text-lg font-semibold mb-4 pb-2 border-b border-primary">Tags</h3>
+        <div class="flex flex-wrap gap-2">
             {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
-            <a href="{{ " /tags/" | relLangURL }}{{ $name | urlize }}" class="tag-link">
+            <a href="{{ "/tags/" | relLangURL }}{{ $name | urlize }}" 
+               class="bg-gray-100 hover:bg-gray-200 text-text-secondary px-3 py-1 rounded-full text-sm transition">
                 {{ $name }}
             </a>
             {{ end }}
         </div>
     </div>
-
 </aside>

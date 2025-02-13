@@ -1,82 +1,95 @@
 {{ define "main" }}
-<div class="container">
-    {{ partial "hero.html" . }}
-
-    <div class="main-with-sidebar">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr,300px] gap-12">
         <!-- Main Content -->
-        <div class="main-content">
-
+        <div>
             <!-- Featured Article -->
             {{ range first 1 (where (where .Site.RegularPages "Type" "posts") "Params.featured" true) }}
-            <article class="featured-article">
-                <div class="featured-article-image">
-                    {{ if .Params.image }}
-                    <img src="{{ .Params.image }}" alt="{{ .Title }}">
-                    {{ end }}
-                </div>
-                <div class="featured-article-content">
-                    {{ with .Params.categories }}
-                    <div class="categories">
-                        {{ range . }}
-                        <span class="category-tag">{{ . }}</span>
-                        {{ end }}
-                    </div>
-                    {{ end }}
-                    <h2 class="featured-article-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
-                    <div class="featured-article-meta">
-                        <span class="reading-time">{{ .ReadingTime }} MINUTES READ</span>
-                        <span class="post-date">{{ .Date.Format "02 JAN 2006" }}</span>
-                    </div>
-                    <p class="featured-article-excerpt">
-                        {{ with .Description }}
-                        {{ . | truncate 160 }}
-                        {{ else }}
-                        {{ .Summary | plainify | truncate 160 }}
-                        {{ end }}
-                    </p>
-                    <a href="{{ .Permalink }}" class="read-more">Read Full Article</a>
-                </div>
-            </article>
-            {{ end }}
-
-            <!-- Regular Articles Grid -->
-            <div class="articles-grid">
-                {{ $paginator := .Paginate (where .Site.RegularPages "Type" "posts") }}
-                {{ range $paginator.Pages }}
-                <article class="article-card">
-                    {{ if .Params.image }}
-                    <div class="article-image">
-                        <img src="{{ .Params.image }}" alt="{{ .Title }}">
-                        <div class="article-meta">
-                            <span class="reading-time">{{ .ReadingTime }} MINUTES READ</span>
-                            <span class="post-date">{{ .Date.Format "02 JAN 2006" }}</span>
-                        </div>
-                    </div>
-                    {{ end }}
-                    <div class="article-content">
+            <article class="bg-white rounded-lg shadow-lg overflow-hidden mb-12">
+                {{ if .Params.image }}
+                <div class="relative h-96">
+                    <img src="{{ .Params.image }}" alt="{{ .Title }}" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-6 text-white">
                         {{ with .Params.categories }}
-                        <div class="categories">
+                        <div class="flex gap-2 mb-4">
                             {{ range . }}
-                            <span class="category-tag">{{ . }}</span>
+                            <span class="bg-secondary text-dark px-3 py-1 rounded-md text-sm font-medium">
+                                {{ . }}
+                            </span>
                             {{ end }}
                         </div>
                         {{ end }}
-                        <h2 class="article-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
-                        <p class="article-excerpt">
+                        <h2 class="text-3xl font-bold mb-2">
+                            <a href="{{ .Permalink }}" class="hover:text-primary transition">{{ .Title }}</a>
+                        </h2>
+                        <div class="flex items-center gap-4 text-sm">
+                            <span class="bg-black/60 px-3 py-1">{{ .ReadingTime }} MIN READ</span>
+                            <span class="bg-black/60 px-3 py-1">{{ .Date.Format "02 JAN 2006" }}</span>
+                        </div>
+                    </div>
+                </div>
+                {{ end }}
+            </article>
+            {{ end }}
+
+            <!-- Blog Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                {{ $paginator := .Paginate (where .Site.RegularPages "Type" "posts") }}
+                {{ range $paginator.Pages }}
+                <article class="bg-white rounded-lg shadow-lg overflow-hidden group">
+                    {{ if .Params.image }}
+                    <div class="relative aspect-video">
+                        <img src="{{ .Params.image }}" alt="{{ .Title }}"
+                            class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                        <div class="absolute top-4 right-4 flex flex-col gap-2">
+                            <span class="bg-black/60 text-white px-3 py-1 text-sm">
+                                {{ .ReadingTime }} MIN READ
+                            </span>
+                            <span class="bg-black/60 text-white px-3 py-1 text-sm">
+                                {{ .Date.Format "02 JAN 2006" }}
+                            </span>
+                        </div>
+                    </div>
+                    {{ end }}
+                    <div class="p-6">
+                        {{ with .Params.categories }}
+                        <div class="flex gap-2 mb-4">
+                            {{ range . }}
+                            <span class="bg-secondary/20 text-dark px-3 py-1 rounded-md text-sm">
+                                {{ . }}
+                            </span>
+                            {{ end }}
+                        </div>
+                        {{ end }}
+                        <h2 class="text-xl font-semibold mb-4">
+                            <a href="{{ .Permalink }}" class="hover:text-primary transition">{{ .Title }}</a>
+                        </h2>
+                        <p class="text-text-secondary mb-4 text-justify">
                             {{ with .Description }}
                             {{ . | truncate 160 }}
                             {{ else }}
                             {{ .Summary | plainify | truncate 160 }}
                             {{ end }}
                         </p>
-                        <a href="{{ .Permalink }}" class="read-more">Read Full Article</a>
+                        <a href="{{ .Permalink }}"
+                            class="inline-flex items-center text-dark hover:text-primary transition">
+                            Read More
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </a>
                     </div>
                 </article>
                 {{ end }}
             </div>
+
+            <!-- Pagination -->
             {{ partial "pagination.html" . }}
         </div>
-
         <!-- Sidebar -->
         {{ partial "sidebar.html" . }}
     </div>

@@ -1,24 +1,17 @@
 {{ if gt .Paginator.TotalPages 1 }}
-<nav class="pagination">
-    {{ $paginator := .Paginator }}
-    
-    <!-- Previous arrow (show only if not on first page) -->
-    {{ if and (ne $paginator.PageNumber 1) }}
-        <a class="page-item nav-arrow" href="{{ $paginator.Prev.URL }}" aria-label="Previous">←</a>
+<nav class="flex justify-center items-center gap-2 mt-12">
+    {{ if .Paginator.HasPrev }}
+    <a href="{{ .Paginator.Prev.URL }}" class="w-10 h-10 flex items-center justify-center rounded border border-gray-200 hover:border-primary hover:text-primary transition">←</a>
     {{ end }}
     
-    <!-- Page numbers -->
-    {{ range $paginator.Pagers }}
-        {{ if eq . $paginator }}
-            <span class="page-item active">{{ .PageNumber }}</span>
-        {{ else }}
-            <a class="page-item" href="{{ .URL }}">{{ .PageNumber }}</a>
-        {{ end }}
+    {{ range .Paginator.Pagers }}
+    <a href="{{ .URL }}" class="w-10 h-10 flex items-center justify-center rounded {{ if eq . $.Paginator }}bg-primary text-white{{ else }}border border-gray-200 hover:border-primary hover:text-primary{{ end }} transition">
+        {{ .PageNumber }}
+    </a>
     {{ end }}
     
-    <!-- Next arrow (show only if not on last page) -->
-    {{ if and (ne $paginator.PageNumber $paginator.TotalPages) }}
-        <a class="page-item nav-arrow" href="{{ $paginator.Next.URL }}" aria-label="Next">→</a>
+    {{ if .Paginator.HasNext }}
+    <a href="{{ .Paginator.Next.URL }}" class="w-10 h-10 flex items-center justify-center rounded border border-gray-200 hover:border-primary hover:text-primary transition">→</a>
     {{ end }}
 </nav>
 {{ end }}

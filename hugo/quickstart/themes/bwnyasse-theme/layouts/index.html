@@ -1,80 +1,61 @@
 {{ define "main" }}
 <!-- Hero Section -->
-<section class="author-hero">
-    <div class="hero-container">
-        <div class="hero-content">
-            <h1>
-                <span class="highlight">Technology Leader,</span> Google Developer Expert,
-                <span class="highlight">Speaker.</span>
-            </h1>
-            <p class="hero-description">With over a decade in software development, I focus on innovative tech solutions
-                and am passionate about mentoring aspiring developers.</p>
-            <div class="hero-buttons">
-                <a href="/blog" class="hero-button">
-                    Read My Blog
-                    <span class="button-arrow">→</span>
-                </a>
+<section class="min-h-screen bg-black text-white flex items-center">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="max-w-2xl">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                    <span class="text-primary">Technology Leader,</span> Google Developer Expert,
+                    <span class="text-primary">Speaker.</span>
+                </h1>
+                <p class="mt-6 text-xl text-gray-300">
+                    With over a decade in software development, I focus on innovative tech solutions
+                    and am passionate about mentoring aspiring developers.
+                </p>
+                <div class="mt-8">
+                    <a href="/blog" 
+                       class="inline-flex items-center bg-secondary text-black px-6 py-3 rounded-lg font-medium hover:translate-x-1 transition">
+                        Read My Blog
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                        </svg>
+                    </a>
+                </div>
             </div>
-        </div>
-        <div class="hero-image">
-            <img src="/images/author-profile.jpg" alt="Author Profile">
+            <div class="relative h-[600px] lg:h-[700px]">
+                <img src="/images/author-profile.jpg" alt="Author Profile" 
+                     class="w-full h-full object-cover rounded-lg">
+                <div class="absolute inset-0 bg-gradient-to-tr from-black/30 to-transparent rounded-lg"></div>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- Projects/Cards Section -->
-<section class="projects-section">
-    <div class="projects-grid">
-        <!-- Repeat this block for each project (9 times for 3x3) -->
-        <div class="project-card">
-            <div class="project-image">
-                <img src="/images/project1.jpg" alt="Project 1">
-            </div>
-            <div class="project-overlay">
-                <div class="project-content">
-                    <div class="project-text">
-                        <h3>Google Developer Expert</h3>
-                        <p>Project description goes here</p>
-                    </div>
-                    <span class="project-link">→</span>
+<!-- Projects Grid -->
+<section class="bg-black py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 bg-gray-900/50">
+            {{ range $index, $project := slice 
+                (dict "title" "Google Developer Expert" "description" "Project description goes here" "image" "/images/project1.jpg")
+                (dict "title" "Oloodi Dialogues" "description" "Another description here" "image" "/images/project2.jpg")
+                (dict "title" "Engineer Manager @Datavalet" "description" "Another description here" "image" "/images/project3.jpg")
+            }}
+            <div class="group relative aspect-square overflow-hidden bg-black">
+                <img src="{{ .image }}" alt="{{ .title }}" 
+                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80">
                 </div>
-            </div>
-            <a href="#" class="project-full-link" aria-label="View Project"></a>
-        </div>
-
-        <div class="project-card">
-            <div class="project-image">
-                <img src="/images/project2.jpg" alt="Project 2">
-            </div>
-            <div class="project-overlay">
-                <div class="project-content">
-                    <div class="project-text">
-                        <h3>Oloodi Dialogues</h3>
-                        <p>Another description here</p>
+                <div class="absolute bottom-0 left-0 right-0 p-8 flex justify-between items-end">
+                    <div>
+                        <h3 class="text-xl font-semibold text-white">{{ .title }}</h3>
+                        <p class="text-gray-300 mt-2">{{ .description }}</p>
                     </div>
-                    <span class="project-link">→</span>
+                    <span class="text-secondary text-3xl font-light group-hover:translate-x-2 transition-transform">→</span>
                 </div>
+                <a href="#" class="absolute inset-0" aria-label="View {{ .title }}"></a>
             </div>
-            <a href="#" class="project-full-link" aria-label="View Project"></a>
+            {{ end }}
         </div>
-
-        <div class="project-card">
-            <div class="project-image">
-                <img src="/images/project3.jpg" alt="Project 2">
-            </div>
-            <div class="project-overlay">
-                <div class="project-content">
-                    <div class="project-text">
-                        <h3>Engineer Manager @Datavalet</h3>
-                        <p>Another description here</p>
-                    </div>
-                    <span class="project-link">→</span>
-                </div>
-            </div>
-            <a href="#" class="project-full-link" aria-label="View Project"></a>
-        </div>
-
     </div>
 </section>
-
 {{ end }}

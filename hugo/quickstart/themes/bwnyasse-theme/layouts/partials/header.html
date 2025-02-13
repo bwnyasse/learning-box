@@ -1,30 +1,36 @@
-<header class="site-header js-header">
-    <div class="container">
-        <div class="header-content">
-            <a href="{{ .Site.BaseURL }}" class="site-logo">
-                {{ with .Site.Params.logo }}
-                    <img src="{{ . }}" alt="{{ $.Site.Title }}" class="logo-img">
-                {{ else }}
-                    <span class="logo-text">{{ .Site.Title }}</span>
-                {{ end }}
+<header class="fixed top-0 left-0 right-0 bg-white z-50 shadow-sm transition-transform duration-300" x-data="{ isHidden: false, lastScrollPosition: 0 }" 
+        @scroll.window="
+            const position = window.pageYOffset;
+            isHidden = position > lastScrollPosition && position > 80;
+            lastScrollPosition = position;
+        "
+        :class="{ '-translate-y-full': isHidden }">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16 md:h-20">
+            <!-- Logo -->
+            <a href="{{ .Site.BaseURL }}" class="text-xl font-bold text-dark hover:text-primary transition">
+                {{ .Site.Title }}
             </a>
 
-            <nav class="main-nav">
+            <!-- Navigation -->
+            <nav class="hidden md:flex items-center space-x-8">
                 {{ $currentPage := . }}
                 {{ range .Site.Menus.main }}
-                <a href="{{ .URL }}" class="nav-link {{ if $currentPage.IsMenuCurrent "main" . }}active{{ end }}">
+                <a href="{{ .URL }}" 
+                   class="text-text-secondary hover:text-primary transition {{ if $currentPage.IsMenuCurrent "main" . }}text-primary{{ end }}">
                     {{ .Name }}
                 </a>
                 {{ end }}
             </nav>
 
-            <div class="header-actions">
-                <div class="search-box">
-                    <input type="text" placeholder="Search..." aria-label="Search">
-                    <button type="submit" aria-label="Submit search">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            <!-- Search -->
+            <div class="flex items-center">
+                <div class="relative">
+                    <input type="text" placeholder="Search..." 
+                           class="w-48 pl-4 pr-10 py-2 border rounded-lg focus:outline-none focus:border-primary">
+                    <button class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </button>
                 </div>

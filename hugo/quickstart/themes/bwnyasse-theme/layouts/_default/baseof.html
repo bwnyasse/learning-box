@@ -10,18 +10,32 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Styles -->
-    <link rel="stylesheet" href="{{ "css/variables.css" | relURL }}">
-    <link rel="stylesheet" href="{{ "css/main.css" | relURL }}">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00c38e',
+                        secondary: '#9fff24',
+                        dark: '#2d3436',
+                        'text-secondary': '#636e72',
+                    },
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                        raleway: ['Raleway', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
 </head>
-<body>
+<body class="font-poppins">
     {{ partial "header.html" . }}
-    <main class="site-main">
+    <main>
         {{ block "main" . }}{{ end }}
     </main>
     {{ partial "footer.html" . }}
-
-    <!-- Scripts -->
-    <script src="{{ "js/main.js" | relURL }}" defer></script>
 </body>
 </html>
