@@ -17,6 +17,16 @@ name = 'Tags'
 pageRef = '/tags'
 weight = 30
 
+[menu]
+  [[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+  [[menu.main]]
+    name = "Blog"
+    url = "/blog/"
+    weight = 2
+
 [module]
   [module.hugoVersion]
     extended = false

@@ -1,0 +1,84 @@
+{{ define "main" }}
+<div class="container">
+    {{ partial "hero.html" . }}
+
+    <div class="main-with-sidebar">
+        <!-- Main Content -->
+        <div class="main-content">
+
+            <!-- Featured Article -->
+            {{ range first 1 (where (where .Site.RegularPages "Type" "posts") "Params.featured" true) }}
+            <article class="featured-article">
+                <div class="featured-article-image">
+                    {{ if .Params.image }}
+                    <img src="{{ .Params.image }}" alt="{{ .Title }}">
+                    {{ end }}
+                </div>
+                <div class="featured-article-content">
+                    {{ with .Params.categories }}
+                    <div class="categories">
+                        {{ range . }}
+                        <span class="category-tag">{{ . }}</span>
+                        {{ end }}
+                    </div>
+                    {{ end }}
+                    <h2 class="featured-article-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+                    <div class="featured-article-meta">
+                        <span class="reading-time">{{ .ReadingTime }} MINUTES READ</span>
+                        <span class="post-date">{{ .Date.Format "02 JAN 2006" }}</span>
+                    </div>
+                    <p class="featured-article-excerpt">
+                        {{ with .Description }}
+                        {{ . | truncate 160 }}
+                        {{ else }}
+                        {{ .Summary | plainify | truncate 160 }}
+                        {{ end }}
+                    </p>
+                    <a href="{{ .Permalink }}" class="read-more">Read Full Article</a>
+                </div>
+            </article>
+            {{ end }}
+
+            <!-- Regular Articles Grid -->
+            <div class="articles-grid">
+                {{ $paginator := .Paginate (where .Site.RegularPages "Type" "posts") }}
+                {{ range $paginator.Pages }}
+                <article class="article-card">
+                    {{ if .Params.image }}
+                    <div class="article-image">
+                        <img src="{{ .Params.image }}" alt="{{ .Title }}">
+                        <div class="article-meta">
+                            <span class="reading-time">{{ .ReadingTime }} MINUTES READ</span>
+                            <span class="post-date">{{ .Date.Format "02 JAN 2006" }}</span>
+                        </div>
+                    </div>
+                    {{ end }}
+                    <div class="article-content">
+                        {{ with .Params.categories }}
+                        <div class="categories">
+                            {{ range . }}
+                            <span class="category-tag">{{ . }}</span>
+                            {{ end }}
+                        </div>
+                        {{ end }}
+                        <h2 class="article-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+                        <p class="article-excerpt">
+                            {{ with .Description }}
+                            {{ . | truncate 160 }}
+                            {{ else }}
+                            {{ .Summary | plainify | truncate 160 }}
+                            {{ end }}
+                        </p>
+                        <a href="{{ .Permalink }}" class="read-more">Read Full Article</a>
+                    </div>
+                </article>
+                {{ end }}
+            </div>
+            {{ partial "pagination.html" . }}
+        </div>
+
+        <!-- Sidebar -->
+        {{ partial "sidebar.html" . }}
+    </div>
+</div>
+{{ end }}

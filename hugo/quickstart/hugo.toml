@@ -8,5 +8,6 @@ theme = 'bwnyasse-theme'
 
 [params.social]
 linkedin = "https://linkedin.com/in/yourprofile"
-instagram = "https://instagram.com/yourprofile"
+github = "https://github.com/yourusername"
 twitter = "https://twitter.com/yourhandle"
+instagram = "https://instagram.com/yourprofile"
