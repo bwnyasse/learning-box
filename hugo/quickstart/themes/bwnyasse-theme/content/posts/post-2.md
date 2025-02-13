@@ -1,12 +1,13 @@
 +++
-title = 'An Experiential Guide to Explore this Kingdom'
-date = 2023-02-15T10:00:00-07:00
+title = "Choosing the Right Programming Language"
+date = 2023-01-17T11:00:00-07:00
 draft = false
-tags = ['red','green']
-categories = ['Travel', 'Guide']
-image =  "/images/1.jpg"
+tags = ["programming"] # Single tag in array
+categories = ["Mobile Development"]
+image = "/images/2.jpg"
 +++
 
-Anim eiusmod irure incididunt sint cupidatat. Incididunt irure irure irure nisi ipsum do ut quis fugiat consectetur proident cupidatat incididunt cillum. Dolore voluptate occaecat qui mollit laborum ullamco et. Ipsum laboris officia anim laboris culpa eiusmod ex magna ex cupidatat anim ipsum aute. Mollit aliquip occaecat qui sunt velit ut cupidatat reprehenderit enim sunt laborum. Velit veniam in officia nulla adipisicing ut duis officia.
+Consider project needs when choosing a language.
 
-Exercitation voluptate irure in irure tempor mollit Lorem nostrud ad officia. Velit id fugiat occaecat do tempor. Sit officia Lorem aliquip eu deserunt consectetur. Aute proident deserunt in nulla aliquip dolore ipsum Lorem ut cupidatat consectetur sit sint laborum. Esse cupidatat sit sint sunt tempor exercitation deserunt. Labore dolor duis laborum est do nisi ut veniam dolor et nostrud nostrud.
+More details about Choosing the Right Programming Language. Add as much content as you need for testing.
+

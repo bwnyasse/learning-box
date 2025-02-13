@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Programming on Boris-Wilfried</title>
+    <link>http://localhost:1313/tags/programming/</link>
+    <description>Recent content in Programming on Boris-Wilfried</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 17 Jan 2023 11:00:00 -0700</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Choosing the Right Programming Language</title>
+      <link>http://localhost:1313/posts/post-2/</link>
+      <pubDate>Tue, 17 Jan 2023 11:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/posts/post-2/</guid>
+      <description>&lt;p&gt;Consider project needs when choosing a language.&lt;/p&gt;&#xA;&lt;p&gt;More details about Choosing the Right Programming Language. Add as much content as you need for testing.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
