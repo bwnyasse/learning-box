@@ -1,0 +1,17 @@
+{{ $img := . }}
+<div class="relative overflow-hidden"
+     x-data="{ loaded: false }"
+     x-intersect:enter="$el.querySelector('img').loading = 'eager'">
+    <img src="{{ $img }}" 
+         loading="lazy"
+         decoding="async"
+         class="w-full h-full object-cover transition duration-700 ease-out"
+         x-ref="image"
+         @load="loaded = true"
+         :class="{ 'opacity-0': !loaded, 'opacity-100': loaded }">
+    
+    <!-- Loading placeholder -->
+    <div x-show="!loaded" 
+         class="absolute inset-0 bg-gray-200 dark:bg-gray-700 animate-pulse">
+    </div>
+</div>

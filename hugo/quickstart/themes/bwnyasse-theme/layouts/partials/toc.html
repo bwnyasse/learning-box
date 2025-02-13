@@ -1,0 +1,24 @@
+{{ if and (gt .WordCount 400) (.TableOfContents) }}
+<div x-data="{ isOpen: true }" class="toc-wrapper mb-8">
+    <button @click="isOpen = !isOpen" 
+            class="flex items-center justify-between w-full p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
+        <span class="font-medium">Table of Contents</span>
+        <svg :class="{'rotate-180': !isOpen}" 
+             class="w-5 h-5 transform transition-transform" 
+             fill="none" 
+             stroke="currentColor" 
+             viewBox="0 0 24 24">
+            <path stroke-linecap="round" 
+                  stroke-linejoin="round" 
+                  stroke-width="2" 
+                  d="M19 9l-7 7-7-7" />
+        </svg>
+    </button>
+    
+    <div x-show="isOpen"
+         x-collapse
+         class="mt-4 prose dark:prose-dark max-w-none">
+        {{ .TableOfContents }}
+    </div>
+</div>
+{{ end }}

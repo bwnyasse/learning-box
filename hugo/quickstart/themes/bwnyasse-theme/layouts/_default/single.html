@@ -22,6 +22,7 @@
         {{ end }}
     </div>
 
+
     <!-- Content Section -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="grid grid-cols-1 lg:grid-cols-[1fr,300px] gap-12">
@@ -29,10 +30,21 @@
             <div class="prose prose-lg dark:prose-dark max-w-none">
                 {{ .Content }}
             </div>
-
             <!-- Sidebar -->
             {{ partial "sidebar.html" . }}
         </div>
+
+    <div class="mt-8 flex justify-between items-center">
+        {{ partial "share-buttons.html" . }}
+    </div>
     </div>
 </article>
+<div x-data="{ scrollProgress: '0%' }"
+    @scroll.window="scrollProgress = Math.round((window.pageYOffset / (document.documentElement.scrollHeight - window.innerHeight)) * 100) + '%'"
+    class="fixed top-0 left-0 right-0 z-50">
+    <div class="h-1 bg-gray-200 dark:bg-gray-700">
+        <div class="h-full bg-primary transition-all duration-200 ease-out" :style="`width: ${scrollProgress}`">
+        </div>
+    </div>
+</div>
 {{ end }}
