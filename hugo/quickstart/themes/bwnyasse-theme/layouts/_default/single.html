@@ -1,7 +1,7 @@
 {{ define "main" }}
 <article class="min-h-screen dark:bg-gray-900">
     <!-- Hero Section -->
-    <div class="relative h-[60vh] mt-16">
+    <div class="relative h-[30vh] mt-16">
         {{ if .Params.image }}
         <img src="{{ .Params.image }}" alt="{{ .Title }}" class="w-full h-full object-cover">
         <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
@@ -34,9 +34,9 @@
             {{ partial "sidebar.html" . }}
         </div>
 
-    <div class="mt-8 flex justify-between items-center">
-        {{ partial "share-buttons.html" . }}
-    </div>
+        <div class="mt-8 flex justify-between items-center">
+            {{ partial "share-buttons.html" . }}
+        </div>
     </div>
 </article>
 <div x-data="{ scrollProgress: '0%' }"
