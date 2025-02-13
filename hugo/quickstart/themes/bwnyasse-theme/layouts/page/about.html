@@ -1,0 +1,74 @@
+{{ define "main" }}
+<!-- Hero Section -->
+<section class="author-hero">
+    <div class="hero-container">
+        <div class="hero-content">
+            <h1>
+                <span class="highlight">Technology Leader, Google Developer Expert</span>
+                and speaker at tech conferences
+                <span class="highlight"> - Empowering Developers</span>
+            </h1>
+            <p class="hero-description">With over a decade in software development, I focus on innovative tech solutions and am passionate about mentoring aspiring developers.</p>
+        </div>
+        <div class="hero-image">
+            <img src="/images/author-profile.jpg" alt="Author Profile">
+        </div>
+    </div>
+</section>
+
+<!-- Projects/Cards Section -->
+<section class="projects-section">
+    <div class="projects-grid">
+        <!-- Repeat this block for each project (9 times for 3x3) -->
+        <div class="project-card">
+            <div class="project-image">
+                <img src="/images/project1.jpg" alt="Project 1">
+            </div>
+            <div class="project-overlay">
+                <div class="project-content">
+                    <div class="project-text">
+                        <h3>Google Developer Expert</h3>
+                        <p>Project description goes here</p>
+                    </div>
+                    <span class="project-link">→</span>
+                </div>
+            </div>
+            <a href="#" class="project-full-link" aria-label="View Project"></a>
+        </div>
+
+        <div class="project-card">
+            <div class="project-image">
+                <img src="/images/project2.jpg" alt="Project 2">
+            </div>
+            <div class="project-overlay">
+                <div class="project-content">
+                    <div class="project-text">
+                        <h3>Oloodi Dialogues</h3>
+                        <p>Another description here</p>
+                    </div>
+                    <span class="project-link">→</span>
+                </div>
+            </div>
+            <a href="#" class="project-full-link" aria-label="View Project"></a>
+        </div>
+
+        <div class="project-card">
+            <div class="project-image">
+                <img src="/images/project3.jpg" alt="Project 2">
+            </div>
+            <div class="project-overlay">
+                <div class="project-content">
+                    <div class="project-text">
+                        <h3>Engineer Manager @Datavalet</h3>
+                        <p>Another description here</p>
+                    </div>
+                    <span class="project-link">→</span>
+                </div>
+            </div>
+            <a href="#" class="project-full-link" aria-label="View Project"></a>
+        </div>
+
+    </div>
+</section>
+
+{{ end }}
