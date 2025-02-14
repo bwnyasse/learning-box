@@ -3,7 +3,7 @@ title = "Introduction to DevOps"
 date = 2023-01-19T13:00:00-07:00
 draft = false
 tags = ["devops"] # Single tag in array
-categories = ["AI/ML"]
+categories = ["AI/ML", "Cloud Computing"]
 image = "/images/4.jpg"
 +++
 
