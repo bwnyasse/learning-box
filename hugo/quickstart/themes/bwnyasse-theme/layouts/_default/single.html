@@ -1,13 +1,89 @@
 {{ define "main" }}
-    {{ partial "post-hero.html" . }}
-    
-    <div class="container">
-        <div class="post-with-sidebar">
-            <article class="post-content">
-                {{ .Content }}
-            </article>
-            
+<article class="min-h-screen dark:bg-gray-900">
+    <!-- Hero Section -->
+    <div class="relative h-[30vh] mt-16">
+        {{ if .Params.image }}
+        <img src="{{ .Params.image }}" alt="{{ .Title }}" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-8 max-w-4xl mx-auto">
+            {{ with .Params.categories }}
+            <div class="flex gap-2 mb-4">
+                {{ range . }}
+                <span class="bg-secondary text-dark px-3 py-1 text-sm font-medium">{{ . }}</span>
+                {{ end }}
+            </div>
+            {{ end }}
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{{ .Title }}</h1>
+            <div class="flex items-center gap-4 text-white/80 text-sm">
+                <span class="bg-black/60 px-3 py-1">{{ .Date.Format "January 2, 2006" }}</span>
+                <span class="bg-black/60 px-3 py-1">{{ .ReadingTime }} min read</span>
+            </div>
+        </div>
+        {{ end }}
+    </div>
+
+    <!-- Content Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-[1fr,300px] gap-12">
+            <!-- Main Content Column -->
+            <div>
+                <!-- Typography Content -->
+                <div class="prose prose-lg dark:prose-dark max-w-none">
+                    {{ .Content }}
+                </div>
+
+                <!-- Share Buttons -->
+                <div class="mt-8 border-t dark:border-gray-700 pt-8">
+                    {{ partial "share-buttons.html" . }}
+                </div>
+
+                <!-- Related Posts -->
+                {{ $related := .Site.RegularPages.Related . | first 2 }}
+                {{ with $related }}
+                <div class="mt-12 border-t dark:border-gray-700 pt-8">
+                    <h2 class="text-2xl font-bold mb-6">Related Posts</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {{ range . }}
+                        <a href="{{ .RelPermalink }}"
+                            class="group block bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-all duration-200">
+                            <div class="p-6">
+                                {{ with .Params.categories }}
+                                <div class="flex gap-2 mb-3">
+                                    {{ range . }}
+                                    <span class="text-xs bg-secondary/20 text-dark dark:text-white px-2 py-1 rounded">
+                                        {{ . }}
+                                    </span>
+                                    {{ end }}
+                                </div>
+                                {{ end }}
+                                <h3 class="text-lg font-semibold group-hover:text-primary transition-colors">
+                                    {{ .Title }}
+                                </h3>
+                                <div class="mt-2 flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+                                    <span>{{ .Date.Format "Jan 2, 2006" }}</span>
+                                    <span>{{ .ReadingTime }} min read</span>
+                                </div>
+                            </div>
+                        </a>
+                        {{ end }}
+                    </div>
+                </div>
+                {{ end }}
+            </div>
+
+            <!-- Sidebar -->
             {{ partial "sidebar.html" . }}
         </div>
     </div>
+</article>
+
+<!-- Progress Bar -->
+<div x-data="{ scrollProgress: '0%' }"
+    @scroll.window="scrollProgress = Math.round((window.pageYOffset / (document.documentElement.scrollHeight - window.innerHeight)) * 100) + '%'"
+    class="fixed top-0 left-0 right-0 z-50">
+    <div class="h-1 bg-gray-200 dark:bg-gray-700">
+        <div class="h-full bg-primary transition-all duration-200 ease-out" :style="`width: ${scrollProgress}`">
+        </div>
+    </div>
+</div>
 {{ end }}

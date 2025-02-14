@@ -1,0 +1,89 @@
+<div x-data="search()" 
+     x-init="init()"
+     @keydown.window.prevent.ctrl.k="toggleSearch()"
+     @keydown.window.prevent.cmd.k="toggleSearch()">
+    <!-- Search Trigger -->
+    <button @click="toggleSearch()" 
+            class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg flex items-center gap-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+        <span class="hidden sm:inline">Search</span>
+        <span class="hidden sm:inline text-sm text-gray-400">(Ctrl + K)</span>
+    </button>
+
+    <!-- Search Modal -->
+    <div x-show="isOpen" 
+         x-transition
+         class="fixed inset-0 z-50 overflow-y-auto p-4 sm:p-6 md:p-20"
+         role="dialog"
+         aria-modal="true">
+        <!-- Overlay -->
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity" 
+             @click="isOpen = false">
+        </div>
+
+        <!-- Modal -->
+        <div class="mx-auto max-w-2xl transform divide-y divide-gray-100 overflow-hidden rounded-xl bg-white dark:bg-gray-800 shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
+            <div class="relative">
+                <!-- Search input -->
+                <input type="text" 
+                       x-model="searchQuery"
+                       @input.debounce.300ms="performSearch()"
+                       class="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
+                       placeholder="Search..."
+                       @keydown.escape="isOpen = false">
+
+                <!-- Search icon -->
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3">
+                    <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Results -->
+            <div x-show="searchResults.length > 0" 
+                 class="max-h-72 scroll-py-2 overflow-y-auto py-2">
+                <template x-for="result in searchResults" :key="result.url">
+                    <a :href="result.url" 
+                       class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <h3 x-text="result.title" class="font-medium"></h3>
+                        <p x-text="result.excerpt" class="text-sm text-gray-500 dark:text-gray-400"></p>
+                    </a>
+                </template>
+            </div>
+
+            <!-- No results -->
+            <div x-show="searchQuery && searchResults.length === 0" 
+                 class="p-4 text-center text-sm text-gray-500 dark:text-gray-400">
+                No results found for "<span x-text="searchQuery"></span>"
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function search() {
+    return {
+        isOpen: false,
+        searchQuery: '',
+        searchResults: [],
+        toggleSearch() {
+            this.isOpen = !this.isOpen;
+            if (this.isOpen) {
+                this.$nextTick(() => {
+                    this.$refs.searchInput.focus();
+                });
+            }
+        },
+        performSearch() {
+            // Implement your search logic here
+            // This is a placeholder that you'll need to customize
+            this.searchResults = [
+                // Your search results
+            ];
+        }
+    }
+}
+</script>

@@ -1,0 +1,65 @@
+<div x-data="newsletter()" 
+     class="bg-gray-100 dark:bg-gray-800 rounded-lg p-6">
+    <h3 class="text-xl font-semibold mb-4">Subscribe to Newsletter</h3>
+    
+    <form @submit.prevent="subscribe" class="space-y-4">
+        <div>
+            <label for="email" class="sr-only">Email address</label>
+            <input type="email" 
+                   id="email" 
+                   x-model="email"
+                   :disabled="status === 'loading'"
+                   class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:ring-2 focus:ring-primary"
+                   placeholder="Enter your email"
+                   required>
+        </div>
+        
+        <button type="submit" 
+                :disabled="status === 'loading'"
+                class="w-full bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50">
+            <span x-show="status === 'idle'">Subscribe</span>
+            <span x-show="status === 'loading'" class="flex items-center justify-center">
+                <svg class="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24"><!-- Loading spinner SVG --></svg>
+                Processing...
+            </span>
+            <span x-show="status === 'success'">✓ Subscribed!</span>
+        </button>
+        
+        <!-- Alert Messages -->
+        <div x-show="message" 
+             :class="status === 'error' ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'"
+             class="p-4 rounded-lg text-sm"
+             x-text="message">
+        </div>
+    </form>
+</div>
+
+<script>
+function newsletter() {
+    return {
+        email: '',
+        status: 'idle',
+        message: '',
+        async subscribe() {
+            this.status = 'loading';
+            
+            try {
+                // Implement your newsletter subscription logic here
+                await new Promise(resolve => setTimeout(resolve, 1000)); // Simulated delay
+                
+                this.status = 'success';
+                this.message = 'Successfully subscribed to the newsletter!';
+                
+                setTimeout(() => {
+                    this.message = '';
+                    this.email = '';
+                    this.status = 'idle';
+                }, 3000);
+            } catch (error) {
+                this.status = 'error';
+                this.message = 'An error occurred. Please try again.';
+            }
+        }
+    }
+}
+</script>
