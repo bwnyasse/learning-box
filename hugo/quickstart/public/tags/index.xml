@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Boris-Wilfried</title>
+    <link>http://localhost:1313/tags/</link>
+    <description>Recent content in Tags on Boris-Wilfried</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Jan 2023 21:00:00 -0700</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Design</title>
+      <link>http://localhost:1313/tags/design/</link>
+      <pubDate>Fri, 27 Jan 2023 21:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/design/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Cybersecurity</title>
+      <link>http://localhost:1313/tags/cybersecurity/</link>
+      <pubDate>Thu, 26 Jan 2023 20:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/cybersecurity/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Communication</title>
+      <link>http://localhost:1313/tags/communication/</link>
+      <pubDate>Wed, 25 Jan 2023 19:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/communication/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Team</title>
+      <link>http://localhost:1313/tags/team/</link>
+      <pubDate>Tue, 24 Jan 2023 18:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/team/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Future</title>
+      <link>http://localhost:1313/tags/future/</link>
+      <pubDate>Mon, 23 Jan 2023 17:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/future/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ai</title>
+      <link>http://localhost:1313/tags/ai/</link>
+      <pubDate>Sun, 22 Jan 2023 16:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/ai/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Cloud</title>
+      <link>http://localhost:1313/tags/cloud/</link>
+      <pubDate>Sat, 21 Jan 2023 15:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/cloud/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Testing</title>
+      <link>http://localhost:1313/tags/testing/</link>
+      <pubDate>Fri, 20 Jan 2023 14:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/testing/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Devops</title>
+      <link>http://localhost:1313/tags/devops/</link>
+      <pubDate>Thu, 19 Jan 2023 13:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/devops/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Agile</title>
+      <link>http://localhost:1313/tags/agile/</link>
+      <pubDate>Wed, 18 Jan 2023 12:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/agile/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Programming</title>
+      <link>http://localhost:1313/tags/programming/</link>
+      <pubDate>Tue, 17 Jan 2023 11:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/programming/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Codereview</title>
+      <link>http://localhost:1313/tags/codereview/</link>
+      <pubDate>Mon, 16 Jan 2023 10:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/tags/codereview/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

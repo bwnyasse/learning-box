@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Communication on Boris-Wilfried</title>
+    <link>http://localhost:1313/tags/communication/</link>
+    <description>Recent content in Communication on Boris-Wilfried</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Jan 2023 19:00:00 -0700</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/communication/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The Importance of Communication</title>
+      <link>http://localhost:1313/posts/post-10/</link>
+      <pubDate>Wed, 25 Jan 2023 19:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/posts/post-10/</guid>
+      <description>&lt;p&gt;Effective communication prevents misunderstandings.&lt;/p&gt;&#xA;&lt;p&gt;More details about The Importance of Communication. Add as much content as you need for testing.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

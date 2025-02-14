@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Importance of Code Reviews | Boris-Wilfried</title>
+
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+        x-show="$store.theme.isDark">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-go.min.js"></script>
+
+    
+    <script defer src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00c38e',
+                        secondary: '#9fff24',
+                        dark: '#2d3436',
+                        'text-secondary': '#636e72',
+                    },
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                        raleway: ['Raleway', 'sans-serif'],
+                    },
+                    typography: (theme) => ({
+                        DEFAULT: {
+                            css: {
+                                color: theme('colors.gray.900'),
+                                a: {
+                                    color: theme('colors.primary'),
+                                    '&:hover': {
+                                        color: theme('colors.primary/80'),
+                                    },
+                                },
+                            },
+                        },
+                        dark: {
+                            css: {
+                                color: theme('colors.gray.100'),
+                                a: {
+                                    color: theme('colors.primary'),
+                                },
+                                h1: { color: theme('colors.gray.100') },
+                                h2: { color: theme('colors.gray.100') },
+                                h3: { color: theme('colors.gray.100') },
+                                h4: { color: theme('colors.gray.100') },
+                                p: { color: theme('colors.gray.300') },
+                                strong: { color: theme('colors.gray.100') },
+                                blockquote: { color: theme('colors.gray.300') },
+                            },
+                        },
+                    }),
+                },
+            },
+        }
+    </script>
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('theme', {
+                isDark: localStorage.getItem('theme') === 'dark',
+                toggle() {
+                    this.isDark = !this.isDark;
+                    localStorage.setItem('theme', this.isDark ? 'dark' : 'light');
+                },
+                init() {
+                    this.$nextTick(() => {
+                        if (this.isDark) {
+                            document.documentElement.classList.add('dark');
+                        }
+                    });
+                }
+            });
+
+            Alpine.data('navigation', () => ({
+                isOpen: false,
+                isScrolled: false,
+                lastScrollPosition: 0,
+                init() {
+                    this.handleScroll();
+                    window.addEventListener('scroll', () => this.handleScroll());
+                },
+                handleScroll() {
+                    this.isScrolled = window.pageYOffset > 0;
+                    const position = window.pageYOffset;
+                    if (position > this.lastScrollPosition && position > 80) {
+                        this.$el.style.transform = 'translateY(-100%)';
+                    } else {
+                        this.$el.style.transform = 'translateY(0)';
+                    }
+                    this.lastScrollPosition = position;
+                }
+            }));
+        });
+    </script>
+</head>
+
+<body class="font-poppins" x-data="{ darkMode: localStorage.getItem('darkMode') === 'true' }"
+    :class="{ 'dark': darkMode }">
+    <header class="fixed top-0 left-0 right-0 bg-white dark:bg-gray-900 z-50 shadow-sm transition-all duration-300" x-data="{ 
+            isOpen: false,
+            isScrolled: false,
+            lastScrollPosition: 0,
+            init() {
+                window.addEventListener('scroll', () => {
+                    this.isScrolled = window.pageYOffset > 0;
+                    const position = window.pageYOffset;
+                    if (position > this.lastScrollPosition && position > 80) {
+                        this.$el.style.transform = 'translateY(-100%)';
+                    } else {
+                        this.$el.style.transform = 'translateY(0)';
+                    }
+                    this.lastScrollPosition = position;
+                });
+            }
+        }" :class="{ 'shadow-md': isScrolled }">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16 md:h-20">
+            
+            <a href="http://localhost:1313/"
+                class="text-xl font-bold text-dark dark:text-white hover:text-primary transition">
+                Boris-Wilfried
+            </a>
+
+            
+            <nav class="hidden md:flex items-center space-x-8">
+                
+                
+                <a href="/"
+                    class="text-text-secondary dark:text-gray-300 hover:text-primary dark:hover:text-primary transition">
+                    Home
+                </a>
+                
+                <a href="/blog/"
+                    class="text-text-secondary dark:text-gray-300 hover:text-primary dark:hover:text-primary transition">
+                    Blog
+                </a>
+                
+            </nav>
+
+            
+            <div class="flex items-center gap-4">
+                
+                <button @click="darkMode = !darkMode; localStorage.setItem('darkMode', darkMode)"
+                    class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                    <svg x-show="!darkMode" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                    <svg x-show="darkMode" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707" />
+                    </svg>
+                </button>
+
+                
+                <a href="/search"
+                    class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <span class="hidden sm:inline">Search</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+    <main>
+        
+<article class="min-h-screen dark:bg-gray-900">
+    
+    <div class="relative h-[30vh] mt-16">
+        
+        <img src="/images/1.jpg" alt="The Importance of Code Reviews" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-8 max-w-4xl mx-auto">
+            
+            <div class="flex gap-2 mb-4">
+                
+                <span class="bg-secondary text-dark px-3 py-1 text-sm font-medium">Cloud Computing</span>
+                
+            </div>
+            
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">The Importance of Code Reviews</h1>
+            <div class="flex items-center gap-4 text-white/80 text-sm">
+                <span class="bg-black/60 px-3 py-1">January 16, 2023</span>
+                <span class="bg-black/60 px-3 py-1">11 min read</span>
+            </div>
+        </div>
+        
+    </div>
+
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-[1fr,300px] gap-12">
+            
+            <div>
+                
+                <div class="prose prose-lg dark:prose-dark max-w-none">
+                    <h1 id="code-reviews-are-essential-for-quality">Code reviews are essential for quality.</h1>
+<p>More details about The Importance of Code Reviews. Add as much content as you need for testing.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>.post-meta &gt; .post-date <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    color: var<span style="color:#f92672">(</span>--text-secondary<span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>    font-size: 0.875rem;
+</span></span><span style="display:flex;"><span>    padding: calc<span style="color:#f92672">(</span>var<span style="color:#f92672">(</span>--spacing-unit<span style="color:#f92672">)</span>* 0.5<span style="color:#f92672">)</span> calc<span style="color:#f92672">(</span>var<span style="color:#f92672">(</span>--spacing-unit<span style="color:#f92672">)</span>* 1<span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>    background: var<span style="color:#f92672">(</span>--background-light<span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>    border-radius: 4px;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>I have been doing day-to-day code reviews for over a decade now. The benefits of code reviews are plenty: someone spot checks your work for errors, they get to learn from your solution, and the collaboration helps to improve the organization’s overall approach to tooling and automation. If you’re not currently doing code reviews in your organization, start now. It’ll make everyone a better engineer. Plenty of people and organizations have shared their code review best practices and what the definition of good code reviews mean to them. Guides from Google, the SmartBear team, and engineer Philipp Hauer are all excellent reads. Below is my personal take on what good code reviews look like and how to make them even better at the team and organizational level. This is in the context of the tech environment I have been working at - currently at Uber, and before that at Skype/Microsoft and Skyscanner. Good code reviews are the bar that all of us should strive for. They cover common and easy to follow best practices that any team can get started with, while ensuring high-quality and helpful reviews for the long term. Better code reviews are where engineers keep improving how they do code reviews. These code reviews look at the code change in the context of the codebase, of who is requesting it and in what situation. These reviews adjust their approach based on the context and situation. The goal not only being a high-quality review, but also to help the developers and teams requesting the review to be more productive.</p>
+<p>Areas Covered by the Code Review
+Good code reviews look at the change itself and how it fits into the codebase. They will look through the clarity of the title and description and &ldquo;why&rdquo; of the change. They cover the correctness of the code, test coverage, functionality changes, and confirm that they follow the coding guides and best practices. They will point out obvious improvements, such as hard to understand code, unclear names, commented out code, untested code, or unhandled edge cases. They will also note when too many changes are crammed into one review, and suggest keeping code changes single-purposed or breaking the change into more focused parts. Better code reviews look at the change in the context of the larger system, as well as check that changes are easy to maintain. They might ask questions about the necessity of the change or how it impacts other parts of the system. They look at abstractions introduced and how these fit into the existing software architecture. They note maintainability observations, such as complex logic that could be simplified, improving test structure, removing duplications, and other possible improvements. Engineer Joel Kemp describes great code reviews as a contextual pass following an initial, light pass.</p>
+<p>Tone of the Review
+The tone of code reviews can greatly influence morale within teams. Reviews with a harsh tone contribute to a feeling of a hostile environment with their microaggressions. Opinionated language can turn people defensive, sparking heated discussions. At the same time, a professional and positive tone can contribute to a more inclusive environment. People in these environments are open to constructive feedback and code reviews can instead trigger healthy and lively discussions. Good code reviews ask open-ended questions instead of making strong or opinionated statements. They offer alternatives and possible workarounds that might work better for the situation without insisting those solutions are the best or only way to proceed. These reviews assume the reviewer might be missing something and ask for clarification instead of correction. Better code reviews are also empathetic. They know that the person writing the code spent a lot of time and effort on this change. These code reviews are kind and unassuming. They applaud nice solutions and are all-round positive.</p>
+<p>Approving vs Requesting Changes
+Once a reviewer completes their review, they can either mark it approved, block the review with change requests, or not set a specific status, leaving it in a “not yet approved” state. How reviewers use the approve and request changes statuses is telling of the code reviews. Good code reviews don&rsquo;t approve changes while there are open-ended questions. However, they make it clear which questions or comments are non-blocking or unimportant, marking them distinctively. They are explicit when approving a change - e.g. adding a thumbs up comment like “looks good!”. Some places use acronyms like LGTM—these also work, but be aware that newcomers could misinterpret these insider acronyms for something else. Good code reviews are equally explicit when they are requesting a follow-up, using the code review tool or team convention to communicate this. Better code reviews are firm on the principle but flexible on the practice: sometimes, certain comments are addressed by the author with a separate, follow-up code change. For changes that are more urgent than others, reviewers try to make themselves available for quicker reviews.</p>
+<p>From Code Reviews to Talking to Each Other
+Code reviews are usually done asynchronously and in writing through a code review tool. This is usually out of convenience, to enable remote code reviews, and to allow multiple people to review the same code change. But when is it time to stop using the tool—however good it might be—and start talking face to face about the code? Good code reviews leave as many comments and questions as are needed. If the revision does not address all of them, they will note those as well. When the conversation gets into a long back-and-forth, reviewers will try to switch to talking to the author in-person instead of burning more time using the code review tool. Better code reviews will proactively reach out to the person making the change after they do a first pass on the code and have lots of comments and questions. These people have learned that they save a lot of time, misunderstandings, and hard feelings this way. The fact that there are many comments on the code indicates that there is likely some misunderstanding on either side. These kinds of misunderstandings are easier identified and resolved by talking things through.</p>
+<p>Nitpicks
+Nitpicks are are unimportant comments, where the code could be merged without even addressing these. These could be things like variable declarations being in alphabetical order, unit tests following a certain structure, or brackets being on the same line. Good code reviews make it clear when changes are unimportant nitpicks. They usually mark comments like these distinctively, adding the “nit:” prefix to them. Too many of these can become frustrating and take the attention away from the more important parts of the review, so reviewers aim to not go overboard with these. Better code reviews realize that too many nitpicks are a sign of lack of tooling or a lack of standards. Reviewers who come across these frequently will look at solving this problem outside the code review process. For example, many of the common nitpick comments can be solved via automated linting. Those that cannot can usually be resolved by the team agreeing to certain standards and following them—perhaps even automating them, eventually.</p>
+<p>Code Reviews for New Joiners
+Starting at a new company is overwhelming for most people. The codebase is new, the style of programming is different than before, and people review your code very differently. So should code reviews be gentler for new starters, to get them used to the new environment, or should they keep the bar just as high, as it is for everyone else? Good code reviews use the same quality bar and approach for everyone, regardless of their job title, level or when they joined the company. Following the above, code reviews have a kind tone, request changes where needed, and will reach out to talk to reviewers when they have many comments. Better code reviews pay additional attention to making the first few reviews for new joiners a great experience. Reviewers are empathetic to the fact that the recent joiner might not be aware of all the coding guidelines and might be unfamiliar with parts of the code. These reviews put additional effort into explaining alternative approaches and pointing to guides. They are also very positive in tone, celebrating the first few changes to the codebase that the author is suggesting.</p>
+<p>Cross-Office, Cross-Time Zone Reviews
+Code reviews get more difficult when reviewers are not in the same location. They are especially challenging when reviewers are sitting in very different time zones. I have had my fair share of these reviews over the years, modifying code owned by teams in the US and Asia, while being based in Europe. Good code reviews account for the time zone difference when they can. Reviewers aim to review the code in the overlapping working hours between offices. For reviews with many comments, reviewers will offer to chat directly or do a video call to talk through changes. Better code reviews notice when code reviews repeatedly run into timezone issues and look for a systemic solution, outside the code review framework. Let&rsquo;s say a team from Europe is frequently changing a service that triggers code reviews from the US-based owner of this service. The system-level question is why these changes are happening so frequently. Are the changes done in the right codebase or should another system be changed? Will the frequency of changes be the same or go down over time? Assuming the changes are done in the right codebase and the frequency will not go down, can the cross-office dependency be broken in some way? Solutions to these kinds of problems are often not simple and could involve refactoring, creating of new services/interfaces or tooling improvements. But solving dependencies like this will make the life of both teams easier and their progress more efficient for the long term, meaning the return on investment is often quite impressive.</p>
+<p>Organizational Support
+The way companies and their engineering organizations approach code reviews is a big element of how efficient they can be. Organizations that view them as unimportant and trivial end up investing little in making reviews easier. In cultures like this, it might be tempting to just do away with code reviews entirely. Engineers advocating for doing better code reviews might feel isolated, without support from above and eventually give up. The result is an organization where problems continue to repeat and compound upon themselves. Organizations with good code reviews ensure that all engineers take part in the code review process—even those that might be working on solo projects. They encourage raising the quality bar, and teams facilitate healthy discussions on code review approaches both at the team and org level. These companies often have code review guides for larger codebases that engineers initiated and wrote. Organizations like this recognise that code reviews take up a good chunk of engineers&rsquo; time. Many of these companies will add code reviews as expectations to the developer job competencies, expecting senior engineers to spend a larger chunk of their time reviewing the code of others. Organizations with better code reviews have hard rules around no code making it to production without a code review—just as business logic changes don&rsquo;t make it to production without automated tests. These organizations have learned that the cost of cutting corners is not worth it; instead, they have processes for expedited reviews for urgent cases. These organizations invest in developer productivity, including working continually to develop more efficient code reviews and tooling improvements. Helpful engineering executives don&rsquo;t need convincing on the benefits of code reviews and other engineering best practices. Instead, they support initiatives on better tooling or more efficient code review processes that come from teams. When people come across reviews that feel hostile, they feel they can speak up and have support all-round to resolve the issue. Senior engineers and managers consider code reviews that are not up to the bar just as much of an issue as sloppy code or poor behavior. Both engineers and engineering managers feel empowered to improve how code reviews are done.</p>
+<p>Start With Good, Make it Better
+Good code reviews already have lots of good effort going into them. They do a thorough review of the change itself, avoid being opinionated with the tone of comments, and make nitpicks clear. They maintain a consistent bar, regardless of who is requesting the review and try to make cross-time zone reviews less painful by paying additional attention to these. Organizations that have good reviews ensure that every developer regularly receives and does code reviews. This is already a high bar—but if you get here, don’t stop. Code reviews are one of the best ways to improve your skills, mentor others, and learn how to be a more efficient communicator. Get to better code reviews by continuously improving on the details, but also start looking at changes at a high level as well. Be empathetic in the tone of comments and think of ways outside the code review process to eliminate frequent nitpicks. Make code reviews especially welcoming for new starters and look for systemic solutions for painful cross-time zone reviews. Organizations that are forward-looking encourage investing in tooling and process improvements to make code reviews better, reaping more of the benefits. &mdash;&mdash;- Gergely is currently an engineering lead in Amsterdam. This blog post originally appeared on Gergely’s blog, The Pragmatic Engineer. If you’d like to read more from Gergely, you can subscribe to his monthly newsletter for his articles on engineering, tech leadership and distributed systems. If you would like to contribute articles to the Stack Overflow blog, send an email to <a href="mailto:pitches@stackoverflow.com">pitches@stackoverflow.com</a>.</p>
+
+                </div>
+
+                
+                <div class="mt-8 border-t dark:border-gray-700 pt-8">
+                    <div x-data="{ showShare: false }" class="relative">
+    <button @click="showShare = !showShare"
+            class="flex items-center gap-2 text-gray-500 hover:text-primary transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+        </svg>
+        <span>Share</span>
+    </button>
+    
+    <div x-show="showShare"
+         @click.away="showShare = false"
+         x-transition
+         class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 p-2 space-y-1">
+        
+        
+        
+        
+        <a href="https://twitter.com/intent/tweet?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fpost-1%2f&text=The%20Importance%20of%20Code%20Reviews"
+           target="_blank"
+           class="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
+            <svg class="w-5 h-5 text-[#1DA1F2]"><path
+                d="M18.244 2.25h3.308l-7.227 8.26l8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
+            Twitter
+        </a>
+        
+        
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2flocalhost%3a1313%2fposts%2fpost-1%2f&title=The%20Importance%20of%20Code%20Reviews"
+           target="_blank"
+           class="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
+            <svg class="w-5 h-5 text-[#0A66C2]"><path
+                d="M6.94 5a2 2 0 1 1-4-.002a2 2 0 0 1 4 .002zM7 8.48H3V21h4V8.48zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-4 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.72-2.91l.04-1.68z" /></svg>
+            LinkedIn
+        </a>
+        
+        
+        <a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fposts%2fpost-1%2f"
+           target="_blank"
+           class="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
+            <svg class="w-5 h-5 text-[#1877F2]"><path
+                d="M9.198 21.5h4v-8.01h3.604l.396-3.98h-4V7.5a1 1 0 0 1 1-1h3v-4h-3a5 5 0 0 0-5 5v2.01h-2l-.396 3.98h2.396v8.01Z" /></svg>
+            Facebook
+        </a>
+        
+        
+        <button @click="navigator.clipboard.writeText('http://localhost:1313/posts/post-1/');
+                       $el.querySelector('span').textContent = 'Copied!';
+                       setTimeout(() => $el.querySelector('span').textContent = 'Copy Link', 2000)"
+                class="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors w-full">
+            <svg class="w-5 h-5"><path
+                d="M9.198 21.5h4v-8.01h3.604l.396-3.98h-4V7.5a1 1 0 0 1 1-1h3v-4h-3a5 5 0 0 0-5 5v2.01h-2l-.396 3.98h2.396v8.01Z" /></svg>
+            <span>Copy Link</span>
+        </button>
+    </div>
+</div>
+                </div>
+
+                
+                
+                
+            </div>
+
+            
+            <aside class="space-y-8">
+    
+    <div class="bg-white  rounded-lg shadow-lg p-6 text-center">
+        <img src="/images/author.jpg" alt="Author" class="w-32 h-32 rounded-full mx-auto mb-4">
+        <h3 class="text-xl font-semibold mb-2 dark:text-white">John Doe</h3>
+        <p class="text-text-secondary dark:text-gray-300 mb-4">Tech enthusiast and frequent traveler...</p>
+        <a href="/about" class="inline-block bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition">
+            Know More
+        </a>
+    </div>
+
+    
+    <div class="bg-white  rounded-lg shadow-lg p-6">
+        <h3 class="text-lg font-semibold mb-4 pb-2 border-b border-primary">Recent Posts</h3>
+        <div class="space-y-4">
+            
+            <div class="flex gap-4">
+                
+                <img src="/images/12.jpg" alt="Understanding Design Patterns" class="w-20 h-20 object-cover rounded">
+                
+                <div>
+                    <h4 class="font-medium leading-snug">
+                        <a href="http://localhost:1313/posts/post-12/" class="hover:text-primary transition">Understanding Design Patterns</a>
+                    </h4>
+                    <span class="text-sm text-text-secondary">Jan 27, 2023</span>
+                </div>
+            </div>
+            
+            <div class="flex gap-4">
+                
+                <img src="/images/11.jpg" alt="Introduction to Cybersecurity" class="w-20 h-20 object-cover rounded">
+                
+                <div>
+                    <h4 class="font-medium leading-snug">
+                        <a href="http://localhost:1313/posts/post-11/" class="hover:text-primary transition">Introduction to Cybersecurity</a>
+                    </h4>
+                    <span class="text-sm text-text-secondary">Jan 26, 2023</span>
+                </div>
+            </div>
+            
+            <div class="flex gap-4">
+                
+                <img src="/images/10.jpg" alt="The Importance of Communication" class="w-20 h-20 object-cover rounded">
+                
+                <div>
+                    <h4 class="font-medium leading-snug">
+                        <a href="http://localhost:1313/posts/post-10/" class="hover:text-primary transition">The Importance of Communication</a>
+                    </h4>
+                    <span class="text-sm text-text-secondary">Jan 25, 2023</span>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="bg-white  rounded-lg shadow-lg p-6">
+        <h3 class="text-lg font-semibold mb-4 pb-2 border-b border-primary">Categories</h3>
+        <ul class="space-y-2">
+            
+            <li>
+                <a href="/%20/categories/ai/ml"
+                    class="flex justify-between items-center py-2 px-3 rounded hover:bg-gray-50 transition">
+                    ai/ml
+                    <span class="bg-gray-100 text-text-secondary px-2 py-1 rounded-full text-sm">
+                        2
+                    </span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/%20/categories/architecture"
+                    class="flex justify-between items-center py-2 px-3 rounded hover:bg-gray-50 transition">
+                    architecture
+                    <span class="bg-gray-100 text-text-secondary px-2 py-1 rounded-full text-sm">
+                        1
+                    </span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/%20/categories/best-practices"
+                    class="flex justify-between items-center py-2 px-3 rounded hover:bg-gray-50 transition">
+                    best practices
+                    <span class="bg-gray-100 text-text-secondary px-2 py-1 rounded-full text-sm">
+                        1
+                    </span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/%20/categories/cloud-computing"
+                    class="flex justify-between items-center py-2 px-3 rounded hover:bg-gray-50 transition">
+                    cloud computing
+                    <span class="bg-gray-100 text-text-secondary px-2 py-1 rounded-full text-sm">
+                        2
+                    </span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/%20/categories/databases"
+                    class="flex justify-between items-center py-2 px-3 rounded hover:bg-gray-50 transition">
+                    databases
+                    <span class="bg-gray-100 text-text-secondary px-2 py-1 rounded-full text-sm">
+                        1
+                    </span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/%20/categories/mobile-development"
+                    class="flex justify-between items-center py-2 px-3 rounded hover:bg-gray-50 transition">
+                    mobile development
+                    <span class="bg-gray-100 text-text-secondary px-2 py-1 rounded-full text-sm">
+                        3
+                    </span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/%20/categories/programming"
+                    class="flex justify-between items-center py-2 px-3 rounded hover:bg-gray-50 transition">
+                    programming
+                    <span class="bg-gray-100 text-text-secondary px-2 py-1 rounded-full text-sm">
+                        1
+                    </span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="/%20/categories/security"
+                    class="flex justify-between items-center py-2 px-3 rounded hover:bg-gray-50 transition">
+                    security
+                    <span class="bg-gray-100 text-text-secondary px-2 py-1 rounded-full text-sm">
+                        2
+                    </span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+
+    
+    <div class="bg-white  rounded-lg shadow-lg p-6">
+        <h3 class="text-lg font-semibold mb-4 pb-2 border-b border-primary">Tags</h3>
+        <div class="flex flex-wrap gap-2">
+            
+            <a href="/%20/tags/agile"
+                class="bg-gray-100 hover:bg-gray-200 text-text-secondary px-3 py-1 rounded-full text-sm transition">
+                agile
+            </a>
+            
+            <a href="/%20/tags/ai"
+                class="bg-gray-100 hover:bg-gray-200 text-text-secondary px-3 py-1 rounded-full text-sm transition">
+                ai
+            </a>
+            
+            <a href="/%20/tags/cloud"
+                class="bg-gray-100 hover:bg-gray-200 text-text-secondary px-3 py-1 rounded-full text-sm transition">
+                cloud
+            </a>
+            
+            <a href="/%20/tags/codereview"
+                class="bg-gray-100 hover:bg-gray-200 text-text-secondary px-3 py-1 rounded-full text-sm transition">
+                codereview
+            </a>
+            
+            <a href="/%20/tags/communication"
+                class="bg-gray-100 hover:bg-gray-200 text-text-secondary px-3 py-1 rounded-full text-sm transition">
+                communication
+            </a>
+            
+            <a href="/%20/tags/cybersecurity"
+                class="bg-gray-100 hover:bg-gray-200 text-text-secondary px-3 py-1 rounded-full text-sm transition">
+                cybersecurity
+            </a>
+            
+            <a href="/%20/tags/design"
+                class="bg-gray-100 hover:bg-gray-200 text-text-secondary px-3 py-1 rounded-full text-sm transition">
+                design
+            </a>
+            
+            <a href="/%20/tags/devops"
+                class="bg-gray-100 hover:bg-gray-200 text-text-secondary px-3 py-1 rounded-full text-sm transition">
+                devops
+            </a>
+            
+            <a href="/%20/tags/future"
+                class="bg-gray-100 hover:bg-gray-200 text-text-secondary px-3 py-1 rounded-full text-sm transition">
+                future
+            </a>
+            
+            <a href="/%20/tags/programming"
+                class="bg-gray-100 hover:bg-gray-200 text-text-secondary px-3 py-1 rounded-full text-sm transition">
+                programming
+            </a>
+            
+            <a href="/%20/tags/team"
+                class="bg-gray-100 hover:bg-gray-200 text-text-secondary px-3 py-1 rounded-full text-sm transition">
+                team
+            </a>
+            
+            <a href="/%20/tags/testing"
+                class="bg-gray-100 hover:bg-gray-200 text-text-secondary px-3 py-1 rounded-full text-sm transition">
+                testing
+            </a>
+            
+        </div>
+    </div>
+
+    
+    <div class="bg-white  p-1"></div>
+    
+</aside>
+        </div>
+    </div>
+</article>
+
+
+<div x-data="{ scrollProgress: '0%' }"
+    @scroll.window="scrollProgress = Math.round((window.pageYOffset / (document.documentElement.scrollHeight - window.innerHeight)) * 100) + '%'"
+    class="fixed top-0 left-0 right-0 z-50">
+    <div class="h-1 bg-gray-200 dark:bg-gray-700">
+        <div class="h-full bg-primary transition-all duration-200 ease-out" :style="`width: ${scrollProgress}`">
+        </div>
+    </div>
+</div>
+
+    </main>
+    <footer class="bg-black text-white">
+    
+    <div class="flex flex-wrap justify-center border-y border-white/10">
+        
+        
+        
+        <a href="https://linkedin.com/in/yourprofile" class="flex-[1_1_200px] flex items-center justify-center p-8 border-r border-white/10 last:border-r-0 hover:bg-white/5 transition" aria-label="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="white">
+                <path
+                    d="M6.94 5a2 2 0 1 1-4-.002a2 2 0 0 1 4 .002zM7 8.48H3V21h4V8.48zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-4 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.72-2.91l.04-1.68z" />
+            </svg>
+        </a>
+        
+        
+        <a href="https://github.com/yourusername" class="flex-[1_1_200px] flex items-center justify-center p-8 border-r border-white/10 last:border-r-0 hover:bg-white/5 transition" aria-label="GitHub">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="white">
+                <path
+                    d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+            </svg>
+        </a>
+        
+        
+        
+        <a href="https://twitter.com/yourhandle" class="flex-[1_1_200px] flex items-center justify-center p-8 border-r border-white/10 last:border-r-0 hover:bg-white/5 transition" aria-label="Twitter">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="white">
+                <path
+                    d="M18.244 2.25h3.308l-7.227 8.26l8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            </svg>
+        </a>
+        
+        
+        <a href="https://medium.com/yourprofile" class="flex-[1_1_200px] flex items-center justify-center p-8 border-r border-white/10 last:border-r-0 hover:bg-white/5 transition" aria-label="Medium">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="white">
+                <path
+                    d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z" />
+            </svg>
+        </a>
+        
+        
+        <a href="https://instagram.com/yourprofile" class="flex-[1_1_200px] flex items-center justify-center p-8 border-r border-white/10 last:border-r-0 hover:bg-white/5 transition" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="white">
+                <path
+                    d="M12 2c2.717 0 3.056.01 4.122.06c1.065.05 1.79.217 2.428.465c.66.254 1.216.598 1.772 1.153a4.908 4.908 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428c.047 1.066.06 1.405.06 4.122c0 2.717-.01 3.056-.06 4.122c-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 0 1-1.153 1.772a4.915 4.915 0 0 1-1.772 1.153c-.637.247-1.363.415-2.428.465c-1.066.047-1.405.06-4.122.06c-2.717 0-3.056-.01-4.122-.06c-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 0 1-1.772-1.153a4.904 4.904 0 0 1-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122c.05-1.066.217-1.79.465-2.428a4.88 4.88 0 0 1 1.153-1.772A4.897 4.897 0 0 1 5.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 5a5 5 0 1 0 0 10a5 5 0 0 0 0-10zm6.5-.25a1.25 1.25 0 0 0-2.5 0a1.25 1.25 0 0 0 2.5 0zM12 9a3 3 0 1 1 0 6a3 3 0 0 1 0-6z" />
+            </svg>
+        </a>
+        
+        
+
+    </div>
+    
+
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex flex-wrap justify-center md:justify-start gap-6">
+                <a href="http://localhost:1313/" class="text-white/80 hover:text-white transition">
+                    © 2025 Boris-Wilfried
+                </a>
+            </div>
+            <div class="flex flex-wrap justify-center md:justify-end gap-6">
+                <a href="/terms" class="text-white/80 hover:text-white transition">Terms & Conditions</a>
+                <a href="/privacy" class="text-white/80 hover:text-white transition">Privacy Policy</a>
+                <a href="/cookie" class="text-white/80 hover:text-white transition">Cookie Policy</a>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+
+</html>

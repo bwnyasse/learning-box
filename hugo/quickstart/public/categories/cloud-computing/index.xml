@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cloud Computing on Boris-Wilfried</title>
+    <link>http://localhost:1313/categories/cloud-computing/</link>
+    <description>Recent content in Cloud Computing on Boris-Wilfried</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 19 Jan 2023 13:00:00 -0700</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/cloud-computing/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introduction to DevOps</title>
+      <link>http://localhost:1313/posts/post-4/</link>
+      <pubDate>Thu, 19 Jan 2023 13:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/posts/post-4/</guid>
+      <description>&lt;p&gt;DevOps bridges development and operations.&lt;/p&gt;&#xA;&lt;p&gt;More details about Introduction to DevOps. Add as much content as you need for testing.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>The Importance of Code Reviews</title>
+      <link>http://localhost:1313/posts/post-1/</link>
+      <pubDate>Mon, 16 Jan 2023 10:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/posts/post-1/</guid>
+      <description>&lt;h1 id=&#34;code-reviews-are-essential-for-quality&#34;&gt;Code reviews are essential for quality.&lt;/h1&gt;&#xA;&lt;p&gt;More details about The Importance of Code Reviews. Add as much content as you need for testing.&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.post-meta &amp;gt; .post-date &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    color: var&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;--text-secondary&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    font-size: 0.875rem;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    padding: calc&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;var&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;--spacing-unit&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;* 0.5&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; calc&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;var&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;--spacing-unit&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;* 1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    background: var&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;--background-light&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    border-radius: 4px;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I have been doing day-to-day code reviews for over a decade now. The benefits of code reviews are plenty: someone spot checks your work for errors, they get to learn from your solution, and the collaboration helps to improve the organization’s overall approach to tooling and automation. If you’re not currently doing code reviews in your organization, start now. It’ll make everyone a better engineer. Plenty of people and organizations have shared their code review best practices and what the definition of good code reviews mean to them. Guides from Google, the SmartBear team, and engineer Philipp Hauer are all excellent reads. Below is my personal take on what good code reviews look like and how to make them even better at the team and organizational level. This is in the context of the tech environment I have been working at - currently at Uber, and before that at Skype/Microsoft and Skyscanner. Good code reviews are the bar that all of us should strive for. They cover common and easy to follow best practices that any team can get started with, while ensuring high-quality and helpful reviews for the long term. Better code reviews are where engineers keep improving how they do code reviews. These code reviews look at the code change in the context of the codebase, of who is requesting it and in what situation. These reviews adjust their approach based on the context and situation. The goal not only being a high-quality review, but also to help the developers and teams requesting the review to be more productive.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
