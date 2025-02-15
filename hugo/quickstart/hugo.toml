@@ -1,7 +1,7 @@
 baseURL = 'https://example.org/'
 languageCode = 'en-us'
 title = 'Boris-Wilfried'
-theme = 'bwnyasse-theme'
+theme = 'oloodi-hugo-clean'
 
 [pagination]
   pagerSize = 4
