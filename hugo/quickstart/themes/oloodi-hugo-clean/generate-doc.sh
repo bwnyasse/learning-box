@@ -16,6 +16,12 @@ append_file_content() {
     echo "" >> "$OUTPUT_FILE"
 }
 
+# Process archetypes directory and its subdirectories
+echo "# Archetypes Files" >> "$OUTPUT_FILE"
+find archetypes -type f | while read -r file; do
+    append_file_content "$file"
+done
+
 # Process layout directory and its subdirectories
 echo "# Layout Files" >> "$OUTPUT_FILE"
 find layouts -type f | while read -r file; do
@@ -27,5 +33,11 @@ echo "# Static CSS Files" >> "$OUTPUT_FILE"
 find static/css -type f | while read -r file; do
     append_file_content "$file"
 done
+
+# Hugo Toml 
+append_file_content hugo.toml
+append_file_content theme.toml
+append_file_content README.md
+
 
 echo "Documentation generated in $OUTPUT_FILE"

@@ -1,0 +1,20 @@
+# This is a required Hugo theme metadata file
+# It provides information about your theme for the Hugo themes gallery
+# It contains theme metadata for the Hugo ecosystem
+# Used by Hugo for theme validation
+# Required for publishing the theme to the Hugo themes website
+# ------------------------------------------------
+
+name = "Oloodi Hugo Clean"
+license = "MIT"
+licenselink = "https://github.com/bwnyasse/oloodi-hugo-clean/blob/main/LICENSE"
+description = "A simple, clean, modern Hugo theme with dark mode support and search functionality"
+homepage = "https://github.com/bwnyasse/oloodi-hugo-clean"
+demosite = "https://bwnyasse.net"
+tags = ["blog", "responsive", "personal", "dark mode", "search"]
+features = ["dark mode", "search", "responsive", "clean design"]
+min_version = "0.80.0"
+
+[author]
+  name = "Boris-Wilfried"
+  homepage = "https://bwnyasse.net"

@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles */
+@layer components {
+  .prose pre {
+    @apply bg-gray-900 text-white;
+  }
+}

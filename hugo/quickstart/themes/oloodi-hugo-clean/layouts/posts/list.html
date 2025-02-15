@@ -1,0 +1,77 @@
+{{ define "main" }}
+
+<div class="bg-gray-100 dark:bg-gray-900 min-h-screen">
+    
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
+        <div class="p-3"></div>
+        <!-- Header -->
+        <div class="text-center mb-16">
+            <h1 class="text-4xl font-bold text-gray-900 dark:text-white">Articles</h1>
+            <p class="mt-4 text-lg text-gray-600 dark:text-gray-400">
+                {{ len .Pages }} published posts
+            </p>
+            <div class="p-3"></div>
+        </div>
+
+        <!-- Posts List -->
+        <div class="space-y-8">  <!-- Increased space between cards -->
+            {{ range .Pages.ByDate.Reverse }}
+            <article class="bg-white dark:bg-gray-800 rounded-xl 
+                          shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] 
+                          dark:shadow-[0_2px_15px_-3px_rgba(0,0,0,0.2)] 
+                          hover:shadow-[0_2px_15px_-3px_rgba(0,0,0,0.1),0_10px_20px_-2px_rgba(0,0,0,0.06)] 
+                          dark:hover:shadow-[0_2px_15px_-3px_rgba(0,0,0,0.3)] 
+                          transition-all duration-300 
+                          p-8">  <!-- Increased padding -->
+                <!-- Metadata (Date and Reading Time) -->
+                <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-3">
+                    <time>{{ .Date.Format "January 2, 2006" }}</time>
+                    <span>•</span>
+                    <span>{{ .ReadingTime }} min read</span>
+                </div>
+
+                <!-- Title -->
+                <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+                    <a href="{{ .Permalink }}" class="hover:text-primary transition-colors">{{ .Title }}</a>
+                </h2>
+
+                <!-- Description -->
+                <p class="text-gray-600 dark:text-gray-300 mb-6">  <!-- Increased margin -->
+                    {{ with .Description }}
+                        {{ . }}
+                    {{ else }}
+                        {{ .Summary | plainify | truncate 160 }}
+                    {{ end }}
+                </p>
+            
+                <!-- Categories and Tags -->
+                <div class="flex flex-wrap gap-3 items-center mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                    {{ with .Params.categories }}
+                        {{ range . }}
+                        <a href="{{ "/categories/" | relLangURL }}{{ . | urlize }}" 
+                           class="bg-secondary/20 text-dark dark:text-white px-4 py-1.5 rounded-md text-sm 
+                                  hover:bg-secondary/30 transition-colors">
+                            {{ . }}
+                        </a>
+                        {{ end }}
+                    {{ end }}
+
+                    {{ with .Params.tags }}
+                        {{ range . }}
+                        <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" 
+                           class="text-sm text-gray-500 dark:text-gray-400 hover:text-primary transition-colors">
+                            #{{ . }}
+                        </a>
+                        {{ end }}
+                    {{ end }}
+                </div>
+            </article>
+            {{ end }}
+        </div>
+
+        <!-- Bottom Spacing -->
+        <div class="h-24"></div>
+    </div>
+    <div class="p-3"></div>
+</div>
+{{ end }}

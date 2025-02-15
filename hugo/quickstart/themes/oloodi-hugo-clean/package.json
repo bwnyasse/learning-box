@@ -1,0 +1,27 @@
+{
+  "name": "oloodi-hugo-clean",
+  "version": "1.0.0",
+  "description": "A clean, modern Hugo theme",
+  "scripts": {
+    "dev": "npm run watch",
+    "build": "npm run build:css && npm run build:js",
+    "build:css": "tailwindcss -i ./assets/css/main.css -o ./static/css/style.css",
+    "build:js": "esbuild ./assets/js/main.js --bundle --minify --outfile=./static/js/main.js",
+    "watch": "concurrently \"npm run watch:css\" \"npm run watch:js\"",
+    "watch:css": "tailwindcss -i ./assets/css/main.css -o ./static/css/style.css --watch",
+    "watch:js": "esbuild ./assets/js/main.js --bundle --watch --outfile=./static/js/main.js"
+  },
+  "dependencies": {
+    "@alpinejs/collapse": "^3.13.5",
+    "alpinejs": "^3.13.5",
+    "fuse.js": "^7.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.10",
+    "autoprefixer": "^10.4.17",
+    "concurrently": "^8.2.2",
+    "esbuild": "^0.20.0",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1"
+  }
+}
