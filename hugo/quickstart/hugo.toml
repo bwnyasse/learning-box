@@ -3,6 +3,43 @@ languageCode = 'en-us'
 title = 'Boris-Wilfried'
 theme = 'oloodi-hugo-clean'
 
+# Menu Configuration
+[[menus.main]]
+name = 'Home'
+url = '/'
+weight = 10
+
+[[menus.main]]
+name = 'Posts'
+url = '/posts'
+weight = 20
+
+[[menus.main]]
+name = 'Tags'
+url = '/tags'
+weight = 30
+
+[related]
+  includeNewer = true
+  threshold = 80
+  toLower = false
+
+  [[related.indices]]
+    name = "categories"
+    weight = 100
+
+  [[related.indices]]
+    name = "tags"
+    weight = 80
+
+  [[related.indices]]
+    name = "date"
+    weight = 10
+
+# Outputs (required for search functionality)
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
 [pagination]
   pagerSize = 4
 
@@ -12,3 +49,6 @@ github = "https://github.com/yourusername"
 twitter = "https://twitter.com/yourhandle"
 medium = "https://medium.com/yourprofile"
 instagram = "https://instagram.com/yourprofile"
+
+
+

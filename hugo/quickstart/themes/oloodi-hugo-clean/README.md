@@ -135,6 +135,51 @@ The theme uses CSS variables for colors. You can override them in your own CSS:
 
 The theme uses Google Fonts. You can change them by modifying the font imports in `layouts/_default/baseof.html`.
 
+## Theme Configuration
+
+You can customize the theme by creating a `data/theme.toml` file in your Hugo site:
+
+```toml
+[theme]
+  primary_color = "#00c38e"
+  enable_dark_mode = true
+  
+  [theme.sidebar]
+    enable = true
+    components = ["author", "recent_posts", "categories", "tags"]
+```
+
+Available options:
+
+- `primary_color`: Main theme color
+- `secondary_color`: Accent color
+- `enable_dark_mode`: Enable/disable dark mode
+- `enable_search`: Enable/disable search functionality...
+
+
+## Development
+
+### Requirements
+- Node.js (v14 or later)
+- npm or yarn
+
+### Setup
+
+1. Install dependencies:
+```bash
+npm install
+```
+
+2. Start development server:
+```bash
+npm run dev
+```
+
+3. Build for production:
+```bash
+npm run build
+```
+
 # Credits
 
 - Built with Hugo

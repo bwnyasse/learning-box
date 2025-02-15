@@ -1,0 +1,77 @@
+# Theme Configuration
+# This is for theme-specific configuration
+# Contains customizable settings for theme users
+# Manages features and styling options
+# Optional but recommended for theme customization
+# ------------------------------------------------
+
+[theme]
+  # Colors
+  primary_color = "#00c38e"
+  secondary_color = "#9fff24"
+  dark_color = "#2d3436"
+  text_secondary_color = "#636e72"
+
+  # Typography
+  font_primary = "Poppins"
+  font_secondary = "Raleway"
+  font_weights = "300,400,500,600,700"
+  
+  # Features toggles
+  enable_dark_mode = true
+  enable_search = true
+  enable_newsletter = false
+  enable_prism = true  # For syntax highlighting
+
+  # Tailwind Configuration
+  tailwind_plugins = 'typography'
+
+  # Layout
+  sidebar_position = "right" # Options: right, left
+  grid_columns = 2 # Options: 1, 2, 3
+  
+  # Components
+  [theme.hero]
+    enable = true
+    height = "60vh"
+    
+  [theme.featured_post]
+    enable = true
+    show_on_homepage = true
+    
+  [theme.sidebar]
+    enable = true
+    sticky = true
+    components = ["author", "recent_posts", "categories", "tags"]
+    
+  [theme.footer]
+    enable_social = true
+    enable_newsletter = false
+    copyright_text = "© 2025 Boris-Wilfried. All rights reserved."
+
+  # Social Media Links
+  [theme.social]
+    github = ""
+    twitter = ""
+    linkedin = ""
+    medium = ""
+    instagram = ""
+
+  # Related Posts Configuration
+  [theme.related_posts]
+    enable = true
+    includeNewer = true
+    threshold = 80
+    toLower = false
+    
+    [[theme.related_posts.indices]]
+      name = "categories"
+      weight = 100
+
+    [[theme.related_posts.indices]]
+      name = "tags"
+      weight = 80
+
+    [[theme.related_posts.indices]]
+      name = "date"
+      weight = 10
