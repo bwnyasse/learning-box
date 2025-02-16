@@ -1,4 +1,4 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://bwnyasse.net/'
 languageCode = 'en-us'
 title = 'Boris-Wilfried'
 theme = 'oloodi-hugo-clean'
@@ -10,14 +10,19 @@ url = '/'
 weight = 10
 
 [[menus.main]]
+name = 'Blog'
+url = '/blog'
+weight = 20
+
+[[menus.main]]
 name = 'Posts'
 url = '/posts'
-weight = 20
+weight = 30
 
 [[menus.main]]
 name = 'Tags'
 url = '/tags'
-weight = 30
+weight = 40
 
 [related]
   includeNewer = true
@@ -44,11 +49,11 @@ weight = 30
   pagerSize = 4
 
 [params.social]
-linkedin = "https://linkedin.com/in/yourprofile"
-github = "https://github.com/yourusername"
-twitter = "https://twitter.com/yourhandle"
-medium = "https://medium.com/yourprofile"
-instagram = "https://instagram.com/yourprofile"
+linkedin = "https://www.linkedin.com/in/bwnyasse/"
+github = "https://github.com/bwnyasse"
+twitter = "https://twitter.com/bwnyasse"
+medium = "https://medium.com/@bwnyasse"
+instagram = "https://instagram.com/risbo_winestick"
 
 
 

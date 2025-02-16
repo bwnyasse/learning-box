@@ -4,7 +4,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
     <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ if .IsHome }}{{ .Site.Params.description }}{{ else }}{{ with .Summary }}{{ . }}{{ end }}{{ end }}{{ end }}">
+    <meta name="author" content="{{ .Site.Params.author }}">
+    <link rel="canonical" href="{{ .Permalink }}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+    <meta property="og:url" content="{{ .Permalink }}">
+    <meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
+    <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ if .IsHome }}{{ .Site.Params.description }}{{ else }}{{ with .Summary }}{{ . }}{{ end }}{{ end }}{{ end }}">
+    {{ with .Params.socialImage }}
+    <meta property="og:image" content="{{ . | absURL }}">
+    {{ else }}
+    {{ with .Params.image }}
+    <meta property="og:image" content="{{ . | absURL }}">
+    {{ else }}
+    <meta property="og:image" content="{{ .Site.Params.defaultSocialImage | absURL }}">
+    {{ end }}
+    {{ end }}
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ .Permalink }}">
+    <meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
+    <meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{ if .IsHome }}{{ .Site.Params.description }}{{ else }}{{ with .Summary }}{{ . }}{{ end }}{{ end }}{{ end }}">
+    {{ with .Params.socialImage }}
+    <meta name="twitter:image" content="{{ . | absURL }}">
+    {{ else }}
+    {{ with .Params.image }}
+    <meta name="twitter:image" content="{{ . | absURL }}">
+    {{ else }}
+    <meta name="twitter:image" content="{{ .Site.Params.defaultSocialImage | absURL }}">
+    {{ end }}
+    {{ end }}
+    {{ with .Site.Params.twitter }}
+    <meta name="twitter:creator" content="@{{ . }}">
+    <meta name="twitter:site" content="@{{ . }}">
+    {{ end }}
+    
+    <!-- Schema.org -->
+    <!-- Include structured data -->
+    {{ partial "structured-data.html" . }}
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

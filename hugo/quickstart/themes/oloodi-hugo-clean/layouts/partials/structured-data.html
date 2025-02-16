@@ -1,0 +1,27 @@
+{{ if .IsPage }}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "{{ .Title }}",
+    "image": {{ with .Params.socialImage }}["{{ . | absURL }}"]{{ else }}{{ with .Params.image }}["{{ . | absURL }}"]{{ else }}["{{ .Site.Params.defaultSocialImage | absURL }}"]{{ end }}{{ end }},
+    "datePublished": "{{ .Date.Format "2006-01-02" }}",
+    "dateModified": "{{ .Lastmod.Format "2006-01-02" }}",
+    "author": {
+        "@type": "Person",
+        "name": "{{ .Site.Params.author }}"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "{{ .Site.Title }}",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "{{ .Site.Params.logo | absURL }}"
+        }
+    },
+    "description": "{{ with .Description }}{{ . }}{{ else }}{{ .Summary }}{{ end }}",
+    "keywords": {{ .Params.tags | jsonify }},
+    "url": "{{ .Permalink }}"
+}
+</script>
+{{ end }}
