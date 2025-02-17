@@ -1,14 +1,33 @@
 <!-- layouts/partials/google-analytics.html -->
 {{ if site.Config.Services.GoogleAnalytics.ID }}
+<!-- Debug info -->
+<script>
+    console.log('GA ID found:', '{{ site.Config.Services.GoogleAnalytics.ID }}');
+</script>
+
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.Config.Services.GoogleAnalytics.ID }}"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { 
+        console.log('gtag called with:', arguments);
+        dataLayer.push(arguments); 
+    }
     gtag('js', new Date());
     gtag('config', '{{ site.Config.Services.GoogleAnalytics.ID }}', {
+        'debug_mode': true,
+        'send_page_view': true,
         'anonymize_ip': true,
         'cookie_flags': 'SameSite=None;Secure'
     });
+    
+    // Additional debug info
+    console.log('GA script loaded');
+    console.log('dataLayer:', window.dataLayer);
+</script>
+{{ else }}
+<!-- Debug info when GA ID is not found -->
+<script>
+    console.log('No GA ID found in configuration');
 </script>
 {{ end }}

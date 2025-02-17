@@ -9,7 +9,7 @@
     "build:js": "esbuild ./assets/js/main.js --bundle --minify --outfile=./static/js/main.js",
     "watch": "concurrently \"npm run watch:css\" \"npm run watch:js\"",
     "watch:css": "tailwindcss -i ./assets/css/main.css -o ./static/css/style.css --watch",
-    "watch:js": "esbuild ./assets/js/main.js --bundle --watch --outfile=./static/js/main.js"
+    "watch:js": "esbuild ./assets/js/main.js --bundle --watch --sourcemap --outfile=./static/js/main.js"
   },
   "dependencies": {
     "@alpinejs/collapse": "^3.13.5",
