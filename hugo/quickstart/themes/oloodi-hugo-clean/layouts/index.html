@@ -36,9 +36,9 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 bg-gray-900/50">
             {{ range $index, $project := slice 
-                (dict "title" "Google Developer Expert" "description" "Experienced Google technology experts, influencers, and thought leaders." "image" "/images/project1.jpg" "link" "https://developers.google.com/community/experts/directory/profile/profile-boriswilfried_nyasse")
-                (dict "title" "Oloodi" "description" "Empowering Communities Through Innovation" "image" "/images/project2.jpg" "link" "https://oloodi.com/")
-                (dict "title" "Engineer Manager" "description" "Senior Director of Software Development @Datavalet" "image" "/images/project3.jpg" "link" "https://www.linkedin.com/in/bwnyasse")
+                (dict "title" "Google Developer Expert" "description" "Experienced Google technology experts, and thought leaders." "image" "/images/project1.jpg" "link" "https://developers.google.com/community/experts/directory/profile/profile-boriswilfried_nyasse")
+                (dict "title" "Oloodi" "description" "Empowering Communities Through Innovation." "image" "/images/project2.jpg" "link" "https://oloodi.com/")
+                (dict "title" "Engineer Manager" "description" "Senior Director of Software Development @Datavalet." "image" "/images/project3.jpg" "link" "https://www.linkedin.com/in/bwnyasse")
             }}
             <div class="group relative aspect-square overflow-hidden bg-black">
                 <img src="{{ .image }}" alt="{{ .title }}" 

@@ -15,7 +15,7 @@
   # Typography
   font_primary = "Poppins"
   font_secondary = "Raleway"
-  font_weights = "300,400,500,600,700"
+  font_weights = "300;400;500;600;700"
   
   # Features toggles
   enable_dark_mode = true
