@@ -1,0 +1,16 @@
+{{ define "main" }}
+<div class="bg-white dark:bg-gray-900 min-h-screen">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+        <!-- Page Header -->
+        <div class="p-3"></div>
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 dark:text-white">{{ .Title }}</h1>
+        </div>
+
+        <!-- Page Content -->
+        <div class="prose prose-lg dark:prose-invert max-w-none">
+            {{ .Content }}
+        </div>
+    </div>
+</div>
+{{ end }}
