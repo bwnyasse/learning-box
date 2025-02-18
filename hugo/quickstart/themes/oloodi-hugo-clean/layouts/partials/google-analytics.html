@@ -1,33 +1,87 @@
 <!-- layouts/partials/google-analytics.html -->
 {{ if site.Config.Services.GoogleAnalytics.ID }}
-<!-- Debug info -->
-<script>
+  {{ $isDevelopment := eq (getenv "HUGO_ENV") "development" }}
+  
+  {{ if not $isDevelopment }}
+  <!-- Production: Optimized GTM Implementation -->
+  <script type="text/javascript">
+    // Inline the initialization to avoid a render-blocking request
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'analytics_storage': 'denied',
+      'ad_storage': 'denied'
+    });
+    gtag('js', new Date());
+    gtag('config', '{{ site.Config.Services.GoogleAnalytics.ID }}', {
+      'anonymize_ip': true,
+      'cookie_flags': 'SameSite=None;Secure'
+    });
+  </script>
+  
+  <!-- Deferred script loading with low priority -->
+  <script>
+    // Helper function to load scripts after page load
+    function loadScript(src, attributes) {
+      if (document.readyState === 'complete') {
+        createScript();
+      } else {
+        window.addEventListener('load', createScript);
+      }
+      
+      function createScript() {
+        const script = document.createElement('script');
+        script.src = src;
+        
+        // Apply any attributes
+        if (attributes) {
+          Object.keys(attributes).forEach(key => {
+            script.setAttribute(key, attributes[key]);
+          });
+        }
+        
+        document.head.appendChild(script);
+      }
+    }
+    
+    // Load GTM with lower priority after main content
+    loadScript('https://www.googletagmanager.com/gtag/js?id={{ site.Config.Services.GoogleAnalytics.ID }}', {
+      'async': true,
+      'fetchpriority': 'low'
+    });
+  </script>
+  
+  {{ else }}
+  <!-- Development Mode: Include debug info -->
+  <script>
     console.log('GA ID found:', '{{ site.Config.Services.GoogleAnalytics.ID }}');
-</script>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.Config.Services.GoogleAnalytics.ID }}"></script>
-<script>
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.Config.Services.GoogleAnalytics.ID }}"></script>
+  <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { 
-        console.log('gtag called with:', arguments);
-        dataLayer.push(arguments); 
+      console.log('gtag called with:', arguments);
+      dataLayer.push(arguments); 
     }
     gtag('js', new Date());
     gtag('config', '{{ site.Config.Services.GoogleAnalytics.ID }}', {
-        'debug_mode': true,
-        'send_page_view': true,
-        'anonymize_ip': true,
-        'cookie_flags': 'SameSite=None;Secure'
+      'debug_mode': true,
+      'send_page_view': true,
+      'anonymize_ip': true,
+      'cookie_flags': 'SameSite=None;Secure'
     });
     
     // Additional debug info
     console.log('GA script loaded');
     console.log('dataLayer:', window.dataLayer);
-</script>
+  </script>
+  {{ end }}
+
 {{ else }}
-<!-- Debug info when GA ID is not found -->
-<script>
+  {{ if eq (getenv "HUGO_ENV") "development" }}
+  <!-- Debug info when GA ID is not found (development only) -->
+  <script>
     console.log('No GA ID found in configuration');
-</script>
+  </script>
+  {{ end }}
 {{ end }}
