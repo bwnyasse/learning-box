@@ -2410,6 +2410,10 @@ video {
 
 /* Custom styles */
 
+.h-\[40vh\] {
+  height: 40vh;
+}
+
 .dark\:prose-invert:is(.dark *) {
   --tw-prose-body: var(--tw-prose-invert-body);
   --tw-prose-headings: var(--tw-prose-invert-headings);
@@ -2699,6 +2703,10 @@ video {
 @media (min-width: 640px) {
   .sm\:inline {
     display: inline;
+  }
+
+  .sm\:h-\[40vh\] {
+    height: 40vh;
   }
 
   .sm\:p-6 {

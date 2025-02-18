@@ -8,3 +8,7 @@
     @apply bg-gray-900 text-white;
   }
 }
+
+.h-\[40vh\] {
+  height: 40vh;
+}
