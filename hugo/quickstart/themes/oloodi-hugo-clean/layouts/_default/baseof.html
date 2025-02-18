@@ -80,6 +80,12 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Preload hero image on homepage -->
+    {{ if .IsHome }}
+    {{ partial "hero-preload.html" . }}
+    {{ end }}
+
     <!--<link
         href="https://fonts.googleapis.com/css2?family={{ site.Data.theme.theme.font_primary }}:wght@{{ site.Data.theme.theme.font_weights }}&family={{ site.Data.theme.theme.font_secondary }}:wght@{{ site.Data.theme.theme.font_weights }}&display=swap"
         rel="stylesheet">-->

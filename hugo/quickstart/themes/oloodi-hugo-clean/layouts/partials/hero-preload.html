@@ -1,0 +1,14 @@
+{{ $heroImage := resources.Get "images/author-profile.webp" }}
+{{ if $heroImage }}
+  {{ $mediumImage := $heroImage.Resize "800x" }}
+  <link 
+    rel="preload" 
+    as="image" 
+    href="{{ $mediumImage.RelPermalink }}" 
+    imagesrcset="{{ ($heroImage.Resize "400x").RelPermalink }} 400w,
+                  {{ $mediumImage.RelPermalink }} 800w,
+                  {{ ($heroImage.Resize "1200x").RelPermalink }} 1200w"
+    imagesizes="(max-width: 1024px) 100vw, 50vw"
+    fetchpriority="high"
+  >
+{{ end }}

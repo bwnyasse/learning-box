@@ -1,5 +1,15 @@
 {{/*
-    Enhanced Responsive Image Partial with WebP support
+    Advanced Responsive Image Partial with LQIP
+    
+    Parameters:
+    - src: The path to the image (required)
+    - alt: Alt text for the image (required)
+    - class: CSS classes to apply (optional)
+    - sizes: The sizes attribute value (optional, default provided)
+    - loading: Loading strategy (optional, default is "lazy")
+    - priority: Whether this is a high priority image (optional)
+    - fetchpriority: Fetch priority value (optional)
+    - useLqip: Whether to use low quality image placeholder (optional)
   */}}
   
   {{ $src := .src }}
@@ -7,27 +17,78 @@
   {{ $class := .class | default "w-full h-auto" }}
   {{ $sizes := .sizes | default "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" }}
   {{ $loading := .loading | default "lazy" }}
+  {{ $fetchpriority := .fetchpriority | default "auto" }}
+  {{ $priority := .priority | default false }}
+  {{ $useLqip := .useLqip | default false }}
   
   {{ $originalImage := resources.Get $src }}
   {{ if $originalImage }}
-    <!-- Generate WebP versions -->
-    {{ $smallWebP := $originalImage.Resize "400x webp" }}
-    {{ $mediumWebP := $originalImage.Resize "800x webp" }}
-    {{ $largeWebP := $originalImage.Resize "1200x webp" }}
-    
-    <!-- Generate fallback versions -->
     {{ $smallImage := $originalImage.Resize "400x" }}
     {{ $mediumImage := $originalImage.Resize "800x" }}
     {{ $largeImage := $originalImage.Resize "1200x" }}
     
-    <picture>
-      <source
-        type="image/webp"
-        srcset="{{ $smallWebP.RelPermalink }} 400w,
-                {{ $mediumWebP.RelPermalink }} 800w,
-                {{ $largeWebP.RelPermalink }} 1200w"
-        sizes="{{ $sizes }}"
-      >
+    {{ if $useLqip }}
+      {{ $placeholderSrc := replace $src ".webp" "-placeholder.webp" }}
+      {{ $placeholderImage := resources.Get $placeholderSrc }}
+      {{ if not $placeholderImage }}
+        {{ $placeholderImage = $originalImage.Resize "20x q30 webp" }}
+      {{ end }}
+      
+      <style>
+        .lqip-wrapper {
+          position: relative;
+          overflow: hidden;
+          background-color: #f0f0f0;
+        }
+        .lqip-placeholder {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          filter: blur(15px);
+          transform: scale(1.1);
+          transition: opacity 0.5s ease-out;
+          object-fit: cover;
+        }
+        .lqip-main {
+          position: relative;
+          z-index: 1;
+          opacity: 0;
+          transition: opacity 0.5s ease-in;
+        }
+        .lqip-main.loaded {
+          opacity: 1;
+        }
+        .lqip-placeholder.loaded {
+          opacity: 0;
+        }
+      </style>
+      
+      <div class="lqip-wrapper {{ $class }}">
+        <img 
+          class="lqip-placeholder"
+          src="{{ $placeholderImage.RelPermalink }}"
+          aria-hidden="true"
+          alt=""
+        />
+        <img 
+          class="lqip-main"
+          src="{{ $mediumImage.RelPermalink }}"
+          srcset="{{ $smallImage.RelPermalink }} 400w,
+                  {{ $mediumImage.RelPermalink }} 800w,
+                  {{ $largeImage.RelPermalink }} 1200w"
+          sizes="{{ $sizes }}"
+          alt="{{ $alt }}"
+          width="{{ $mediumImage.Width }}"
+          height="{{ $mediumImage.Height }}"
+          loading="{{ $loading }}"
+          fetchpriority="{{ if $priority }}high{{ else }}{{ $fetchpriority }}{{ end }}"
+          decoding="{{ if $priority }}sync{{ else }}async{{ end }}"
+          onload="this.classList.add('loaded'); this.previousElementSibling.classList.add('loaded');"
+        />
+      </div>
+    {{ else }}
       <img 
         src="{{ $mediumImage.RelPermalink }}"
         srcset="{{ $smallImage.RelPermalink }} 400w,
@@ -39,8 +100,10 @@
         width="{{ $mediumImage.Width }}"
         height="{{ $mediumImage.Height }}"
         loading="{{ $loading }}"
-      >
-    </picture>
+        fetchpriority="{{ if $priority }}high{{ else }}{{ $fetchpriority }}{{ end }}"
+        decoding="{{ if $priority }}sync{{ else }}async{{ end }}"
+      />
+    {{ end }}
   {{ else }}
     <!-- Fallback for when image cannot be found -->
     <img
@@ -48,5 +111,5 @@
       alt="{{ $alt }}"
       class="{{ $class }}"
       loading="{{ $loading }}"
-    >
+    />
   {{ end }}
