@@ -23,8 +23,13 @@
                 </div>
             </div>
             <div class="relative h-[600px] lg:h-[700px]">
-                <img src="/images/author-profile.jpg" alt="Author Profile" 
-                     class="w-full h-full object-cover rounded-lg">
+                {{ partial "responsive-image" (dict 
+                    "src" "images/author-profile.jpg"
+                    "alt" "Author Profile"
+                    "class" "w-full h-full object-cover rounded-lg"
+                    "sizes" "(max-width: 1024px) 100vw, 50vw"
+                    "loading" "eager"
+                ) }}
                 <div class="absolute inset-0 bg-gradient-to-tr from-black/30 to-transparent rounded-lg"></div>
             </div>
         </div>
@@ -34,15 +39,23 @@
 <!-- Projects Grid -->
 <section class="bg-black py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-white mb-12 text-center">Projects & Expertise</h2>
+        
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 bg-gray-900/50">
-            {{ range $index, $project := slice 
-                (dict "title" "Google Developer Expert" "description" "Experienced Google technology experts, and thought leaders." "image" "/images/project1.jpg" "link" "https://developers.google.com/community/experts/directory/profile/profile-boriswilfried_nyasse")
-                (dict "title" "Oloodi" "description" "Empowering Communities Through Innovation." "image" "/images/project2.jpg" "link" "https://oloodi.com/")
-                (dict "title" "Engineer Manager" "description" "Senior Director of Software Development @Datavalet." "image" "/images/project3.jpg" "link" "https://www.linkedin.com/in/bwnyasse")
+            {{ $projects := slice 
+                (dict "title" "Google Developer Expert" "description" "Experienced Google technology experts, and thought leaders." "image" "images/project1.jpg" "link" "https://developers.google.com/community/experts/directory/profile/profile-boriswilfried_nyasse")
+                (dict "title" "Oloodi" "description" "Empowering Communities Through Innovation." "image" "images/project2.jpg" "link" "https://oloodi.com/")
+                (dict "title" "Engineer Manager" "description" "Senior Director of Software Development @Datavalet." "image" "images/project3.jpg" "link" "https://www.linkedin.com/in/bwnyasse")
             }}
+            
+            {{ range $index, $project := $projects }}
             <div class="group relative aspect-square overflow-hidden bg-black">
-                <img src="{{ .image }}" alt="{{ .title }}" 
-                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                {{ partial "responsive-image" (dict 
+                    "src" .image
+                    "alt" .title
+                    "class" "w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    "sizes" "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                ) }}
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80">
                 </div>
                 <div class="absolute bottom-0 left-0 right-0 p-8 flex justify-between items-end">
@@ -53,7 +66,7 @@
                     <span class="text-secondary text-3xl font-light group-hover:translate-x-2 transition-transform">→</span>
                 </div>
                 <a href="{{ .link }}" target="_blank" 
-  class="absolute inset-0" aria-label="View {{ .title }}"></a>
+                   class="absolute inset-0" aria-label="View {{ .title }}"></a>
             </div>
             {{ end }}
         </div>

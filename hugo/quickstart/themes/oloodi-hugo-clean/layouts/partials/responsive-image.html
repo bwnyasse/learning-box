@@ -1,0 +1,52 @@
+{{/*
+    Enhanced Responsive Image Partial with WebP support
+  */}}
+  
+  {{ $src := .src }}
+  {{ $alt := .alt }}
+  {{ $class := .class | default "w-full h-auto" }}
+  {{ $sizes := .sizes | default "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" }}
+  {{ $loading := .loading | default "lazy" }}
+  
+  {{ $originalImage := resources.Get $src }}
+  {{ if $originalImage }}
+    <!-- Generate WebP versions -->
+    {{ $smallWebP := $originalImage.Resize "400x webp" }}
+    {{ $mediumWebP := $originalImage.Resize "800x webp" }}
+    {{ $largeWebP := $originalImage.Resize "1200x webp" }}
+    
+    <!-- Generate fallback versions -->
+    {{ $smallImage := $originalImage.Resize "400x" }}
+    {{ $mediumImage := $originalImage.Resize "800x" }}
+    {{ $largeImage := $originalImage.Resize "1200x" }}
+    
+    <picture>
+      <source
+        type="image/webp"
+        srcset="{{ $smallWebP.RelPermalink }} 400w,
+                {{ $mediumWebP.RelPermalink }} 800w,
+                {{ $largeWebP.RelPermalink }} 1200w"
+        sizes="{{ $sizes }}"
+      >
+      <img 
+        src="{{ $mediumImage.RelPermalink }}"
+        srcset="{{ $smallImage.RelPermalink }} 400w,
+                {{ $mediumImage.RelPermalink }} 800w,
+                {{ $largeImage.RelPermalink }} 1200w"
+        sizes="{{ $sizes }}"
+        alt="{{ $alt }}"
+        class="{{ $class }}"
+        width="{{ $mediumImage.Width }}"
+        height="{{ $mediumImage.Height }}"
+        loading="{{ $loading }}"
+      >
+    </picture>
+  {{ else }}
+    <!-- Fallback for when image cannot be found -->
+    <img
+      src="{{ $src }}"
+      alt="{{ $alt }}"
+      class="{{ $class }}"
+      loading="{{ $loading }}"
+    >
+  {{ end }}
