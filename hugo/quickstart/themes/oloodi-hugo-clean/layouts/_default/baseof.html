@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
     <link rel="dns-prefetch" href="https://www.google-analytics.com">
+
+    <!-- Consent management script - Must be loaded before GA -->
+    {{ partial "consent-management.html" . }}
+
+    <!-- Google Analytics -->
     {{ partial "google-analytics.html" . }}
 
     <!-- Canonical URL -->
@@ -74,7 +79,6 @@
     {{ end }}
 
     <!-- Schema.org -->
-    <!-- Include structured data -->
     {{ partial "structured-data.html" . }}
 
     <!-- Fonts -->
@@ -86,9 +90,7 @@
     {{ partial "hero-preload.html" . }}
     {{ end }}
 
-    <!--<link
-        href="https://fonts.googleapis.com/css2?family={{ site.Data.theme.theme.font_primary }}:wght@{{ site.Data.theme.theme.font_weights }}&family={{ site.Data.theme.theme.font_secondary }}:wght@{{ site.Data.theme.theme.font_weights }}&display=swap"
-        rel="stylesheet">-->
+
     <link rel="stylesheet" href="{{ "css/fonts.css" | relURL }}">
 
     <!-- Styles -->
@@ -100,7 +102,7 @@
 </head>
 
 <body class="font-poppins" x-data="{ darkMode: localStorage.getItem('darkMode') === 'true' }"
-    :class="{ 'dark': darkMode }">
+    :class="{ 'dark': darkMode }" data-ga-id="{{ site.Config.Services.GoogleAnalytics.ID }}">
     {{ partial "header.html" . }}
     <main>
         {{ block "main" . }}{{ end }}

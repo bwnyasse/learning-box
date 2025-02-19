@@ -1,0 +1,94 @@
+<!-- layouts/partials/consent-management.html -->
+<script>
+    // Simple consent management
+    (function() {
+      var hasConsent = localStorage.getItem('analytics_consent') === 'true';
+      
+      // Set initial consent state based on stored preference
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      
+      if (!hasConsent) {
+        // User hasn't explicitly consented yet
+        gtag('consent', 'default', {
+          'analytics_storage': 'denied',
+          'ad_storage': 'denied',
+          'functionality_storage': 'denied',
+          'personalization_storage': 'denied',
+          'security_storage': 'granted' // Keep security storage for essential functionality
+        });
+      }
+      
+      // Consent banner functionality
+      function showConsentBanner() {
+        if (localStorage.getItem('analytics_consent') !== null) {
+          return; // User has already made a choice
+        }
+        
+        var banner = document.createElement('div');
+        banner.style.position = 'fixed';
+        banner.style.bottom = '0';
+        banner.style.left = '0';
+        banner.style.right = '0';
+        banner.style.padding = '1rem';
+        banner.style.background = 'rgba(0, 0, 0, 0.8)';
+        banner.style.color = 'white';
+        banner.style.zIndex = '9999';
+        banner.style.display = 'flex';
+        banner.style.justifyContent = 'space-between';
+        banner.style.alignItems = 'center';
+        
+        var message = document.createElement('p');
+        message.textContent = 'This site uses cookies to analyze traffic and enhance your experience.';
+        message.style.margin = '0 1rem 0 0';
+        
+        var buttonContainer = document.createElement('div');
+        
+        var acceptBtn = document.createElement('button');
+        acceptBtn.textContent = 'Accept';
+        acceptBtn.style.background = '#00c38e';
+        acceptBtn.style.color = 'white';
+        acceptBtn.style.border = 'none';
+        acceptBtn.style.padding = '0.5rem 1rem';
+        acceptBtn.style.borderRadius = '4px';
+        acceptBtn.style.marginRight = '0.5rem';
+        acceptBtn.style.cursor = 'pointer';
+        
+        var declineBtn = document.createElement('button');
+        declineBtn.textContent = 'Decline';
+        declineBtn.style.background = 'transparent';
+        declineBtn.style.color = 'white';
+        declineBtn.style.border = '1px solid white';
+        declineBtn.style.padding = '0.5rem 1rem';
+        declineBtn.style.borderRadius = '4px';
+        declineBtn.style.cursor = 'pointer';
+        
+        acceptBtn.addEventListener('click', function() {
+          localStorage.setItem('analytics_consent', 'true');
+          gtag('consent', 'update', {
+            'analytics_storage': 'granted',
+            'functionality_storage': 'granted'
+          });
+          document.body.removeChild(banner);
+        });
+        
+        declineBtn.addEventListener('click', function() {
+          localStorage.setItem('analytics_consent', 'false');
+          document.body.removeChild(banner);
+        });
+        
+        buttonContainer.appendChild(acceptBtn);
+        buttonContainer.appendChild(declineBtn);
+        
+        banner.appendChild(message);
+        banner.appendChild(buttonContainer);
+        
+        document.body.appendChild(banner);
+      }
+      
+      // Show consent banner after a short delay
+      window.addEventListener('load', function() {
+        setTimeout(showConsentBanner, 1000);
+      });
+    })();
+  </script>
