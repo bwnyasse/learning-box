@@ -25,7 +25,7 @@
                 <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-3">
                     <time>{{ .Date.Format "January 2, 2006" }}</time>
                     <span>•</span>
-                    <span>{{ .ReadingTime }} min read</span>
+                    <span>{{ default 3 .ReadingTime }} min read</span>
                 </div>
 
                 <!-- Title -->

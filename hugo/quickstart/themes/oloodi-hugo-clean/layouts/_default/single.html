@@ -60,7 +60,7 @@
                                 </h3>
                                 <div class="mt-2 flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
                                     <span>{{ .Date.Format "Jan 2, 2006" }}</span>
-                                    <span>{{ .ReadingTime }} min read</span>
+                                    <span>{{ default 3 .ReadingTime }} min read</span>
                                 </div>
                             </div>
                         </a>

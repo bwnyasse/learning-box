@@ -16,7 +16,7 @@
             {{ end }}
             <div class="post-meta">
                 <span class="post-date">{{ .Date.Format "January 2, 2006" }}</span>
-                <span class="reading-time">{{ .ReadingTime }} min read</span>
+                <span class="reading-time">{{ default 3 .ReadingTime }} min read</span>
             </div>
         </div>
     </div>
