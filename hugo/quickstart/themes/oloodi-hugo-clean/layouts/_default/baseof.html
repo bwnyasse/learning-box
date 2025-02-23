@@ -38,7 +38,7 @@
         content="{{ with .Description }}{{ . }}{{ else }}{{ if .IsHome }}{{ .Site.Params.description }}{{ else }}{{ with .Summary }}{{ . }}{{ end }}{{ end }}{{ end }}">
     <meta name="author" content="{{ .Site.Params.author }}">
     <link rel="canonical" href="{{ .Permalink }}">
-    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.webp">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
