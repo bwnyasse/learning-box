@@ -6,6 +6,7 @@ import 'dashboards/ap_health_dashboard.dart';
 import 'dashboards/client_distribution_dashboard.dart';
 import 'dashboards/config_changes_dashboard.dart';
 import 'dashboards/admin_activity_dashboard.dart';
+import 'dashboards/security_monitoring_dashboard.dart';
 import 'sidebars/filter_sidebar.dart';
 import 'sidebars/ai_chat_sidebar.dart';
 
@@ -35,6 +36,7 @@ class _MainLayoutState extends State<MainLayout> {
     'Client Distribution',
     'Config Changes',
     'Admin Activity',
+    'Security Monitoring',
   ];
 
   @override
@@ -147,6 +149,9 @@ class _MainLayoutState extends State<MainLayout> {
         return ConfigChangesDashboard(fortiManagerData: fortiManagerData);
       case 3:
         return AdminActivityDashboard(fortiManagerData: fortiManagerData);
+      case 4:
+        return SecurityMonitoringDashboard(
+            fortiAPData: fortiAPData, fortiManagerData: fortiManagerData);
       default:
         return APHealthDashboard(fortiAPData: fortiAPData);
     }

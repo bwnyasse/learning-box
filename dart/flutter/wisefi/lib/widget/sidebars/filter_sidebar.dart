@@ -116,6 +116,17 @@ class _FilterSidebarState extends State<FilterSidebar> {
                       context, 'Config Changes', Icons.settings, 2),
                   _buildDashboardItem(
                       context, 'Admin Activity', Icons.admin_panel_settings, 3),
+
+                  const SizedBox(height: 16),
+
+// Combined Insights section
+                  _buildDashboardCategory(context, 'Combined Insights'),
+                  _buildDashboardItem(
+                      context,
+                      'Security Monitoring',
+                      Icons.security,
+                      4 // This index should match the position in the _dashboards list
+                      ),
                 ],
               ),
             ),

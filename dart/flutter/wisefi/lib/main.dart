@@ -11,7 +11,7 @@ class WiseFiApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'WiseFi',
+      title: 'WiseFi by Dev Datavalet ( POC )',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
