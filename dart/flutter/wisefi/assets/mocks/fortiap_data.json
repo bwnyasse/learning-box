@@ -1,0 +1,640 @@
+[
+    {
+      "@timestamp": "2025-02-25T08:15:23.456Z",
+      "host": "NDO-HQ",
+      "name": "ESD-NB-SUS-00010-WAP1",
+      "serial": "FP423E3X17003288",
+      "status": "online",
+      "connection_state": "connected",
+      "cpu_usage": 42,
+      "mem_free": 512,
+      "mem_total": 1024,
+      "dv_fortigate_customer_name": "ESD-NB-SUS-00010-DMG1",
+      "dv_fortigate_name": "FG201F-HA_1_NC6_DC",
+      "dv_location": "ESD-NB-SUS-00010",
+      "radio": [
+        {
+          "radio_type": "2.4GHz",
+          "client_count": 12,
+          "channel_utilization_percent": 45,
+          "channel_utilization_timestamp": 1708869322,
+          "interfering_aps": 2,
+          "detected_rogue_aps": 1,
+          "noise_floor": -95,
+          "oper_chan": 6,
+          "bandwidth_rx": 28,
+          "bandwidth_tx": 15,
+          "health": {
+            "channel_utilization": {
+              "severity": "good",
+              "value": 45
+            },
+            "client_count": {
+              "severity": "good",
+              "value": 12
+            },
+            "interfering_ssids": {
+              "severity": "warning",
+              "value": 2
+            },
+            "overall": {
+              "severity": "good",
+              "value": 85
+            }
+          }
+        },
+        {
+          "radio_type": "5GHz",
+          "client_count": 18,
+          "channel_utilization_percent": 35,
+          "channel_utilization_timestamp": 1708869322,
+          "interfering_aps": 1,
+          "detected_rogue_aps": 0,
+          "noise_floor": -98,
+          "oper_chan": 44,
+          "bandwidth_rx": 156,
+          "bandwidth_tx": 85,
+          "health": {
+            "channel_utilization": {
+              "severity": "good",
+              "value": 35
+            },
+            "client_count": {
+              "severity": "good",
+              "value": 18
+            },
+            "interfering_ssids": {
+              "severity": "good",
+              "value": 1
+            },
+            "overall": {
+              "severity": "good",
+              "value": 92
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@timestamp": "2025-02-25T08:15:18.234Z",
+      "host": "NDO-HQ",
+      "name": "ESD-NB-SUS-00010-WAP2",
+      "serial": "FP423E3X17003289",
+      "status": "online",
+      "connection_state": "connected",
+      "cpu_usage": 32,
+      "mem_free": 586,
+      "mem_total": 1024,
+      "dv_fortigate_customer_name": "ESD-NB-SUS-00010-DMG1",
+      "dv_fortigate_name": "FG201F-HA_1_NC6_DC",
+      "dv_location": "ESD-NB-SUS-00010",
+      "radio": [
+        {
+          "radio_type": "2.4GHz",
+          "client_count": 8,
+          "channel_utilization_percent": 32,
+          "channel_utilization_timestamp": 1708869322,
+          "interfering_aps": 3,
+          "detected_rogue_aps": 1,
+          "noise_floor": -94,
+          "oper_chan": 11,
+          "bandwidth_rx": 22,
+          "bandwidth_tx": 12,
+          "health": {
+            "channel_utilization": {
+              "severity": "good",
+              "value": 32
+            },
+            "client_count": {
+              "severity": "good",
+              "value": 8
+            },
+            "interfering_ssids": {
+              "severity": "warning",
+              "value": 3
+            },
+            "overall": {
+              "severity": "good",
+              "value": 80
+            }
+          }
+        },
+        {
+          "radio_type": "5GHz",
+          "client_count": 14,
+          "channel_utilization_percent": 28,
+          "channel_utilization_timestamp": 1708869322,
+          "interfering_aps": 0,
+          "detected_rogue_aps": 0,
+          "noise_floor": -99,
+          "oper_chan": 36,
+          "bandwidth_rx": 123,
+          "bandwidth_tx": 74,
+          "health": {
+            "channel_utilization": {
+              "severity": "good",
+              "value": 28
+            },
+            "client_count": {
+              "severity": "good",
+              "value": 14
+            },
+            "interfering_ssids": {
+              "severity": "good",
+              "value": 0
+            },
+            "overall": {
+              "severity": "good",
+              "value": 95
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@timestamp": "2025-02-25T08:15:12.123Z",
+      "host": "FG1500D_HA_1_NTL_DC",
+      "name": "ESD-QC-TRR-03450-WAP1",
+      "serial": "FP423E3X17003290",
+      "status": "warning",
+      "connection_state": "connected",
+      "cpu_usage": 78,
+      "mem_free": 342,
+      "mem_total": 1024,
+      "dv_fortigate_customer_name": "ESD-QC-TRR-03450-DMG1",
+      "dv_fortigate_name": "FG1500D_HA_1_NTL_DC",
+      "dv_location": "ESD-QC-TRR-03450",
+      "radio": [
+        {
+          "radio_type": "2.4GHz",
+          "client_count": 24,
+          "channel_utilization_percent": 72,
+          "channel_utilization_timestamp": 1708869322,
+          "interfering_aps": 4,
+          "detected_rogue_aps": 2,
+          "noise_floor": -90,
+          "oper_chan": 1,
+          "bandwidth_rx": 48,
+          "bandwidth_tx": 32,
+          "health": {
+            "channel_utilization": {
+              "severity": "warning",
+              "value": 72
+            },
+            "client_count": {
+              "severity": "warning",
+              "value": 24
+            },
+            "interfering_ssids": {
+              "severity": "warning",
+              "value": 4
+            },
+            "overall": {
+              "severity": "warning",
+              "value": 65
+            }
+          }
+        },
+        {
+          "radio_type": "5GHz",
+          "client_count": 32,
+          "channel_utilization_percent": 65,
+          "channel_utilization_timestamp": 1708869322,
+          "interfering_aps": 2,
+          "detected_rogue_aps": 1,
+          "noise_floor": -96,
+          "oper_chan": 149,
+          "bandwidth_rx": 235,
+          "bandwidth_tx": 168,
+          "health": {
+            "channel_utilization": {
+              "severity": "warning",
+              "value": 65
+            },
+            "client_count": {
+              "severity": "warning",
+              "value": 32
+            },
+            "interfering_ssids": {
+              "severity": "warning",
+              "value": 2
+            },
+            "overall": {
+              "severity": "warning",
+              "value": 68
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@timestamp": "2025-02-25T08:15:05.789Z",
+      "host": "FG1500D_HA_1_NTL_DC",
+      "name": "ESD-QC-TRR-03450-WAP2",
+      "serial": "FP423E3X17003291",
+      "status": "online",
+      "connection_state": "connected",
+      "cpu_usage": 56,
+      "mem_free": 432,
+      "mem_total": 1024,
+      "dv_fortigate_customer_name": "ESD-QC-TRR-03450-DMG1",
+      "dv_fortigate_name": "FG1500D_HA_1_NTL_DC",
+      "dv_location": "ESD-QC-TRR-03450",
+      "radio": [
+        {
+          "radio_type": "2.4GHz",
+          "client_count": 18,
+          "channel_utilization_percent": 58,
+          "channel_utilization_timestamp": 1708869322,
+          "interfering_aps": 2,
+          "detected_rogue_aps": 1,
+          "noise_floor": -92,
+          "oper_chan": 3,
+          "bandwidth_rx": 38,
+          "bandwidth_tx": 25,
+          "health": {
+            "channel_utilization": {
+              "severity": "warning",
+              "value": 58
+            },
+            "client_count": {
+              "severity": "good",
+              "value": 18
+            },
+            "interfering_ssids": {
+              "severity": "warning",
+              "value": 2
+            },
+            "overall": {
+              "severity": "good",
+              "value": 75
+            }
+          }
+        },
+        {
+          "radio_type": "5GHz",
+          "client_count": 26,
+          "channel_utilization_percent": 48,
+          "channel_utilization_timestamp": 1708869322,
+          "interfering_aps": 1,
+          "detected_rogue_aps": 0,
+          "noise_floor": -97,
+          "oper_chan": 153,
+          "bandwidth_rx": 196,
+          "bandwidth_tx": 142,
+          "health": {
+            "channel_utilization": {
+              "severity": "good",
+              "value": 48
+            },
+            "client_count": {
+              "severity": "good",
+              "value": 26
+            },
+            "interfering_ssids": {
+              "severity": "good",
+              "value": 1
+            },
+            "overall": {
+              "severity": "good",
+              "value": 82
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@timestamp": "2025-02-25T08:14:58.456Z",
+      "host": "FG201F-HA_1_NC6_DC",
+      "name": "DV1-QC-MON-00010-WAP1",
+      "serial": "FP423E3X17003292",
+      "status": "online",
+      "connection_state": "connected",
+      "cpu_usage": 38,
+      "mem_free": 578,
+      "mem_total": 1024,
+      "dv_fortigate_customer_name": "DV1-QC-MON-00010-DMG1-LAB",
+      "dv_fortigate_name": "FG201F-HA_1_NC6_DC",
+      "dv_location": "DV1-QC-MON-00010",
+      "radio": [
+        {
+          "radio_type": "2.4GHz",
+          "client_count": 6,
+          "channel_utilization_percent": 28,
+          "channel_utilization_timestamp": 1708869322,
+          "interfering_aps": 1,
+          "detected_rogue_aps": 0,
+          "noise_floor": -96,
+          "oper_chan": 6,
+          "bandwidth_rx": 18,
+          "bandwidth_tx": 10,
+          "health": {
+            "channel_utilization": {
+              "severity": "good",
+              "value": 28
+            },
+            "client_count": {
+              "severity": "good",
+              "value": 6
+            },
+            "interfering_ssids": {
+              "severity": "good",
+              "value": 1
+            },
+            "overall": {
+              "severity": "good",
+              "value": 90
+            }
+          }
+        },
+        {
+          "radio_type": "5GHz",
+          "client_count": 12,
+          "channel_utilization_percent": 22,
+          "channel_utilization_timestamp": 1708869322,
+          "interfering_aps": 0,
+          "detected_rogue_aps": 0,
+          "noise_floor": -100,
+          "oper_chan": 40,
+          "bandwidth_rx": 102,
+          "bandwidth_tx": 68,
+          "health": {
+            "channel_utilization": {
+              "severity": "good",
+              "value": 22
+            },
+            "client_count": {
+              "severity": "good",
+              "value": 12
+            },
+            "interfering_ssids": {
+              "severity": "good",
+              "value": 0
+            },
+            "overall": {
+              "severity": "good",
+              "value": 98
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@timestamp": "2025-02-25T08:14:52.123Z",
+      "host": "FG201F-HA_1_NC6_DC",
+      "name": "DV1-QC-MON-00010-WAP2",
+      "serial": "FP423E3X17003293",
+      "status": "offline",
+      "connection_state": "disconnected",
+      "cpu_usage": 0,
+      "mem_free": 1024,
+      "mem_total": 1024,
+      "dv_fortigate_customer_name": "DV1-QC-MON-00010-DMG1-LAB",
+      "dv_fortigate_name": "FG201F-HA_1_NC6_DC",
+      "dv_location": "DV1-QC-MON-00010",
+      "radio": []
+    },
+    {
+      "@timestamp": "2025-02-25T08:14:45.789Z",
+      "host": "FG201F-HA_1_NC6_DC",
+      "name": "CBS-NB-MON-00327-WAP1",
+      "serial": "FP423E3X17003294",
+      "status": "online",
+      "connection_state": "connected",
+      "cpu_usage": 42,
+      "mem_free": 512,
+      "mem_total": 1024,
+      "dv_fortigate_customer_name": "CBS-NB-MON-00327-DMG1",
+      "dv_fortigate_name": "FG201F-HA_1_NC6_DC",
+      "dv_location": "CBS-NB-MON-00327",
+      "radio": [
+        {
+          "radio_type": "2.4GHz",
+          "client_count": 15,
+          "channel_utilization_percent": 48,
+          "channel_utilization_timestamp": 1708869322,
+          "interfering_aps": 2,
+          "detected_rogue_aps": 1,
+          "noise_floor": -93,
+          "oper_chan": 11,
+          "bandwidth_rx": 32,
+          "bandwidth_tx": 18,
+          "health": {
+            "channel_utilization": {
+              "severity": "good",
+              "value": 48
+            },
+            "client_count": {
+              "severity": "good",
+              "value": 15
+            },
+            "interfering_ssids": {
+              "severity": "warning",
+              "value": 2
+            },
+            "overall": {
+              "severity": "good",
+              "value": 82
+            }
+          }
+        },
+        {
+          "radio_type": "5GHz",
+          "client_count": 22,
+          "channel_utilization_percent": 38,
+          "channel_utilization_timestamp": 1708869322,
+          "interfering_aps": 1,
+          "detected_rogue_aps": 0,
+          "noise_floor": -97,
+          "oper_chan": 36,
+          "bandwidth_rx": 165,
+          "bandwidth_tx": 92,
+          "health": {
+            "channel_utilization": {
+              "severity": "good",
+              "value": 38
+            },
+            "client_count": {
+              "severity": "good",
+              "value": 22
+            },
+            "interfering_ssids": {
+              "severity": "good",
+              "value": 1
+            },
+            "overall": {
+              "severity": "good",
+              "value": 88
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@timestamp": "2025-02-25T08:14:38.456Z",
+      "host": "FG201F-HA_1_NC6_DC",
+      "name": "CBS-NB-MON-00327-WAP2",
+      "serial": "FP423E3X17003295",
+      "status": "warning",
+      "connection_state": "connected",
+      "cpu_usage": 82,
+      "mem_free": 256,
+      "mem_total": 1024,
+      "dv_fortigate_customer_name": "CBS-NB-MON-00327-DMG1",
+      "dv_fortigate_name": "FG201F-HA_1_NC6_DC",
+      "dv_location": "CBS-NB-MON-00327",
+      "radio": [
+        {
+          "radio_type": "2.4GHz",
+          "client_count": 28,
+          "channel_utilization_percent": 82,
+          "channel_utilization_timestamp": 1708869322,
+          "interfering_aps": 5,
+          "detected_rogue_aps": 2,
+          "noise_floor": -88,
+          "oper_chan": 1,
+          "bandwidth_rx": 58,
+          "bandwidth_tx": 32,
+          "health": {
+            "channel_utilization": {
+              "severity": "critical",
+              "value": 82
+            },
+            "client_count": {
+              "severity": "warning",
+              "value": 28
+            },
+            "interfering_ssids": {
+              "severity": "warning",
+              "value": 5
+            },
+            "overall": {
+              "severity": "warning",
+              "value": 60
+            }
+          }
+        },
+        {
+          "radio_type": "5GHz",
+          "client_count": 34,
+          "channel_utilization_percent": 75,
+          "channel_utilization_timestamp": 1708869322,
+          "interfering_aps": 3,
+          "detected_rogue_aps": 1,
+          "noise_floor": -94,
+          "oper_chan": 149,
+          "bandwidth_rx": 285,
+          "bandwidth_tx": 178,
+          "health": {
+            "channel_utilization": {
+              "severity": "warning",
+              "value": 75
+            },
+            "client_count": {
+              "severity": "warning",
+              "value": 34
+            },
+            "interfering_ssids": {
+              "severity": "warning",
+              "value": 3
+            },
+            "overall": {
+              "severity": "warning",
+              "value": 62
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@timestamp": "2025-02-25T08:14:32.123Z",
+      "host": "NDO-HQ",
+      "name": "ESD-NB-YAR-00013-WAP1",
+      "serial": "FP423E3X17003296",
+      "status": "online",
+      "connection_state": "connected",
+      "cpu_usage": 45,
+      "mem_free": 485,
+      "mem_total": 1024,
+      "dv_fortigate_customer_name": "ESD-NB-YAR-00013-DMG1",
+      "dv_fortigate_name": "NDO-HQ",
+      "dv_location": "ESD-NB-YAR-00013",
+      "radio": [
+        {
+          "radio_type": "2.4GHz",
+          "client_count": 10,
+          "channel_utilization_percent": 38,
+          "channel_utilization_timestamp": 1708869322,
+          "interfering_aps": 1,
+          "detected_rogue_aps": 0,
+          "noise_floor": -95,
+          "oper_chan": 6,
+          "bandwidth_rx": 25,
+          "bandwidth_tx": 14,
+          "health": {
+            "channel_utilization": {
+              "severity": "good",
+              "value": 38
+            },
+            "client_count": {
+              "severity": "good",
+              "value": 10
+            },
+            "interfering_ssids": {
+              "severity": "good",
+              "value": 1
+            },
+            "overall": {
+              "severity": "good",
+              "value": 88
+            }
+          }
+        },
+        {
+          "radio_type": "5GHz",
+          "client_count": 16,
+          "channel_utilization_percent": 32,
+          "channel_utilization_timestamp": 1708869322,
+          "interfering_aps": 0,
+          "detected_rogue_aps": 0,
+          "noise_floor": -98,
+          "oper_chan": 36,
+          "bandwidth_rx": 136,
+          "bandwidth_tx": 82,
+          "health": {
+            "channel_utilization": {
+              "severity": "good",
+              "value": 32
+            },
+            "client_count": {
+              "severity": "good",
+              "value": 16
+            },
+            "interfering_ssids": {
+              "severity": "good",
+              "value": 0
+            },
+            "overall": {
+              "severity": "good",
+              "value": 92
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@timestamp": "2025-02-25T08:14:25.789Z",
+      "host": "NDO-HQ",
+      "name": "ESD-NB-YAR-00013-WAP2",
+      "serial": "FP423E3X17003297",
+      "status": "offline",
+      "connection_state": "disconnected",
+      "cpu_usage": 0,
+      "mem_free": 1024,
+      "mem_total": 1024,
+      "dv_fortigate_customer_name": "ESD-NB-YAR-00013-DMG1",
+      "dv_fortigate_name": "NDO-HQ",
+      "dv_location": "ESD-NB-YAR-00013",
+      "radio": []
+    }
+  ]

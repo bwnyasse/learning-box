@@ -1,0 +1,289 @@
+[
+    {
+      "@timestamp": "2025-02-25T08:10:23.456Z",
+      "fortimanager": {
+        "log": {
+          "action": "login",
+          "level": "information",
+          "msg": "Administrator logged in successfully",
+          "status": "completed",
+          "result": "success",
+          "user": {
+            "id": "admin",
+            "name": "Administrator",
+            "type": "local"
+          },
+          "date": "2025-02-25T08:10:23.456Z"
+        }
+      }
+    },
+    {
+      "@timestamp": "2025-02-25T08:11:45.123Z",
+      "fortimanager": {
+        "log": {
+          "action": "config_change",
+          "level": "information",
+          "msg": "Configuration changed on device",
+          "status": "completed",
+          "result": "success",
+          "user": {
+            "id": "admin",
+            "name": "Administrator",
+            "type": "local"
+          },
+          "dev": {
+            "id": "FGT1",
+            "name": "FG201F-HA_1_NC6_DC",
+            "oid": "123"
+          },
+          "date": "2025-02-25T08:11:45.123Z",
+          "changes": "Changed WiFi SSID name from 'Guest-Network' to 'Guest-WiFi'\nChanged password policy on admin accounts\nUpdated firewall rule for outbound traffic"
+        }
+      }
+    },
+    {
+      "@timestamp": "2025-02-25T08:12:33.789Z",
+      "fortimanager": {
+        "log": {
+          "action": "device_registration",
+          "level": "information",
+          "msg": "New FortiAP device registered",
+          "status": "completed",
+          "result": "success",
+          "user": {
+            "id": "admin",
+            "name": "Administrator",
+            "type": "local"
+          },
+          "dev": {
+            "id": "FAP1",
+            "name": "ESD-NB-SUS-00010-WAP2",
+            "oid": "456"
+          },
+          "date": "2025-02-25T08:12:33.789Z"
+        }
+      }
+    },
+    {
+      "@timestamp": "2025-02-25T08:15:57.234Z",
+      "fortimanager": {
+        "log": {
+          "action": "config_change",
+          "level": "warning",
+          "msg": "Failed to apply configuration to device",
+          "status": "failed",
+          "result": "failure",
+          "user": {
+            "id": "jsmith",
+            "name": "John Smith",
+            "type": "local"
+          },
+          "dev": {
+            "id": "FGT2",
+            "name": "FG1500D_HA_1_NTL_DC",
+            "oid": "789"
+          },
+          "date": "2025-02-25T08:15:57.234Z",
+          "changes": "Attempted to update radio channel settings on AP DV1-QC-MON-00010-WAP2\nError: Device unreachable"
+        }
+      }
+    },
+    {
+      "@timestamp": "2025-02-25T08:17:22.567Z",
+      "fortimanager": {
+        "log": {
+          "action": "reboot",
+          "level": "warning",
+          "msg": "Device reboot initiated",
+          "status": "completed",
+          "result": "success",
+          "user": {
+            "id": "jsmith",
+            "name": "John Smith",
+            "type": "local"
+          },
+          "dev": {
+            "id": "FAP2",
+            "name": "DV1-QC-MON-00010-WAP2",
+            "oid": "012"
+          },
+          "date": "2025-02-25T08:17:22.567Z"
+        }
+      }
+    },
+    {
+      "@timestamp": "2025-02-25T08:22:45.890Z",
+      "fortimanager": {
+        "log": {
+          "action": "backup",
+          "level": "information",
+          "msg": "Configuration backup initiated",
+          "status": "completed",
+          "result": "success",
+          "user": {
+            "id": "admin",
+            "name": "Administrator",
+            "type": "local"
+          },
+          "dev": {
+            "id": "FGT1",
+            "name": "FG201F-HA_1_NC6_DC",
+            "oid": "123"
+          },
+          "date": "2025-02-25T08:22:45.890Z"
+        }
+      }
+    },
+    {
+      "@timestamp": "2025-02-25T08:28:12.345Z",
+      "fortimanager": {
+        "log": {
+          "action": "update",
+          "level": "information",
+          "msg": "Firmware update initiated",
+          "status": "in_progress",
+          "result": "success",
+          "user": {
+            "id": "tech",
+            "name": "Tech Support",
+            "type": "local"
+          },
+          "dev": {
+            "id": "FAP3",
+            "name": "ESD-QC-TRR-03450-WAP1",
+            "oid": "345"
+          },
+          "date": "2025-02-25T08:28:12.345Z"
+        }
+      }
+    },
+    {
+      "@timestamp": "2025-02-25T08:32:47.678Z",
+      "fortimanager": {
+        "log": {
+          "action": "update",
+          "level": "information",
+          "msg": "Firmware update completed",
+          "status": "completed",
+          "result": "success",
+          "user": {
+            "id": "tech",
+            "name": "Tech Support",
+            "type": "local"
+          },
+          "dev": {
+            "id": "FAP3",
+            "name": "ESD-QC-TRR-03450-WAP1",
+            "oid": "345"
+          },
+          "date": "2025-02-25T08:32:47.678Z"
+        }
+      }
+    },
+    {
+      "@timestamp": "2025-02-25T08:35:12.987Z",
+      "fortimanager": {
+        "log": {
+          "action": "logout",
+          "level": "information",
+          "msg": "User logged out",
+          "status": "completed",
+          "result": "success",
+          "user": {
+            "id": "jsmith",
+            "name": "John Smith",
+            "type": "local"
+          },
+          "date": "2025-02-25T08:35:12.987Z"
+        }
+      }
+    },
+    {
+      "@timestamp": "2025-02-25T08:40:34.567Z",
+      "fortimanager": {
+        "log": {
+          "action": "config_change",
+          "level": "information",
+          "msg": "Configuration restored from backup",
+          "status": "completed",
+          "result": "success",
+          "user": {
+            "id": "admin",
+            "name": "Administrator",
+            "type": "local"
+          },
+          "dev": {
+            "id": "FGT2",
+            "name": "FG1500D_HA_1_NTL_DC",
+            "oid": "789"
+          },
+          "date": "2025-02-25T08:40:34.567Z"
+        }
+      }
+    },
+    {
+      "@timestamp": "2025-02-25T08:45:56.789Z",
+      "fortimanager": {
+        "log": {
+          "action": "device_unregistration",
+          "level": "information",
+          "msg": "FortiGate device unregistered",
+          "status": "completed",
+          "result": "success",
+          "user": {
+            "id": "admin",
+            "name": "Administrator",
+            "type": "local"
+          },
+          "dev": {
+            "id": "FGT3",
+            "name": "FG600E_HA_1_QC_DC",
+            "oid": "101"
+          },
+          "date": "2025-02-25T08:45:56.789Z"
+        }
+      }
+    },
+    {
+      "@timestamp": "2025-02-25T08:50:23.123Z",
+      "fortimanager": {
+        "log": {
+          "action": "login",
+          "level": "warning",
+          "msg": "Invalid login attempt",
+          "status": "failed",
+          "result": "failure",
+          "user": {
+            "id": "unknown",
+            "name": "Unknown User",
+            "type": "unknown"
+          },
+          "date": "2025-02-25T08:50:23.123Z"
+        }
+      }
+    },
+    {
+      "@timestamp": "2025-02-25T08:55:45.678Z",
+      "fortimanager": {
+        "log": {
+          "action": "config_change",
+          "level": "error",
+          "msg": "Critical configuration error detected",
+          "status": "failed",
+          "result": "failure",
+          "user": {
+            "id": "admin",
+            "name": "Administrator",
+            "type": "local"
+          },
+          "dev": {
+            "id": "FSW1",
+            "name": "FS401F_1_QC_DC",
+            "oid": "234"
+          },
+          "date": "2025-02-25T08:55:45.678Z",
+          "changes": "Attempted to modify routing table\nError: Invalid route configuration"
+        }
+      }
+    }
+  ]
