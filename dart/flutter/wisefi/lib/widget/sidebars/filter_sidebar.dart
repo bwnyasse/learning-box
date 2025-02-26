@@ -80,7 +80,7 @@ class _FilterSidebarState extends State<FilterSidebar> {
                   ),
                   const SizedBox(width: 12),
                   Text(
-                    'WiseFi',
+                    'WiseFi by Dev DV',
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
                 ],
