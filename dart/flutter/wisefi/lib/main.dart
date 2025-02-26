@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:wisefi/widget/main_layout.dart';
+import 'firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const WiseFiApp());
 }
 
 class WiseFiApp extends StatelessWidget {
-  const WiseFiApp({Key? key}) : super(key: key);
+  const WiseFiApp({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -132,7 +132,10 @@ class _MainLayoutState extends State<MainLayout> {
           ),
 
           // Right sidebar for AI chat
-          const AIChatSidebar(),
+          AIChatSidebar(
+            fortiAPData: fortiAPData,
+            fortiManagerData: fortiManagerData,
+          ),
         ],
       ),
     );

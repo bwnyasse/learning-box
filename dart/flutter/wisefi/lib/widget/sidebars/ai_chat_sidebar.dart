@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_vertexai/firebase_vertexai.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:intl/intl.dart';
+import '../../models/models.dart';
 
 class ChatMessage {
   final String content;
@@ -13,7 +17,14 @@ class ChatMessage {
 }
 
 class AIChatSidebar extends StatefulWidget {
-  const AIChatSidebar({Key? key}) : super(key: key);
+  final List<FortiAPData>? fortiAPData;
+  final List<FortiManagerData>? fortiManagerData;
+
+  const AIChatSidebar({
+    Key? key,
+    this.fortiAPData,
+    this.fortiManagerData,
+  }) : super(key: key);
 
   @override
   State<AIChatSidebar> createState() => _AIChatSidebarState();
@@ -23,15 +34,23 @@ class _AIChatSidebarState extends State<AIChatSidebar> {
   final TextEditingController _messageController = TextEditingController();
   final List<ChatMessage> _messages = [];
   bool _isTyping = false;
+  bool _isInitialized = false;
+  String _initializationError = '';
+
+  // Gemini model configuration
+  static const String _modelName = 'gemini-1.0-pro';
+  GenerativeModel? _model;
 
   @override
   void initState() {
     super.initState();
-    
+    _initializeModel();
+
     // Add initial greeting message
     _messages.add(
       ChatMessage(
-        content: 'Hello! I\'m WiseFi Assistant. How can I help you with your wireless network today?',
+        content:
+            'Hello! I\'m WiseFi Assistant. How can I help you with your wireless network today?',
         timestamp: DateTime.now(),
         isUser: false,
       ),
@@ -44,47 +63,215 @@ class _AIChatSidebarState extends State<AIChatSidebar> {
     super.dispose();
   }
 
-  void _sendMessage() {
-    if (_messageController.text.trim().isEmpty) return;
+  Future<void> _initializeModel() async {
+    setState(() {
+      _isInitialized = false;
+      _initializationError = '';
+    });
 
-    final userMessage = ChatMessage(
-      content: _messageController.text,
+    try {
+      debugPrint('Initializing Gemini model with $_modelName');
+      _model = FirebaseVertexAI.instance.generativeModel(model: _modelName);
+
+      // Test initialization with a simple prompt
+      await _model?.generateContent([Content.text('test initialization')]);
+
+      setState(() {
+        _isInitialized = true;
+      });
+      debugPrint('Gemini model initialized successfully');
+    } catch (e) {
+      debugPrint('Error initializing Gemini model: $e');
+      setState(() {
+        _isInitialized = false;
+        _initializationError = e.toString();
+        _model = null;
+      });
+    }
+  }
+
+  Future<void> _sendMessage() async {
+    final userMessage = _messageController.text.trim();
+    if (userMessage.isEmpty) return;
+
+    // Add user message to the chat
+    final userChatMessage = ChatMessage(
+      content: userMessage,
       timestamp: DateTime.now(),
       isUser: true,
     );
 
     setState(() {
-      _messages.add(userMessage);
+      _messages.add(userChatMessage);
       _messageController.clear();
-      _isTyping = true; // Show typing indicator
+      _isTyping = true;
     });
 
-    // Simulate AI response after delay
-    Future.delayed(const Duration(seconds: 1), () {
-      final botResponse = ChatMessage(
-        content: _generateResponse(userMessage.content),
+    try {
+      if (_isInitialized && _model != null) {
+        // Create context from network data if available
+        String context = '';
+        if (widget.fortiAPData != null || widget.fortiManagerData != null) {
+          context = _createNetworkContext();
+        }
+
+        // Create the full prompt with context
+        final fullPrompt = context.isNotEmpty
+            ? "You are WiseFi Assistant, a helpful AI that specializes in wireless networking. "
+                "You're answering questions about the user's wireless network. "
+                "Please format your responses using Markdown for better readability. Use headers, lists, "
+                "bold, and code blocks where appropriate. "
+                "Here's the current context about their network:\n\n$context\n\n"
+                "User question: $userMessage"
+            : "You are WiseFi Assistant, a helpful AI that specializes in wireless networking. "
+                "Please format your responses using Markdown for better readability. Use headers, lists, "
+                "bold, and code blocks where appropriate.\n\n"
+                "User question: $userMessage";
+
+        // Call the Gemini model with the user's message
+        final response = await _model!.generateContent([
+          Content.multi([TextPart(fullPrompt)]),
+        ]);
+
+        if (response.text == null || response.text!.isEmpty) {
+          throw Exception('Empty response from Gemini');
+        }
+
+        // Add AI response to the chat
+        final aiResponse = ChatMessage(
+          content: response.text!,
+          timestamp: DateTime.now(),
+          isUser: false,
+        );
+
+        setState(() {
+          _messages.add(aiResponse);
+          _isTyping = false;
+        });
+      } else {
+        // If model initialization failed, use fallback response
+        await Future.delayed(const Duration(seconds: 1));
+
+        String errorMessage = _initializationError.isNotEmpty
+            ? 'Sorry, I\'m having trouble connecting to my AI capabilities. Technical error: $_initializationError'
+            : 'Sorry, I\'m having trouble connecting to my AI capabilities. Please try again later.';
+
+        final fallbackResponse = ChatMessage(
+          content: errorMessage,
+          timestamp: DateTime.now(),
+          isUser: false,
+        );
+
+        setState(() {
+          _messages.add(fallbackResponse);
+          _isTyping = false;
+        });
+      }
+    } catch (e) {
+      debugPrint('Error getting response from model: $e');
+
+      // Add error message to chat
+      final errorResponse = ChatMessage(
+        content:
+            'Sorry, I encountered an error while processing your request: ${e.toString()}',
         timestamp: DateTime.now(),
         isUser: false,
       );
 
       setState(() {
-        _messages.add(botResponse);
+        _messages.add(errorResponse);
         _isTyping = false;
       });
-    });
+    }
   }
 
-  String _generateResponse(String message) {
-    // Simple mock response system
-    if (message.toLowerCase().contains('underperforming')) {
-      return 'Based on current data, AP-102 and AP-105 are showing performance issues with high channel utilization (>70%). They may need channel reallocation or load balancing.';
-    } else if (message.toLowerCase().contains('bandwidth') || message.toLowerCase().contains('traffic')) {
-      return 'The highest bandwidth users are on AP-103 in the Marketing department. Top 3 clients by usage:\n\n1. Device MAC ending in 4E:2A - 1.2GB\n2. Device MAC ending in F1:5C - 870MB\n3. Device MAC ending in A9:D3 - 690MB';
-    } else if (message.toLowerCase().contains('interference')) {
-      return 'There are several sources of interference affecting your network:\n\n- 2.4GHz band has adjacent channel interference on channels 1 and 2\n- 3 rogue APs detected near the east wing\n- Potential non-WiFi interference detected on 5GHz DFS channels';
+  String _createNetworkContext() {
+    StringBuffer context = StringBuffer();
+
+    if (widget.fortiAPData != null && widget.fortiAPData!.isNotEmpty) {
+      context.writeln("WIRELESS NETWORK SUMMARY:");
+
+      // Count total APs and their status
+      int totalAPs = widget.fortiAPData!.length;
+      int onlineAPs =
+          widget.fortiAPData!.where((ap) => ap.status == 'online').length;
+      int warningAPs =
+          widget.fortiAPData!.where((ap) => ap.status == 'warning').length;
+      int offlineAPs =
+          widget.fortiAPData!.where((ap) => ap.status == 'offline').length;
+
+      context.writeln("- Total Access Points: $totalAPs");
+      context.writeln("- Online APs: $onlineAPs");
+      context.writeln("- Warning APs: $warningAPs");
+      context.writeln("- Offline APs: $offlineAPs");
+
+      // Count clients and rogue APs
+      int totalClients = 0;
+      int totalRogueAPs = 0;
+
+      for (var ap in widget.fortiAPData!) {
+        if (ap.radios != null) {
+          for (var radio in ap.radios!) {
+            totalClients += radio.clientCount ?? 0;
+            totalRogueAPs += radio.detectedRogueAps ?? 0;
+          }
+        }
+      }
+
+      context.writeln("- Total Clients: $totalClients");
+      context.writeln("- Detected Rogue APs: $totalRogueAPs");
+
+      // List locations
+      final locations = widget.fortiAPData!
+          .where((ap) => ap.dv_location != null)
+          .map((ap) => ap.dv_location!)
+          .toSet();
+
+      context.writeln("\nLOCATIONS: ${locations.join(', ')}");
+
+      // List any warning/critical APs
+      if (warningAPs > 0 || offlineAPs > 0) {
+        context.writeln("\nPROBLEMATIC ACCESS POINTS:");
+
+        for (var ap in widget.fortiAPData!) {
+          if (ap.status == 'warning' || ap.status == 'offline') {
+            context.writeln("- ${ap.name} (${ap.dv_location}): ${ap.status}");
+          }
+        }
+      }
     }
-    
-    return 'I\'ll analyze your network data for insights related to this question. To get more specific information, you could ask about wireless performance, client distribution, or security concerns.';
+
+    if (widget.fortiManagerData != null &&
+        widget.fortiManagerData!.isNotEmpty) {
+      context.writeln("\nRECENT MANAGEMENT EVENTS:");
+
+      // Get the 5 most recent events
+      final recentEvents = List.from(widget.fortiManagerData!)
+        ..sort((a, b) {
+          if (a.date == null && b.date == null) return 0;
+          if (a.date == null) return 1;
+          if (b.date == null) return -1;
+          return b.date!.compareTo(a.date!);
+        });
+
+      final eventsToShow = recentEvents.take(5).toList();
+
+      for (var event in eventsToShow) {
+        final dateStr = event.date != null
+            ? DateFormat('MMM d, h:mm a').format(event.date!)
+            : 'Unknown time';
+
+        context.writeln(
+            "- $dateStr: ${event.action} by ${event.getUserName()} - ${event.msg}");
+      }
+    }
+
+    return context.toString();
+  }
+
+  void _handleSuggestedPrompt(String prompt) {
+    _messageController.text = prompt;
+    _sendMessage();
   }
 
   @override
@@ -127,9 +314,24 @@ class _AIChatSidebarState extends State<AIChatSidebar> {
                         'WiseFi Assistant',
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
-                      Text(
-                        'Ask me anything about your network',
-                        style: Theme.of(context).textTheme.bodySmall,
+                      Row(
+                        children: [
+                          Text(
+                            'Powered by Gemini',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                          const SizedBox(width: 8),
+
+                          // Show status indicator
+                          Container(
+                            width: 8,
+                            height: 8,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: _isInitialized ? Colors.green : Colors.red,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -141,12 +343,17 @@ class _AIChatSidebarState extends State<AIChatSidebar> {
                       _messages.clear();
                       _messages.add(
                         ChatMessage(
-                          content: 'Hello! I\'m WiseFi Assistant. How can I help you with your wireless network today?',
+                          content:
+                              'Hello! I\'m WiseFi Assistant. How can I help you with your wireless network today?',
                           timestamp: DateTime.now(),
                           isUser: false,
                         ),
                       );
                     });
+
+                    if (!_isInitialized) {
+                      _initializeModel();
+                    }
                   },
                   tooltip: 'Clear Chat',
                 ),
@@ -170,10 +377,11 @@ class _AIChatSidebarState extends State<AIChatSidebar> {
                   runSpacing: 8,
                   children: [
                     _buildPromptChip(context, 'Show me underperforming APs'),
-                    _buildPromptChip(context, 'Explain this spike in traffic'),
+                    _buildPromptChip(context, 'Explain the rogue AP threats'),
                     _buildPromptChip(
                         context, 'Which clients use the most bandwidth?'),
-                    _buildPromptChip(context, 'What is causing interference?'),
+                    _buildPromptChip(
+                        context, 'What recent config changes were made?'),
                   ],
                 ),
               ],
@@ -203,7 +411,7 @@ class _AIChatSidebarState extends State<AIChatSidebar> {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    'Assistant is typing...',
+                    'WiseFi Assistant ( Not Kris Castilho ) is typing...',
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ],
@@ -244,16 +452,18 @@ class _AIChatSidebarState extends State<AIChatSidebar> {
                     maxLines: 1,
                     style: Theme.of(context).textTheme.bodyLarge,
                     onSubmitted: (_) => _sendMessage(),
+                    enabled: _isInitialized || !_isTyping,
                   ),
                 ),
                 const SizedBox(width: 8),
                 IconButton(
                   icon: const Icon(Icons.send),
-                  onPressed: _sendMessage,
+                  onPressed: _isInitialized && !_isTyping ? _sendMessage : null,
                   style: IconButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    foregroundColor:
-                        Theme.of(context).colorScheme.onPrimary,
+                    backgroundColor: _isInitialized && !_isTyping
+                        ? Theme.of(context).colorScheme.primary
+                        : Theme.of(context).disabledColor,
+                    foregroundColor: Theme.of(context).colorScheme.onPrimary,
                   ),
                 ),
               ],
@@ -338,14 +548,67 @@ class _AIChatSidebarState extends State<AIChatSidebar> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    message.content,
-                    style: TextStyle(
-                      color: message.isUser
-                          ? Theme.of(context).colorScheme.onPrimary
-                          : Theme.of(context).colorScheme.onSurface,
+                  if (message.isUser)
+                    // For user messages, we just display plain text
+                    Text(
+                      message.content,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
+                    )
+                  else
+                    // For assistant messages, we render markdown
+                    MarkdownBody(
+                      data: message.content,
+                      styleSheet: MarkdownStyleSheet(
+                        p: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                        h1: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                        h2: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                        h3: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                        code: TextStyle(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.surface,
+                          color: Theme.of(context).colorScheme.primary,
+                          fontFamily: 'monospace',
+                        ),
+                        codeblockDecoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.surface,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        blockquote: TextStyle(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withOpacity(0.8),
+                          fontStyle: FontStyle.italic,
+                        ),
+                        blockquoteDecoration: BoxDecoration(
+                          border: Border(
+                            left: BorderSide(
+                              color: Theme.of(context).colorScheme.primary,
+                              width: 4,
+                            ),
+                          ),
+                        ),
+                      ),
+                      onTapLink: (text, href, title) {
+                        // Handle link taps if needed
+                      },
                     ),
-                  ),
                   const SizedBox(height: 4),
                   Text(
                     _formatTime(message.timestamp),
@@ -386,10 +649,7 @@ class _AIChatSidebarState extends State<AIChatSidebar> {
 
   Widget _buildPromptChip(BuildContext context, String prompt) {
     return InkWell(
-      onTap: () {
-        _messageController.text = prompt;
-        _sendMessage();
-      },
+      onTap: () => _handleSuggestedPrompt(prompt),
       borderRadius: BorderRadius.circular(16),
       child: Container(
         padding: const EdgeInsets.symmetric(
