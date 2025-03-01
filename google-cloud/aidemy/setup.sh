@@ -1,9 +1,11 @@
+#!/bin/bash
+
 setup_permission() {
     echo "Setting up service account permissions..."
     # Setup service account permission
 
-    export PROJECT_ID=$(gcloud config get project)
-    export SERVICE_ACCOUNT_NAME=$(gcloud compute project-info describe --format="value(defaultServiceAccount)")
+    PROJECT_ID=$(gcloud config get project)
+    SERVICE_ACCOUNT_NAME=$(gcloud compute project-info describe --format="value(defaultServiceAccount)")
 
     echo "Here's your SERVICE_ACCOUNT_NAME: $SERVICE_ACCOUNT_NAME"
 
@@ -59,38 +61,56 @@ setup_project() {
 
     echo "Enabling required services..."
     gcloud services enable compute.googleapis.com \
-                        storage.googleapis.com  \
-                        run.googleapis.com  \
-                        artifactregistry.googleapis.com  \
-                        aiplatform.googleapis.com \
-                        eventarc.googleapis.com \
-                        sqladmin.googleapis.com \
-                        secretmanager.googleapis.com \
-                        cloudbuild.googleapis.com \
-                        cloudresourcemanager.googleapis.com \
-                        cloudfunctions.googleapis.com
+        storage.googleapis.com \
+        run.googleapis.com \
+        artifactregistry.googleapis.com \
+        aiplatform.googleapis.com \
+        eventarc.googleapis.com \
+        sqladmin.googleapis.com \
+        secretmanager.googleapis.com \
+        cloudbuild.googleapis.com \
+        cloudresourcemanager.googleapis.com \
+        cloudfunctions.googleapis.com
     echo "Project setup and service enabling complete."
 }
 
-while getopts ":sp" opt; do
-    case ${opt} in
-    s)
-        echo "Option -s selected: Setting up permissions."
+test_book_provider_agent() {
+    PROJECT_ID=$(gcloud config get project)
+    echo "Setting up project $PROJECT_ID"
+    BOOK_PROVIDER_URL=$(gcloud run services describe book-provider --region=us-central1 --project=$PROJECT_ID --format="value(status.url)")
+    echo "Book Provider Url : $BOOK_PROVIDER_URL"
+    
+    curl -X POST -H "Content-Type: application/json" -d '{"category": "Games", "number_of_book": 2}' $BOOK_PROVIDER_URL
+}
+
+usage() {
+    echo "Usage: $0 [--setup-permission] [--setup-project] [--test-book-provider-agent]"
+    exit 1
+}
+
+# Parse command line arguments
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+    --setup-permission)
+        echo "Option --setup-permission selected: Setting up permissions."
         setup_permission
+        shift # past argument
         ;;
-    p)
-        echo "Option -p selected: Setting up project."
+    --setup-project)
+        echo "Option --setup-project selected: Setting up project."
         setup_project
+        shift # past argument
+        ;;
+    --test-book-provider-agent)
+        echo "Option --test-book-provider-agent selected: Test Book Provider Agent."
+        test_book_provider_agent
+        shift # past argument
+        ;;
+    -h | --help)
+        usage
         ;;
     *)
-        echo "Usage: $0 [-s] [-p]"
-        exit 1
+        usage
         ;;
     esac
 done
-
-if [ $OPTIND -eq 1 ]; then
-    echo "No options were passed. Usage: $0 [-s] [-p]"
-fi
-
-
