@@ -1,5 +1,10 @@
 # step 4 : Building the first agent 
 
+## google-genai==1.0.0 in requirements.txt 
+
+Not necessary and can be misleading since we are using 
+langchain_google_vertexai. 
+
 ## Potential errors :
 
 - **GOOGLE_CLOUD_PROJECT environment variable not set**
@@ -9,3 +14,21 @@
 - **How I fixed that** 
 
 ![step4_2](step4_2.png)
+
+# step 5 : Building Tools : Conecting Agents to Restful Service and Data
+
+## Feedbacks on the ToolNode : 
+
+Actually the `recommend_book` in book.py is doing 2 things : 
+
+- Simple call to Gemini to get the category 
+- Before calling the Restful Service Book-provider 
+
+The call to get the category must be maybe clearly illustrate in the diagram. 
+Because, we could assume that we just want the tool to call the Restful service
+
+Also, the implementation on how to interact with VertexAI to generate the category 
+could be the same as the one done in the book-provider. Otherwise, it looks like we are trying to do different things. 
+
+
+
