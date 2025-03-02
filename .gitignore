@@ -190,6 +190,7 @@ override.tf.json
 terraform.rc
 
 # KEYS
+keys/
 sa-key.json
 sa-key*
 
