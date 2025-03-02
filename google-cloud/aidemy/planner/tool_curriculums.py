@@ -5,14 +5,16 @@ import sqlalchemy
 from google.cloud.sql.connector import Connector, IPTypes
 import pg8000
 
+from utils import get_required_env_var
+
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Database configuration from environment variables
-project_id = os.environ.get("GOOGLE_CLOUD_PROJECT")
-location = os.environ.get("GOOGLE_CLOUD_REGION", "us-central1")
-instance_name = os.environ.get("INSTANCE_NAME") 
+project_id = get_required_env_var("GOOGLE_CLOUD_PROJECT")
+location = os.environ.get("GOOGLE_CLOUD_REGION", "us-central1")  # Default value provided
+instance_name = get_required_env_var("INSTANCE_NAME")
 instance_connection_name = f"{project_id}:{location}:{instance_name}"
 logger.info(f"Instance connection name: {instance_connection_name}")
 
@@ -23,18 +25,10 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
     Returns:
         sqlalchemy.engine.base.Engine: SQLAlchemy engine with connection pool
     """
-    db_user = os.environ["DB_USER"]
-    db_pass = os.environ["DB_PASS"]
-    db_name = os.environ["DB_NAME"]
+    db_user = get_required_env_var("DB_USER")
+    db_pass = get_required_env_var("DB_PASS")
+    db_name = get_required_env_var("DB_NAME")
 
-    encoded_db_user = os.environ.get("DB_USER")
-    print(f"--------------------------->db_user: {db_user!r}")  
-    print(f"--------------------------->db_pass: {db_pass!r}") 
-    print(f"--------------------------->db_name: {db_name!r}") 
-
-    if not all([db_user, db_pass, db_name]):
-        raise ValueError("Missing database credentials. Please set DB_USER, DB_PASS, and DB_NAME environment variables.")
-    
     # Log that we have the required credentials (without showing the values)
     logger.info(f"Database connection configured for database: {db_name}")
     
@@ -71,10 +65,7 @@ def init_connection_pool() -> sqlalchemy.engine.base.Engine:
     
     Returns:
         sqlalchemy.engine.base.Engine: SQLAlchemy engine with connection pool
-    """
-    if not instance_name:
-        raise ValueError("Missing INSTANCE_NAME environment variable")
-        
+    """        
     return connect_with_connector()
 
 def get_curriculum(year: int, subject: str):
@@ -121,9 +112,9 @@ except Exception as e:
 # if __name__ == "__main__":
 #     result = get_curriculum(6, "Mathematics")
 #     if result:
-#         print(f"Curriculum found: {result[:100]}...")  # Print the first 100 chars
+#         logger.info(f"Curriculum found: {result[:100]}...")  # Print the first 100 chars
 #     else:
-#         print("No curriculum found")
+#         logger.info("No curriculum found")
 
 
 

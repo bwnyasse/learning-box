@@ -59,6 +59,7 @@ google-auth==2.38.0
     #   google-cloud-core
     #   google-cloud-resource-manager
     #   google-cloud-storage
+    #   google-genai
 google-cloud-aiplatform==1.82.0
     # via langchain-google-vertexai
 google-cloud-bigquery==3.30.0
@@ -77,6 +78,8 @@ google-crc32c==1.6.0
     # via
     #   google-cloud-storage
     #   google-resumable-media
+google-genai==1.0.0
+    # via -r requirements.in
 google-resumable-media==2.7.2
     # via
     #   google-cloud-bigquery
@@ -167,6 +170,7 @@ pycparser==2.22
 pydantic==2.10.6
     # via
     #   google-cloud-aiplatform
+    #   google-genai
     #   langchain-core
     #   langchain-google-vertexai
     #   langsmith
@@ -185,6 +189,7 @@ requests==2.32.3
     #   google-api-core
     #   google-cloud-bigquery
     #   google-cloud-storage
+    #   google-genai
     #   langsmith
     #   requests-toolbelt
 requests-toolbelt==1.0.0
@@ -215,6 +220,8 @@ typing-extensions==4.12.2
     #   sqlalchemy
 urllib3==2.3.0
     # via requests
+websockets==14.2
+    # via google-genai
 yarl==1.18.3
     # via aiohttp
 zstandard==0.23.0

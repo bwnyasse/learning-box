@@ -4,16 +4,18 @@ import requests
 from langchain_google_vertexai import ChatVertexAI
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 
+from utils import get_required_env_var
+
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+#  configuration from environment variables
+project_id = get_required_env_var("GOOGLE_CLOUD_PROJECT")
+book_provider_url = os.environ.get("BOOK_PROVIDER_URL")      # API endpoint
+
 def get_llm():
-    """Creates and returns the LLM instance with proper project configuration."""
-    project_id = os.environ.get("GOOGLE_CLOUD_PROJECT")
-    if not project_id:
-        raise ValueError("GOOGLE_CLOUD_PROJECT environment variable not set")
-    
+    """Creates and returns the LLM instance with proper project configuration."""    
     return ChatVertexAI(
         model_name="gemini-2.0-flash", 
         project=project_id,
@@ -29,11 +31,6 @@ def call_book_service(category, number_of_books=2):
     """Call the book service with retry logic"""
     headers = {"Content-Type": "application/json"}
     data = {"category": category, "number_of_book": number_of_books}
-    
-    # API endpoint
-    book_provider_url = os.environ.get("BOOK_PROVIDER_URL")
-    if not book_provider_url:
-        raise ValueError("BOOK_PROVIDER_URL environment variable not set")
     
     response = requests.post(
         book_provider_url,

@@ -7,3 +7,6 @@ tenacity
 pg8000==1.31.2
 SQLAlchemy==2.0.36
 cloud-sql-python-connector==1.16.0
+
+# Use by search.py
+google-genai==1.0.0
