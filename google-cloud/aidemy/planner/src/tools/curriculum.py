@@ -5,7 +5,7 @@ import sqlalchemy
 from google.cloud.sql.connector import Connector, IPTypes
 import pg8000
 
-from utils import get_required_env_var
+from utils.helpers import get_required_env_var
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)

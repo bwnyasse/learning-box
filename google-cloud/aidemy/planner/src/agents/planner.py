@@ -4,10 +4,9 @@ from langchain_core.messages import HumanMessage, SystemMessage
 from langgraph.graph import StateGraph, START, END, MessagesState
 from langgraph.prebuilt import ToolNode, tools_condition
 from langgraph.checkpoint.memory import MemorySaver
-from tool_book import recommend_book
-from tool_curriculums import get_curriculum
-from tool_search import search_latest_resource
+from tools import recommend_book, get_curriculum, search_latest_resource
 from utils import get_llm, get_required_env_var
+
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)

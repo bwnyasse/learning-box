@@ -3,7 +3,7 @@ import os
 from google import genai
 from google.genai.types import Tool, GenerateContentConfig, GoogleSearch
 
-from utils import get_required_env_var
+from utils.helpers import get_required_env_var
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)

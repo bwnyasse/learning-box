@@ -2,7 +2,7 @@ import logging
 import os
 from flask import Flask, app, jsonify, render_template, request
 
-from graph import prep_class
+from agents.planner import prep_class
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -49,6 +49,11 @@ def index():
     return render_template('index.html', years=years, subjects=subjects, teaching_plan=None, assignment=None)
 
 if __name__ == "__main__":
+    # Get PORT from environment variable
     port = int(os.environ.get("PORT", 8080))
+    
+    # Log the port we're using
     logger.info(f"Starting server on port {port}")
-    app.run(debug=True, host="0.0.0.0", port=port)
+    
+    # Run with host="0.0.0.0" to make it accessible outside the container
+    app.run(debug=False, host="0.0.0.0", port=port)

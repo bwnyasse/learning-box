@@ -4,7 +4,7 @@ import requests
 from langchain_google_vertexai import ChatVertexAI
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 
-from utils import get_llm, get_required_env_var
+from utils.helpers import get_llm, get_required_env_var
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
