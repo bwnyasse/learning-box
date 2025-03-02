@@ -1,3 +1,9 @@
+# Use by book.py
 langchain_google_vertexai==2.0.14
 requests
 tenacity
+
+# Use by curriculums.py
+pg8000==1.31.2
+SQLAlchemy==2.0.36
+cloud-sql-python-connector==1.16.0

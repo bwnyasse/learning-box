@@ -34,6 +34,12 @@ could be the same as the one done in the book-provider. Otherwise, it looks like
 
  Instead of making multiple separate calls to Vertex AI (which increases the chance of hitting rate limits), we can modify the implementation to make a single API call requesting multiple book recommendations at once.
 
+ I guess it is why she add the workaround get_regions ...
+
+## Curriculums.py
+
+- Your init_connection_pool() function has a return followed by unreachable
+
 
 
 
