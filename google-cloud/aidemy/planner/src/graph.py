@@ -79,32 +79,65 @@ def generate_teaching_plan(state: MessagesState):
         book_info = []
         resource_info = "Not available"
         
-        # Print the entire state
-        logger.info(f"State has {len(state['messages'])} messages")
+        # Extract the original user request from the first message
+        original_request = ""
+        year = "5"  # Default
+        subject = "Mathematics"  # Default
+        topic = "Geometry"  # Default
+        
+        if state["messages"] and hasattr(state["messages"][0], 'content'):
+            original_request = state["messages"][0].content
+            logger.info(f"Original request: {original_request[:100]}...")
+            
+            # Try to extract year, subject and topic from the request
+            if "year" in original_request.lower():
+                # Look for patterns like "year 6" or "year 7"
+                import re
+                year_match = re.search(r'year\s+(\d+)', original_request.lower())
+                if year_match:
+                    year = year_match.group(1)
+            
+            # Extract subject - check for common subject names
+            subject_keywords = {
+                "mathematics": "Mathematics",
+                "math": "Mathematics",
+                "english": "English",
+                "science": "Science",
+                "computer science": "Computer Science",
+                "history": "History",
+                "geography": "Geography"
+            }
+            
+            for keyword, proper_name in subject_keywords.items():
+                if keyword in original_request.lower():
+                    subject = proper_name
+                    break
+                    
+            # Try to extract a specific topic - this is usually mentioned after the subject
+            # or as part of the "covering" phrase
+            if "covering" in original_request.lower():
+                covering_parts = original_request.lower().split("covering")[1].split()
+                if covering_parts:
+                    topic = covering_parts[0].strip(",.: ").capitalize()
+            elif "focus" in original_request.lower():
+                focus_parts = original_request.lower().split("focus")[1].split()
+                if focus_parts and len(focus_parts) > 1:
+                    topic = focus_parts[1].strip(",.: ").capitalize()
+            elif "geometry" in original_request.lower():
+                topic = "Geometry"
+            elif "algebra" in original_request.lower():
+                topic = "Algebra"
         
         # Process previous messages to extract tool results
-        for i, msg in enumerate(state["messages"]):
-            logger.info(f"Message {i} type: {type(msg).__name__}")
-            
-            if hasattr(msg, 'content'):
-                logger.info(f"Message {i} content type: {type(msg.content).__name__}")
-                if isinstance(msg.content, str):
-                    logger.info(f"Message {i} content length: {len(msg.content)}")
-                elif isinstance(msg.content, list):
-                    logger.info(f"Message {i} content is a list of {len(msg.content)} items")
-            
+        for msg in state["messages"]:
             if hasattr(msg, 'tool_call_id') and hasattr(msg, 'content'):
                 content = msg.content
                 if isinstance(content, str) and "curriculum" in content.lower():
                     curriculum_info = content
-                    logger.info(f"Found curriculum info: {content[:100]}...")
                 elif isinstance(content, list) and len(content) > 0:
                     # Handle book info
                     book_info = content
-                    logger.info(f"Found book info with {len(content)} items")
                 elif isinstance(content, str) and len(content) > 300:
-                    resource_info = content
-                    logger.info(f"Found resource info: {content[:100]}...")
                     resource_info = content
         
         # Format book information more readably
@@ -119,9 +152,12 @@ def generate_teaching_plan(state: MessagesState):
             if book_entries:
                 formatted_books = "\n".join(book_entries)
         
-        # Create a content-rich prompt that won't be empty
+        # Log what we found
+        logger.info(f"Creating teaching plan for Year {year} {subject} on {topic}")
+        
+        # Create a dynamic prompt based on the actual request
         prompt_content = f"""
-Create a 3-week teaching plan for Year 5 Mathematics focusing on Geometry.
+Create a 3-week teaching plan for Year {year} {subject} focusing on {topic}.
 
 Curriculum information:
 {curriculum_info}
@@ -139,33 +175,37 @@ Your teaching plan should include:
 4. Integration of recommended books and resources
 5. Ideas for interactive activities and projects
 
-Please format the plan clearly with sections for each week.
+Please format the plan clearly with sections for each week in markdown format.
 """
-       
-        logger.info(f"Generated prompt content length: {len(prompt_content)}")
         
         try:
-            # Try using a HumanMessage instead of SystemMessage
+            # Use a HumanMessage for better compatibility
             human_msg = HumanMessage(content=prompt_content)
-            logger.info(f"Attempting to invoke LLM with HumanMessage")
             
-            # Try to generate with LLM
+            # Generate with LLM
             plan_message = llm.invoke([human_msg])
-            logger.info(f"Successfully generated plan with LLM")
             return {"messages": state["messages"] + [plan_message]}
         except Exception as e:
             logger.error(f"LLM generation failed: {str(e)}")
+            
+            # Handle different error types
             if "400" in str(e) or "contents field is required" in str(e):
                 logger.warning("Empty content error, using fallback plan")
-                fallback_plan = create_fallback_teaching_plan(curriculum_info, book_info, resource_info)
-                return {"messages": state["messages"] + [HumanMessage(content=fallback_plan)]}
             elif "429" in str(e) or "Resource exhausted" in str(e):
                 logger.warning("Rate limit hit, using fallback plan")
-                fallback_plan = create_fallback_teaching_plan(curriculum_info, book_info, resource_info)
-                return {"messages": state["messages"] + [HumanMessage(content=fallback_plan)]}
             else:
-                # Re-raise if it's not a rate limit error
-                raise
+                logger.warning(f"Unknown error, using fallback plan: {e}")
+            
+            # Create a fallback plan with the extracted details
+            fallback_plan = create_fallback_teaching_plan(
+                curriculum_info, 
+                book_info, 
+                resource_info,
+                year=year,
+                subject=subject,
+                topic=topic
+            )
+            return {"messages": state["messages"] + [HumanMessage(content=fallback_plan)]}
             
     except Exception as e:
         logger.error(f"Error in generate_teaching_plan: {e}")
@@ -173,7 +213,7 @@ Please format the plan clearly with sections for each week.
         fallback_plan = create_fallback_teaching_plan("", [], "")
         return {"messages": state["messages"] + [HumanMessage(content=fallback_plan)]}
 
-def create_fallback_teaching_plan(curriculum_info, book_info, resource_info):
+def create_fallback_teaching_plan(curriculum_info, book_info, resource_info, year="5", subject="Mathematics", topic="Geometry"):
     """Create a fallback teaching plan without making API calls"""
     
     # Extract book titles if available
@@ -183,60 +223,61 @@ def create_fallback_teaching_plan(curriculum_info, book_info, resource_info):
             if isinstance(book, dict) and "bookname" in book:
                 book_titles.append(book.get("bookname", ""))
     
-    # Create a generic plan
-    plan = """
-# 3-Week Teaching Plan for Year 5 Mathematics: Geometry [FALLBACK PLAN]
+    # Create a dynamic generic plan
+    plan = f"""
+# 3-Week Teaching Plan for Year {year} {subject}: {topic} [FALLBACK PLAN]
 
 ## Learning Objectives
-- Identify and describe properties of 2D and 3D shapes
-- Recognize and measure angles
-- Calculate perimeter and area of regular shapes
-- Solve problems involving geometry concepts
+- Understand key concepts in {topic}
+- Develop skills in applying {subject} principles to {topic}
+- Engage with {topic} through practical activities
+- Assess progress through various assessment methods
 
-## Week 1: Introduction to Shapes
-### Day 1-2: Properties of 2D Shapes
-- Identify and classify polygons
-- Explore properties of triangles, quadrilaterals, and circles
-- Activity: Shape hunt in the classroom
+## Week 1: Introduction to {topic}
+### Day 1-2: Foundational Concepts
+- Introduce basic {topic} terminology and concepts
+- Explore key principles through guided examples
+- Activity: Hands-on exploration of {topic}
 
-### Day 3-4: Properties of 3D Shapes
-- Identify and classify 3D shapes
-- Explore properties of cubes, cuboids, spheres, cylinders
-- Activity: Building 3D shapes with nets
-
-### Day 5: Assessment
-- Quiz on shape properties
-- Hands-on shape sorting activity
-
-## Week 2: Angles and Measurements
-### Day 1-2: Understanding Angles
-- Types of angles: acute, right, obtuse, reflex
-- Measuring angles with protractors
-- Activity: Finding angles in the environment
-
-### Day 3-4: Angle Problems
-- Angles on a straight line
-- Angles around a point
-- Activity: Creating angle puzzles
+### Day 3-4: Building Understanding
+- Expand on foundational concepts
+- Connect {topic} to real-world applications
+- Activity: Collaborative group work
 
 ### Day 5: Assessment
-- Angle measurement quiz
-- Problem-solving with angles
+- Quiz on basic concepts
+- Reflection on learning so far
 
-## Week 3: Perimeter and Area
-### Day 1-2: Perimeter
-- Calculating perimeter of rectangles and composite shapes
-- Problem solving with perimeter
-- Activity: Designing garden borders
+## Week 2: Developing Skills
+### Day 1-2: Intermediate Concepts
+- Introduce more complex aspects of {topic}
+- Guided practice with increasing difficulty
+- Activity: Problem-solving tasks
 
-### Day 3-4: Area
-- Area of rectangles and squares
-- Area of composite shapes
-- Activity: Designing floor plans
+### Day 3-4: Applying Knowledge
+- Connect concepts to broader {subject} curriculum
+- Independent practice
+- Activity: Creative application tasks
 
-### Day 5: Final Project
-- Students create a "Geometry in My World" poster
-- Presentation of projects
+### Day 5: Assessment
+- Mid-unit assessment
+- Peer evaluation activities
+
+## Week 3: Mastery and Application
+### Day 1-2: Advanced Concepts
+- Challenging applications of {topic}
+- Cross-curricular connections
+- Activity: Complex problem-solving
+
+### Day 3-4: Project Work
+- Apply learning to a culminating project
+- Integration of all concepts
+- Activity: Project development
+
+### Day 5: Final Assessment
+- Project presentations
+- Final unit assessment
+- Reflection and next steps
 """
 
     # Add curriculum information if available
@@ -252,7 +293,7 @@ def create_fallback_teaching_plan(curriculum_info, book_info, resource_info):
         plan += book_section
     
     # Add note about the plan
-    plan += "\n\n*Note: This is a general teaching plan. Adapt as needed based on your specific classroom needs and available resources.*"
+    plan += "\n\n*Note: This is a fallback teaching plan generated due to API limitations. The information from your curriculum and book recommendations has been incorporated where available.*"
     
     return plan
 

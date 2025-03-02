@@ -13,3 +13,6 @@ google-genai==1.0.0
 
 # Use by graph.py
 langgraph==0.2.70
+
+# Use by app.py
+flask==3.1.0

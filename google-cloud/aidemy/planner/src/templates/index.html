@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aidemy Planner</title>
+    <style>
+        
+        #loading-overlay { /* Styles for the loading overlay */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000; /* Ensure it's on top of other content */
+        }
+
+        #loading-spinner { /* Style the spinner (you can customize this) */
+            border: 8px solid #f3f3f3; /* Light grey */
+            border-top: 8px solid #3498db; /* Google Blue */
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<link rel="stylesheet" href="{{ url_for('static', filename='planner.css') }}">
+
+<body>
+    <div id="loading-overlay" style="display:none;">  <!-- Initially hidden -->
+        <div id="loading-spinner"></div>
+    </div>
+    <div class="card-container">
+        <div class="card-container-wrapper">
+        <div class="card-container">
+        <div class="card">
+            <h1>Aidemy Planner</h1>
+            <form method="POST" id="planner-form">
+                <label for="year">Year:</label>
+                <select name="year" id="year">
+                    {% for year in years %}
+                        <option value="{{ year }}">{{ year }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="subject">Subject:</label>
+                <select name="subject" id="subject">
+                    {% for subject in subjects %}
+                        <option value="{{ subject }}">{{ subject }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="addon">Add-on Request:</label>
+                <input type="text" name="addon" id="addon">
+
+                <button type="submit">Generate Plan</button>
+            </form>
+        </div>
+        <div class="card">
+            <div id="markdown-output"></div>
+        </div> 
+        </div>
+        </div>
+    </div>
+
+    <!-- Markdown output OUTSIDE the form -->
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const plannerForm = document.getElementById('planner-form');
+        const markdownOutput = document.getElementById('markdown-output');
+        const addonInput = document.getElementById('addon');
+
+        plannerForm.addEventListener('submit', function(event) {
+            if (addonInput.value.trim() === "") {
+                event.preventDefault();
+                alert("Please specify a topic.");
+                return; // Stop further execution
+            }
+
+            event.preventDefault(); // Prevent page reload
+            loadingOverlay.style.display = 'flex';
+
+            fetch(event.target.action, {
+                method: 'POST',
+                body: new FormData(event.target)
+            })
+            .then(response => response.json())
+            .then(data => {
+                    console.log(data.teaching_plan);
+                    const planHTML = marked.parse(data.teaching_plan);  //  <-- This is the key change
+                    markdownOutput.innerHTML = planHTML;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                 markdownOutput.innerHTML = "An error occurred.";
+
+            })
+            .finally(() => {
+                loadingOverlay.style.display = 'none';
+            });
+        });
+    </script>
+    
+</body>
+</html>

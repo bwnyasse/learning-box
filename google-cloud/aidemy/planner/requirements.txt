@@ -20,6 +20,8 @@ asn1crypto==1.5.1
     # via scramp
 attrs==25.1.0
     # via aiohttp
+blinker==1.9.0
+    # via flask
 cachetools==5.5.2
     # via google-auth
 certifi==2025.1.31
@@ -31,6 +33,8 @@ cffi==1.17.1
     # via cryptography
 charset-normalizer==3.4.1
     # via requests
+click==8.1.8
+    # via flask
 cloud-sql-python-connector==1.16.0
     # via -r requirements.in
 cryptography==44.0.2
@@ -39,6 +43,8 @@ dnspython==2.7.0
     # via cloud-sql-python-connector
 docstring-parser==0.16
     # via google-cloud-aiplatform
+flask==3.1.0
+    # via -r requirements.in
 frozenlist==1.5.0
     # via
     #   aiohttp
@@ -116,6 +122,10 @@ idna==3.10
     #   httpx
     #   requests
     #   yarl
+itsdangerous==2.2.0
+    # via flask
+jinja2==3.1.5
+    # via flask
 jsonpatch==1.33
     # via langchain-core
 jsonpointer==3.0.0
@@ -135,6 +145,10 @@ langgraph-sdk==0.1.53
     # via langgraph
 langsmith==0.3.11
     # via langchain-core
+markupsafe==3.0.2
+    # via
+    #   jinja2
+    #   werkzeug
 msgpack==1.1.0
     # via langgraph-checkpoint
 multidict==6.1.0
@@ -236,6 +250,8 @@ urllib3==2.3.0
     # via requests
 websockets==14.2
     # via google-genai
+werkzeug==3.1.3
+    # via flask
 yarl==1.18.3
     # via aiohttp
 zstandard==0.23.0
