@@ -1,7 +1,12 @@
+import logging
 import os
 import requests
 from langchain_google_vertexai import ChatVertexAI
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 def get_llm():
     """Creates and returns the LLM instance with proper project configuration."""
@@ -59,24 +64,23 @@ def recommend_book(query: str):
         user request: {query}
         Category:
         """
-        print(f"Extracting category from user query...")
-        
+        logger.info(f"Extracting category from user query...")
         response = llm.invoke(prompt)
         category = response.content.strip()
-        print(f"CATEGORY RESPONSE: {category}")
+        logger.info(f"CATEGORY RESPONSE: {category}")
         
         # Call the book recommendation API with retry logic
-        print(f"Requesting book recommendations for category: {category}")
+        logger.info(f"Requesting book recommendations for category: {category}")
         books = call_book_service(category, 2)
         
         return books
 
     except Exception as e:
-        print(f"Error in recommend_book: {e}")
+        logger.info(f"Error in recommend_book: {e}")
         # Return empty list as fallback
         return []
 
 
 if __name__ == "__main__":
     result = recommend_book("I'm doing a course for my 5th grade student on Math Geometry, I'll need to recommend few books come up with a teach plan, few quizzes and also a homework assignment.")
-    print(result)
+    logger.info(result)
