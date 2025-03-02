@@ -10,7 +10,7 @@ def get_llm(project_id):
     time.sleep(random.uniform(2.0, 3.0))   
     
     return ChatVertexAI(
-        model_name="gemini-2.0-flash", 
+        model_name="gemini-2.0-flash-001", 
         project=project_id,
         convert_system_message_to_human=True,
         temperature=0.2,  # Lower temperature for more consistent results

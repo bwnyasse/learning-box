@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 # configuration 
 project_id = get_required_env_var("GOOGLE_CLOUD_PROJECT")
 location = os.environ.get("GOOGLE_CLOUD_REGION", "us-central1")  
-gemini_model_name="gemini-2.0-flash"
+gemini_model_name="gemini-2.0-flash-001"
 
 # Initialize the Google Search tool
 google_search_tool = Tool(
