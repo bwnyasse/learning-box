@@ -5,6 +5,7 @@ from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.prompts import PromptTemplate
 from pydantic import BaseModel, Field
 import os
+from typing import List
 
 class Book(BaseModel):
     bookname: str = Field(description="Name of the book")
@@ -12,6 +13,10 @@ class Book(BaseModel):
     publisher: str = Field(description="Name of the publisher")
     publishing_date: str = Field(description="Date of publishing")
 
+# Define model for multiple books
+class BookList(BaseModel):
+    books: List[Book] = Field(description="List of book recommendations")
+    
 def get_llm():
     """Creates and returns the LLM instance with proper project configuration."""
     project_id = os.environ.get("GOOGLE_CLOUD_PROJECT")
@@ -24,27 +29,31 @@ def get_llm():
         convert_system_message_to_human=True
     )
 
-def get_recommended_book(category):
+def get_recommended_books(category, count):
     """
-    Generates a single book recommendation using LangChain and Vertex AI.
+    Generates book recommendations using LangChain and Vertex AI.
     
     Args:
-        category (str): Book category to generate recommendation for
+        category (str): Book category to generate recommendations for
+        count (int): Number of book recommendations to generate
         
     Returns:
-        dict: A dictionary containing the book recommendation
+        list: A list of book recommendations
     """
-    parser = JsonOutputParser(pydantic_object=Book)
+    parser = JsonOutputParser(pydantic_object=BookList)
     
     prompt = PromptTemplate(
-        template="Generate a book recommendation for the category: {category}.\n{format_instructions}",
-        input_variables=["category"],
+        template="Generate {count} different book recommendations for the category: {category}. Each book should be unique and actually exist.\n{format_instructions}",
+        input_variables=["category", "count"],
         partial_variables={"format_instructions": parser.get_format_instructions()},
     )
     
     llm = get_llm()
     chain = prompt | llm | parser
-    return chain.invoke({"category": category})
+    result = chain.invoke({"category": category, "count": count})
+    
+    # Return just the list of books
+    return result.get("books", [])
 
 @functions_framework.http
 def recommend_books(request):
@@ -78,11 +87,11 @@ def recommend_books(request):
                 error_response.headers[key] = value
             return error_response, 400
 
-        # Generate the requested number of book recommendations
-        recommendations = []
-        for _ in range(number_of_book):
-            book = get_recommended_book(category)
-            recommendations.append(book)
+        # Limit the number of books to a reasonable amount
+        number_of_book = min(number_of_book, 5)
+        
+        # Generate all book recommendations in a single call
+        recommendations = get_recommended_books(category, number_of_book)
         
         # Create the response with jsonify for pretty formatting
         response = jsonify(recommendations)

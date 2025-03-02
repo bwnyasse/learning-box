@@ -28,7 +28,13 @@ The call to get the category must be maybe clearly illustrate in the diagram.
 Because, we could assume that we just want the tool to call the Restful service
 
 Also, the implementation on how to interact with VertexAI to generate the category 
-could be the same as the one done in the book-provider. Otherwise, it looks like we are trying to do different things. 
+could be the same as the one done in the book-provider. Otherwise, it looks like we are trying to do different things.  This would give you consistency across both parts of your system and eliminate the need for that region selection logic.
+
+## Rate Limits problems related to the way of calling the book-provider
+
+ Instead of making multiple separate calls to Vertex AI (which increases the chance of hitting rate limits), we can modify the implementation to make a single API call requesting multiple book recommendations at once.
+
+
 
 
 
