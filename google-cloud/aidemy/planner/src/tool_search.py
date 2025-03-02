@@ -47,7 +47,7 @@ def search_latest_resource(search_text: str, curriculum: str, subject: str, year
         # Call the Gemini API with Google Search tool
         response = client.models.generate_content(
             model=gemini_model_name,
-            contents=search_text,
+            contents=enhanced_query,
             config=GenerateContentConfig(
                 tools=[google_search_tool],
                 response_modalities=["TEXT"],

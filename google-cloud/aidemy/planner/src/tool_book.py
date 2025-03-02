@@ -4,7 +4,7 @@ import requests
 from langchain_google_vertexai import ChatVertexAI
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 
-from utils import get_required_env_var
+from utils import get_llm, get_required_env_var
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -12,15 +12,7 @@ logger = logging.getLogger(__name__)
 
 #  configuration from environment variables
 project_id = get_required_env_var("GOOGLE_CLOUD_PROJECT")
-book_provider_url = os.environ.get("BOOK_PROVIDER_URL")      # API endpoint
-
-def get_llm():
-    """Creates and returns the LLM instance with proper project configuration."""    
-    return ChatVertexAI(
-        model_name="gemini-2.0-flash", 
-        project=project_id,
-        convert_system_message_to_human=True
-    )
+book_provider_url = get_required_env_var("BOOK_PROVIDER_URL")      # API endpoint
 
 @retry(
     stop=stop_after_attempt(3),
@@ -29,17 +21,41 @@ def get_llm():
 )
 def call_book_service(category, number_of_books=2):
     """Call the book service with retry logic"""
+    
+    # Ensure the URL has the correct schema
+    url = book_provider_url
+    if not url.startswith(('http://', 'https://')):
+        url = f"https://{url}"
+
+    logger.info(f"Calling book service at URL: {url}")
+        
     headers = {"Content-Type": "application/json"}
     data = {"category": category, "number_of_book": number_of_books}
     
-    response = requests.post(
-        book_provider_url,
-        headers=headers,
-        json=data,
-        timeout=15  # Extended timeout
-    )
-    response.raise_for_status()
-    return response.json()
+    try:
+        # Use a session for better connection reuse
+        with requests.Session() as session:
+            # Set a shorter timeout - sometimes this helps with hanging connections
+            response = session.post(
+                url,
+                headers=headers,
+                json=data,
+                timeout=8  # Shorter timeout can sometimes help
+            )
+            
+            response.raise_for_status()
+            return response.json()
+            
+    except requests.exceptions.Timeout:
+        logger.error(f"Timeout when calling book service for category: {category}")
+        return []
+    except requests.exceptions.RequestException as e:
+        logger.error(f"Error calling book recommendation API: {e}")
+        return []
+    except Exception as e:
+        logger.error(f"Unexpected error in call_book_service: {e}")
+        return []
+            
 
 def recommend_book(query: str):
     """
@@ -50,7 +66,7 @@ def recommend_book(query: str):
     """
 
     try:
-        llm = get_llm()
+        llm = get_llm(project_id)
 
         prompt = f"""The user is trying to plan an education course, you are the teaching assistant. 
         Help define the category of what the user requested to teach.
