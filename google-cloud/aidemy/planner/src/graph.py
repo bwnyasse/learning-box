@@ -354,8 +354,8 @@ def prep_class(prep_needs):
         logger.error(f"Error generating teaching plan: {e}")
         return f"Error generating teaching plan: {str(e)}"
 
-if __name__ == "__main__":
-    request = "I'm doing a course for year 5 on subject Mathematics in Geometry. I need the school curriculum, book recommendations, and latest resources to create a 3-week teaching plan."
-    teaching_plan = prep_class(request)
-    print("\n\nFINAL TEACHING PLAN:")
-    print(teaching_plan)
+# if __name__ == "__main__":
+#     request = "I'm doing a course for year 5 on subject Mathematics in Geometry. I need the school curriculum, book recommendations, and latest resources to create a 3-week teaching plan."
+#     teaching_plan = prep_class(request)
+#     print("\n\nFINAL TEACHING PLAN:")
+#     print(teaching_plan)
