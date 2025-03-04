@@ -55,3 +55,9 @@
 # Deactivate it ( if needed )
 
     source deactivate
+
+# Building and push the image to cloud run 
+
+    docker build --platform linux/amd64 -t gcr.io/${PROJECT_ID}/aidemy-planner .
+    docker tag gcr.io/${PROJECT_ID}/aidemy-planner us-central1-docker.pkg.dev/${PROJECT_ID}/agent-repository/aidemy-planner
+    docker push us-central1-docker.pkg.dev/${PROJECT_ID}/agent-repository/aidemy-planner

@@ -1,14 +1,37 @@
 import logging
 import os
-from flask import Flask, app, jsonify, render_template, request
-
+from flask import Flask, app, json, jsonify, render_template, request
+from google.cloud import pubsub_v1
 from agents.planner import prep_class
+from utils.helpers import get_required_env_var
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+#  configuration from environment variables
+project_id = get_required_env_var("GOOGLE_CLOUD_PROJECT")
+
 app = Flask(__name__)
+
+def send_plan_event(teaching_plan:str):
+    """
+    Send the teaching event to the topic called plan
+    
+    Args:
+        teaching_plan: teaching plan
+    """
+    publisher = pubsub_v1.PublisherClient()
+    print(f"-------------> Sending event to topic plan: {teaching_plan}")
+    topic_path = publisher.topic_path(project_id, "plan")
+
+    message_data = {"teaching_plan": teaching_plan} 
+    data = json.dumps(message_data).encode("utf-8") 
+
+    future = publisher.publish(topic_path, data)
+
+    return f"Published message ID: {future.result()}"
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -37,7 +60,12 @@ def index():
             
             logger.info(f"Teaching plan generated successfully: {len(teaching_plan)} characters")
             
+            send_plan_event(teaching_plan)
+            
+            logger.info(f"Sending the teaching event to the topic called plan")
+                        
             return jsonify({'teaching_plan': teaching_plan})
+        
         except Exception as e:
             logger.error(f"Error generating teaching plan: {e}")
             return jsonify({

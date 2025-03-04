@@ -16,3 +16,4 @@ langgraph==0.2.70
 
 # Use by app.py
 flask==3.1.0
+google-cloud-pubsub==2.28.0
