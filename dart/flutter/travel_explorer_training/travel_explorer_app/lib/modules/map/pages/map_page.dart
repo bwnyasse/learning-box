@@ -4,7 +4,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:travel_explorer/modules/map/bloc/map_bloc.dart';
 import 'package:travel_explorer/modules/map/bloc/map_event.dart';
 import 'package:travel_explorer/modules/map/bloc/map_state.dart';
-import 'package:travel_explorer/modules/map/widgets/location_details_card.dart';
 import 'package:travel_explorer/modules/map/widgets/location_details_content.dart';
 import 'package:travel_explorer/shared/models/location_model.dart';
 
