@@ -238,6 +238,7 @@ class MapState extends Equatable {
     CameraPosition? cameraPosition,
     String? errorMessage,
     LocationModel? selectedLocation,
+    bool clearSelectedLocation = false,
   }) {
     return MapState(
       status: status ?? this.status,
@@ -245,7 +246,7 @@ class MapState extends Equatable {
       markers: markers ?? this.markers,
       cameraPosition: cameraPosition ?? this.cameraPosition,
       errorMessage: errorMessage ?? this.errorMessage,
-      selectedLocation: selectedLocation ?? this.selectedLocation,
+      selectedLocation: clearSelectedLocation ? null : (selectedLocation ?? this.selectedLocation),
     );
   }
   
@@ -646,97 +647,75 @@ class MarkerUtils {
 Create a simple location detail widget that appears when a location is selected:
 
 ```dart
-// lib/modules/map/widgets/location_details_card.dart
+// lib/modules/map/widgets/location_details_content.dart
+
+// Create a new widget for the location details content
 import 'package:flutter/material.dart';
 import 'package:travel_explorer/shared/models/location_model.dart';
 
-class LocationDetailsCard extends StatelessWidget {
+class LocationDetailsContent extends StatelessWidget {
   final LocationModel location;
-  final VoidCallback? onClose;
   
-  const LocationDetailsCard({
+  const LocationDetailsContent({
     super.key,
     required this.location,
-    this.onClose,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.all(16),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Stack(
-            children: [
-              if (location.imageUrl != null) 
-                Image.network(
-                  location.imageUrl!,
-                  height: 150,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
-              Positioned(
-                top: 8,
-                right: 8,
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: onClose,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  location.name,
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    _buildTypeChip(location.type),
-                    const Spacer(),
-                    if (location.rating != null) ...[
-                      const Icon(Icons.star, color: Colors.amber),
-                      Text(
-                        location.rating!.toString(),
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
-                    ],
-                  ],
-                ),
-                const SizedBox(height: 8),
-                if (location.description != null)
-                  Text(location.description!),
-                const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    // To be implemented in later steps
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Adding to trip will be implemented in a later step')),
-                    );
-                  },
-                  child: const Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.add),
-                      SizedBox(width: 8),
-                      Text('Add to Trip'),
-                    ],
-                  ),
-                ),
-              ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (location.imageUrl != null) 
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Image.network(
+              location.imageUrl!,
+              height: 150,
+              width: double.infinity,
+              fit: BoxFit.cover,
             ),
           ),
-        ],
-      ),
+        const SizedBox(height: 16),
+        Text(
+          location.name,
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        const SizedBox(height: 8),
+        Row(
+          children: [
+            _buildTypeChip(location.type),
+            const Spacer(),
+            if (location.rating != null) ...[
+              const Icon(Icons.star, color: Colors.amber),
+              Text(
+                location.rating!.toString(),
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ],
+          ],
+        ),
+        const SizedBox(height: 16),
+        if (location.description != null)
+          Text(location.description!),
+        const SizedBox(height: 16),
+        ElevatedButton(
+          onPressed: () {
+            // To be implemented in later steps
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Adding to trip will be implemented in a later step')),
+            );
+          },
+          child: const Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.add),
+              SizedBox(width: 8),
+              Text('Add to Trip'),
+            ],
+          ),
+        ),
+      ],
     );
   }
   
@@ -842,6 +821,7 @@ Widget build(BuildContext context) {
                     ],
                   ),
                   child: LocationsList(
+                    bloc: _mapBloc,
                     locations: state.locations,
                     selectedLocation: state.selectedLocation,
                   ),
@@ -858,7 +838,7 @@ Widget build(BuildContext context) {
                     location: state.selectedLocation!,
                     onClose: () {
                       // Clear selection
-                      _mapBloc.add(const ClearSelection());
+                      _mapBloc.add(ClearSelection());
                     },
                   ),
                 ),
@@ -875,9 +855,7 @@ Add the `ClearSelection` event to your events file:
 
 ```dart
 // Add to map_event.dart
-class ClearSelection extends MapEvent {
-  const ClearSelection();
-}
+class ClearSelection extends MapEvent {}
 ```
 
 And handle it in the bloc:
@@ -887,12 +865,9 @@ And handle it in the bloc:
 on<ClearSelection>(_onClearSelection);
 
 // Add this method
-void _onClearSelection(
-  ClearSelection event, 
-  Emitter<MapState> emit
-) {
-  emit(state.copyWith(selectedLocation: null));
-}
+  void _onClearSelection(ClearSelection event, Emitter<MapState> emit) {
+    emit(state.copyWith(clearSelectedLocation: true));
+  }
 ```
 
 This implementation demonstrates:
