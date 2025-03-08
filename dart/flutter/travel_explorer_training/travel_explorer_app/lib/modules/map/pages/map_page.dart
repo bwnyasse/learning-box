@@ -102,6 +102,15 @@ class _MapPageState extends State<MapPage> {
                                     padding: const EdgeInsets.all(16.0),
                                     child: LocationDetailsContent(
                                       location: state.selectedLocation!,
+                                      isNew: true, // Just for demonstration
+                                      onAddToTrip: () {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                              content: Text(
+                                                  'Adding to trip will be implemented in a later step')),
+                                        );
+                                      },
                                     ),
                                   ),
                                 ),
