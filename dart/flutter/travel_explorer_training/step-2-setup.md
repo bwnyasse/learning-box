@@ -1,3 +1,5 @@
+# step-2-setup
+
 Let's implement Step 2 - Interactive Maps for Android. This step will focus on integrating Google Maps and implementing advanced map features in a modular way.
 
 ## Step 2: Interactive Maps

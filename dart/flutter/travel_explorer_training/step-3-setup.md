@@ -1,3 +1,5 @@
+# step-3-setup
+
 Let's implement these four key custom widget components and integrate them into your existing code structure. I'll focus on creating reusable components that you can use in your map interface.
 
 ## 1. Implement CustomPainter Widget

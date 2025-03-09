@@ -1,3 +1,5 @@
+# step-4-setup
+
 Let's implement step 4 with a more focused approach covering the core animation components. I'll show you how to modify your existing files and add just one extra file for animations.
 
 ## Streamlined Animation Implementation for Step 4

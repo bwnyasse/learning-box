@@ -1,3 +1,5 @@
+# step-6-setup
+
 Let's plan out Step 6 for adding Firebase and integrating a simple GenAI capability using Firebase's Vertex AI integration with the Dart SDK. This approach will give your students practical experience with Firebase setup and a taste of AI integration.
 
 ## Step 6: Firebase Integration with GenAI

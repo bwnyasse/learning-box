@@ -1,3 +1,5 @@
+# step-0-setup
+
 You're right to make these modifications to make the flow more logical and educational for the students. Here's the revised Step 0 with your changes:
 
 ## Step 0: Project Initialization with FVM and flutter_modular
