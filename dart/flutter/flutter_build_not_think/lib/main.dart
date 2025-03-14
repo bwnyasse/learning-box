@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
 import 'dart:convert';
+
 class AppColors {
   // Monochrome Blue/White on Dark Theme
-  static const Color primary = Color(0xFF0066CC); // Your existing blue
+  static const Color primary = Color(0xFF0066CC);
   static const Color background = Colors.black;
   static const Color textPrimary = Colors.white;
   static const Color textSecondary = Colors.white70;
   static const Color unfilledDot = Color(0xFF3A3A3C); // Dark gray for unfilled
-  
+
   // White for achieved, blue for missed
   static const Color achievedDot = Colors.white; // Pure white for achieved
   static const Color missedDot = Color(0xFF195090); // Darker blue for missed
-  
+
   static const Color cardBackground = Color(0xFF282828);
   static const Color cardBorder = Color(0xFF424242);
   static const Color progressBarBackground = Color(0xFF424242);
@@ -87,7 +88,7 @@ class MyApp extends StatelessWidget {
 }
 
 class YearVisualizerPage extends StatefulWidget {
-  const YearVisualizerPage({Key? key}) : super(key: key);
+  const YearVisualizerPage({super.key});
 
   @override
   State<YearVisualizerPage> createState() => _YearVisualizerPageState();
@@ -241,54 +242,55 @@ class _YearVisualizerPageState extends State<YearVisualizerPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-// Motivational quote - compact version with signature
-Container(
-  width: double.infinity,
-  padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
-  decoration: BoxDecoration(
-    color: AppColors.cardBackground,
-    borderRadius: BorderRadius.circular(12),
-    border: Border.all(
-      color: AppColors.primary.withOpacity(0.5),
-      width: 2,
-    ),
-  ),
-  child: const Column(
-    children: [
-      Text(
-        "STOP THINKING",
-        style: TextStyle(
-          fontSize: 28,
-          fontWeight: FontWeight.bold,
-          color: AppColors.primary,
-          height: 1.2,
-        ),
-        textAlign: TextAlign.center,
-      ),
-      Text(
-        "START BUILDING",
-        style: TextStyle(
-          fontSize: 28,
-          fontWeight: FontWeight.bold,
-          color: AppColors.achievedDot,
-          height: 1.2,
-        ),
-        textAlign: TextAlign.center,
-      ),
-      SizedBox(height: 8),
-      Text(
-        "- Boris-Wilfried Nyasse",
-        style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w500,
-          fontStyle: FontStyle.italic,
-          color: AppColors.textSecondary,
-        ),
-        textAlign: TextAlign.center,
-      ),
-    ],
-  ),
-),
+                  // Motivational quote - compact version with signature
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 14, horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: AppColors.cardBackground,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: AppColors.primary.withOpacity(0.5),
+                        width: 2,
+                      ),
+                    ),
+                    child: const Column(
+                      children: [
+                        Text(
+                          "STOP THINKING",
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.primary,
+                            height: 1.2,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          "START BUILDING",
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.achievedDot,
+                            height: 1.2,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          "- Boris-Wilfried Nyasse",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                            fontStyle: FontStyle.italic,
+                            color: AppColors.textSecondary,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
                   // Grid of dots - more compact with smaller dots
                   Container(
                     decoration: BoxDecoration(
@@ -314,7 +316,8 @@ Container(
                             return Container(
                               width: 16, // Slightly smaller for compactness
                               height: 16, // Slightly smaller for compactness
-                              margin: const EdgeInsets.all(1.5), // Reduced margin
+                              margin:
+                                  const EdgeInsets.all(1.5), // Reduced margin
                               decoration: BoxDecoration(
                                 color: activityTypes[day['type']]!['color'],
                                 shape: BoxShape.circle,
@@ -337,7 +340,8 @@ Container(
                         width: 1,
                       ),
                     ),
-                    padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 14, horizontal: 16),
                     margin: const EdgeInsets.only(bottom: 12),
                     child: Column(
                       children: [
@@ -370,8 +374,8 @@ Container(
                             ),
                           ],
                         ),
-                
-                       const SizedBox(height: 12),
+
+                        const SizedBox(height: 12),
                         // Progress bar
                         Container(
                           width: double.infinity,
@@ -426,7 +430,8 @@ Container(
                   Container(
                     width: double.infinity,
                     margin: const EdgeInsets.only(top: 8),
-                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 16),
                     decoration: BoxDecoration(
                       color: AppColors.cardBackground,
                       borderRadius: BorderRadius.circular(12),
@@ -527,7 +532,6 @@ Container(
           decoration: BoxDecoration(
             color: color,
             shape: BoxShape.circle,
-            // Removed shadows to prevent reflections
           ),
         ),
         Text(
