@@ -241,43 +241,54 @@ class _YearVisualizerPageState extends State<YearVisualizerPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Motivational quote - compact version
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
-                    decoration: BoxDecoration(
-                      color: AppColors.cardBackground,
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: AppColors.primary.withOpacity(0.5),
-                        width: 2,
-                      ),
-                    ),
-                    child: const Column(
-                      children: [
-                        Text(
-                          "STOP THINKING",
-                          style: TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.primary,
-                            height: 1.2,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        Text(
-                          "START BUILDING",
-                          style: TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.achievedDot,
-                            height: 1.2,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ),
+// Motivational quote - compact version with signature
+Container(
+  width: double.infinity,
+  padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+  decoration: BoxDecoration(
+    color: AppColors.cardBackground,
+    borderRadius: BorderRadius.circular(12),
+    border: Border.all(
+      color: AppColors.primary.withOpacity(0.5),
+      width: 2,
+    ),
+  ),
+  child: const Column(
+    children: [
+      Text(
+        "STOP THINKING",
+        style: TextStyle(
+          fontSize: 28,
+          fontWeight: FontWeight.bold,
+          color: AppColors.primary,
+          height: 1.2,
+        ),
+        textAlign: TextAlign.center,
+      ),
+      Text(
+        "START BUILDING",
+        style: TextStyle(
+          fontSize: 28,
+          fontWeight: FontWeight.bold,
+          color: AppColors.achievedDot,
+          height: 1.2,
+        ),
+        textAlign: TextAlign.center,
+      ),
+      SizedBox(height: 8),
+      Text(
+        "- Boris-Wilfried Nyasse",
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+          fontStyle: FontStyle.italic,
+          color: AppColors.textSecondary,
+        ),
+        textAlign: TextAlign.center,
+      ),
+    ],
+  ),
+),
                   // Grid of dots - more compact with smaller dots
                   Container(
                     decoration: BoxDecoration(
