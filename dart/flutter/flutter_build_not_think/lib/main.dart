@@ -3,20 +3,6 @@ import 'package:flutter/services.dart';
 import 'dart:math';
 import 'dart:convert';
 
-class AppColors_1 {
-  // Version 3: Warm and Inviting Light Theme
-  static const Color primary = Color(0xFF64B5F6); // Light blue
-  static const Color background = Color(0xFFF5F5F5); // Light grey background
-  static const Color textPrimary = Color(0xFF333333); // Dark grey
-  static const Color textSecondary = Color(0xFF666666); // Medium grey
-  static const Color unfilledDot = Color(0xFFBDBDBD); // Light gray
-  static const Color achievedDot = Color(0xFF81C784); // Light green
-  static const Color missedDot = Color(0xFFFFD54F); // Light amber
-  static const Color cardBackground = Colors.white; // White card
-  static const Color cardBorder = Color(0xFFE0E0E0); // Very light grey
-  static const Color progressBarBackground = Color(0xFFE0E0E0);
-}
-
 class AppColors {
   // Version 0: Dark
   static const Color primary = Color(0xFF0066CC);
@@ -56,30 +42,30 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Year Visualizer',
       theme: ThemeData(
-        brightness: Brightness.light,
+        brightness: Brightness.dark,
         primaryColor: AppColors.primary,
         scaffoldBackgroundColor: AppColors.background,
         fontFamily: '.SF Pro Display',
         textTheme: const TextTheme(
           displayLarge: TextStyle(
-            fontSize: 32, // Adjusted
+            fontSize: 32,
             fontWeight: FontWeight.bold,
             color: AppColors.textPrimary,
             letterSpacing: -0.5,
           ),
           displayMedium: TextStyle(
-            fontSize: 18, // Adjusted
+            fontSize: 18,
             fontWeight: FontWeight.w600,
             color: AppColors.textPrimary,
             letterSpacing: -0.5,
           ),
           bodyLarge: TextStyle(
-            fontSize: 14, // Adjusted
+            fontSize: 14,
             fontWeight: FontWeight.normal,
             color: AppColors.textPrimary,
           ),
           bodyMedium: TextStyle(
-            fontSize: 12, // Adjusted
+            fontSize: 12,
             fontWeight: FontWeight.normal,
             color: AppColors.textSecondary,
           ),
@@ -110,7 +96,7 @@ class YearVisualizerPage extends StatefulWidget {
 
 class _YearVisualizerPageState extends State<YearVisualizerPage> {
   // Configuration
-  final int daysPerRow = 17; // Custom grid layout with 15 dots per row
+  final int daysPerRow = 15; // Custom grid layout with 15 dots per row
   final int totalDays = 365;
   late int rows;
 
@@ -118,11 +104,11 @@ class _YearVisualizerPageState extends State<YearVisualizerPage> {
   final Map<String, Map<String, dynamic>> activityTypes = {
     'achieved': {
       'color': AppColors.achievedDot, // Apple achieved
-      'label': 'Target Achieved'
+      'label': 'Achieved'
     },
     'missed': {
       'color': AppColors.missedDot, // Apple red
-      'label': 'Target Missed'
+      'label': 'Missed'
     },
     'none': {
       'color': AppColors.unfilledDot, // Dark gray for unfilled
@@ -243,13 +229,11 @@ class _YearVisualizerPageState extends State<YearVisualizerPage> {
       );
     }
 
-    final screenWidth = MediaQuery.of(context).size.width;
-    final dotSize = screenWidth * 0.035; // Dynamic dot size
-    final dotSpacing = screenWidth * 0.005; // Dynamic spacing
-
     return Scaffold(
+      backgroundColor: Colors.black,
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: const ClampingScrollPhysics(),
           child: Center(
             child: Container(
               constraints: const BoxConstraints(maxWidth: 400),
@@ -258,63 +242,47 @@ class _YearVisualizerPageState extends State<YearVisualizerPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-// Motivational quote with enhanced styling
+                  // Motivational quote with larger text for photo
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 16, horizontal: 16),
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
                     decoration: BoxDecoration(
                       color: AppColors.cardBackground,
                       borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.primary.withOpacity(0.15),
-                          blurRadius: 10,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
                       border: Border.all(
-                        color: AppColors.cardBorder,
-                        width: 1,
+                        color: AppColors.primary.withOpacity(0.5),
+                        width: 2,
                       ),
                     ),
                     child: Column(
                       children: [
                         Text(
-                          "Let's go Boris-Wilfried!",
+                          "STOP THINKING",
                           style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.textSecondary,
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.primary,
+                            height: 1.2,
                           ),
                           textAlign: TextAlign.center,
                         ),
-                        const SizedBox(height: 8),
-                        ShaderMask(
-                          shaderCallback: (bounds) => LinearGradient(
-                            colors: [
-                              AppColors.primary,
-                              AppColors.primary,
-                            ],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ).createShader(bounds),
-                          child: Text(
-                            "Stop thinking, start building.",
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Colors
-                                  .white, // This will be overridden by the gradient
-                              letterSpacing: 0.5,
-                            ),
-                            textAlign: TextAlign.center,
+                        Text(
+                          "START BUILDING",
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.achievedDot,
+                            height: 1.2,
                           ),
+                          textAlign: TextAlign.center,
                         ),
                       ],
                     ),
                   ),
+                  
+                  const SizedBox(height: 20),
 
-                  // Grid of dots in a card
+                  // Grid of dots with larger dots for better visibility
                   Container(
                     decoration: BoxDecoration(
                       color: AppColors.cardBackground,
@@ -325,7 +293,7 @@ class _YearVisualizerPageState extends State<YearVisualizerPage> {
                       ),
                     ),
                     padding: const EdgeInsets.all(16),
-                    margin: const EdgeInsets.symmetric(vertical: 16),
+                    margin: const EdgeInsets.symmetric(vertical: 8),
                     child: Column(
                       children: List.generate(rows, (rowIndex) {
                         final start = rowIndex * daysPerRow;
@@ -336,8 +304,8 @@ class _YearVisualizerPageState extends State<YearVisualizerPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: rowDays.map((day) {
                             return Container(
-                              width: 14,
-                              height: 14,
+                              width: 18, // Increased from 14 for better visibility
+                              height: 18, // Increased from 14 for better visibility
                               margin: const EdgeInsets.all(2),
                               decoration: BoxDecoration(
                                 color: activityTypes[day['type']]!['color'],
@@ -345,11 +313,11 @@ class _YearVisualizerPageState extends State<YearVisualizerPage> {
                                 boxShadow: day['type'] != 'none'
                                     ? [
                                         BoxShadow(
-                                          color: activityTypes[day['type']]![
-                                                  'color']
-                                              .withOpacity(0.3),
-                                          blurRadius: 2,
-                                          offset: const Offset(0, 1),
+                                          color: activityTypes[day['type']]!['color']
+                                              .withOpacity(0.5), // Increased opacity
+                                          blurRadius: 4, // Increased blur
+                                          spreadRadius: 1, // Added spread
+                                          offset: const Offset(0, 2),
                                         ),
                                       ]
                                     : null,
@@ -361,7 +329,9 @@ class _YearVisualizerPageState extends State<YearVisualizerPage> {
                     ),
                   ),
 
-// Replace your current "Year remaining info" container with this more compact version
+                  const SizedBox(height: 16),
+
+                  // Year and percentage - simpler and larger
                   Container(
                     decoration: BoxDecoration(
                       color: AppColors.cardBackground,
@@ -371,51 +341,48 @@ class _YearVisualizerPageState extends State<YearVisualizerPage> {
                         width: 1,
                       ),
                     ),
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 12, horizontal: 20),
-                    margin: const EdgeInsets.only(bottom: 12),
+                    padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+                    margin: const EdgeInsets.only(bottom: 16),
                     child: Column(
                       children: [
-                        // Compact year and percentage in one row
+                        // Large year and percentage display
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 4, horizontal: 10),
-                              decoration: BoxDecoration(
+                            Text(
+                              '2025',
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
                                 color: AppColors.primary,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: const Text(
-                                '2025',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
                               ),
                             ),
-                            const SizedBox(width: 10),
                             Text(
-                              '$percentRemaining% remaining',
-                              style: const TextStyle(
-                                fontSize: 20,
+                              ' • ',
+                              style: TextStyle(
+                                fontSize: 24,
+                                color: AppColors.textSecondary,
+                              ),
+                            ),
+                            Text(
+                              '$percentRemaining% LEFT',
+                              style: TextStyle(
+                                fontSize: 24,
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.textPrimary,
                               ),
                             ),
                           ],
                         ),
-
+                        
                         const SizedBox(height: 12),
                         // Progress bar
                         Container(
                           width: double.infinity,
-                          height: 6,
+                          height: 8, // Slightly thicker
                           decoration: BoxDecoration(
                             color: AppColors.progressBarBackground,
-                            borderRadius: BorderRadius.circular(3),
+                            borderRadius: BorderRadius.circular(4),
                           ),
                           child: FractionallySizedBox(
                             alignment: Alignment.centerLeft,
@@ -423,7 +390,7 @@ class _YearVisualizerPageState extends State<YearVisualizerPage> {
                             child: Container(
                               decoration: BoxDecoration(
                                 color: AppColors.primary,
-                                borderRadius: BorderRadius.circular(3),
+                                borderRadius: BorderRadius.circular(4),
                               ),
                             ),
                           ),
@@ -432,15 +399,15 @@ class _YearVisualizerPageState extends State<YearVisualizerPage> {
                     ),
                   ),
 
-                  // Statistics
+                  // Statistics - larger and clearer
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
                           child: _buildStatCard(
-                            title: 'Achieved',
+                            title: 'ACHIEVED',
                             value: '${stats['achieved']}',
                             color: AppColors.achievedDot,
                             iconData: Icons.check_circle_outline,
@@ -449,7 +416,7 @@ class _YearVisualizerPageState extends State<YearVisualizerPage> {
                         const SizedBox(width: 16),
                         Expanded(
                           child: _buildStatCard(
-                            title: 'Success Rate',
+                            title: 'SUCCESS',
                             value: '${stats['successRate']}%',
                             color: AppColors.primary,
                             iconData: Icons.trending_up,
@@ -459,30 +426,32 @@ class _YearVisualizerPageState extends State<YearVisualizerPage> {
                     ),
                   ),
 
-                  // Legend
+                  const SizedBox(height: 16),
+
+                  // Legend - larger and more prominent
                   Container(
-                    margin: const EdgeInsets.only(top: 16),
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 16),
+                    width: double.infinity,
+                    margin: const EdgeInsets.only(top: 8),
+                    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                     decoration: BoxDecoration(
-                      color: AppColors.cardBackground.withOpacity(0.7),
-                      borderRadius: BorderRadius.circular(10),
+                      color: AppColors.cardBackground,
+                      borderRadius: BorderRadius.circular(12),
                       border: Border.all(
                         color: AppColors.cardBorder,
                         width: 1,
                       ),
                     ),
                     child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         _buildLegendItem(
-                            color: activityTypes['achieved']!['color'],
-                            label: 'Target Achieved'),
-                        const SizedBox(width: 16),
+                          color: activityTypes['achieved']!['color'],
+                          label: 'ACHIEVED',
+                        ),
                         _buildLegendItem(
-                            color: activityTypes['missed']!['color'],
-                            label: 'Target Missed'),
+                          color: activityTypes['missed']!['color'],
+                          label: 'MISSED',
+                        ),
                       ],
                     ),
                   ),
@@ -502,7 +471,7 @@ class _YearVisualizerPageState extends State<YearVisualizerPage> {
     required IconData iconData,
   }) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
       decoration: BoxDecoration(
         color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(12),
@@ -512,25 +481,25 @@ class _YearVisualizerPageState extends State<YearVisualizerPage> {
         ),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center, // Changed to center
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(
-            mainAxisSize: MainAxisSize.min, // Make the row take minimum space
-            mainAxisAlignment: MainAxisAlignment.center, // Center children
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
                 iconData,
                 color: color,
-                size: 18,
+                size: 20, // Slightly larger
               ),
-              const SizedBox(width: 6),
+              const SizedBox(width: 8),
               Flexible(
                 child: Text(
                   title,
-                  textAlign: TextAlign.center, // Center the text
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16, // Larger
+                    fontWeight: FontWeight.w600, // Bolder
                     color: AppColors.textPrimary,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -542,9 +511,9 @@ class _YearVisualizerPageState extends State<YearVisualizerPage> {
           const SizedBox(height: 8),
           Text(
             value,
-            textAlign: TextAlign.center, // Center the text
+            textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 28,
+              fontSize: 32, // Much larger
               fontWeight: FontWeight.bold,
               color: color,
             ),
@@ -558,16 +527,17 @@ class _YearVisualizerPageState extends State<YearVisualizerPage> {
     return Row(
       children: [
         Container(
-          width: 16,
-          height: 16,
+          width: 20, // Larger dot
+          height: 20, // Larger dot
           margin: const EdgeInsets.only(right: 10),
           decoration: BoxDecoration(
             color: color,
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
-                color: color.withOpacity(0.3),
+                color: color.withOpacity(0.5),
                 blurRadius: 4,
+                spreadRadius: 1,
                 offset: const Offset(0, 2),
               ),
             ],
@@ -576,9 +546,9 @@ class _YearVisualizerPageState extends State<YearVisualizerPage> {
         Text(
           label,
           style: const TextStyle(
-            fontSize: 16,
+            fontSize: 18, // Larger text
             color: AppColors.textPrimary,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w600, // Bolder
           ),
         ),
       ],
