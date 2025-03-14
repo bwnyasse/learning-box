@@ -2,25 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
 import 'dart:convert';
-
 class AppColors {
-  // Version 0: Dark
-  static const Color primary = Color(0xFF0066CC);
+  // Monochrome Blue/White on Dark Theme
+  static const Color primary = Color(0xFF0066CC); // Your existing blue
   static const Color background = Colors.black;
   static const Color textPrimary = Colors.white;
   static const Color textSecondary = Colors.white70;
-  static const Color unfilledDot = Color(0xFF3A3A3C);
- // static const Color achievedDot = Color(0xFF00E676); // Material green A400
-  //static const Color missedDot = Color(0xFFFFA000); // Material amber 700
+  static const Color unfilledDot = Color(0xFF3A3A3C); // Dark gray for unfilled
   
-  static const Color achievedDot = const Color(0xFF4CD964); // Softer green
-  static const Color missedDot =  const Color(0xFFAF52DE);   // Purplestead of red
-  static const Color cardBackground =
-      Color(0xFF282828); // Slightly lighter than grey[900]
-  static const Color cardBorder =
-      Color(0xFF424242); // Slightly lighter than grey[800]
-  static const Color progressBarBackground =
-      Color(0xFF424242); // Slightly lighter than grey[800]
+  // White for achieved, blue for missed
+  static const Color achievedDot = Colors.white; // Pure white for achieved
+  static const Color missedDot = Color(0xFF195090); // Darker blue for missed
+  
+  static const Color cardBackground = Color(0xFF282828);
+  static const Color cardBorder = Color(0xFF424242);
+  static const Color progressBarBackground = Color(0xFF424242);
 }
 
 void main() {
