@@ -1,3 +1,4 @@
+// lib/modules/genai/bloc/genai_state.dart
 import 'package:equatable/equatable.dart';
 
 enum GenAIStatus { initial, loading, success, error }

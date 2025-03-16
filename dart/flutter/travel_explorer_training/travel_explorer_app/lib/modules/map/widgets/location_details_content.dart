@@ -1,7 +1,6 @@
-// lib/modules/map/widgetslocation_details_content.dart
+// lib/modules/map/widgets/location_details_content.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:travel_explorer/modules/genai/bloc/genai_bloc.dart';
 import 'package:travel_explorer/modules/genai/bloc/genai_event.dart';
 import 'package:travel_explorer/modules/genai/bloc/genai_state.dart';

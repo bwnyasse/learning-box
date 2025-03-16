@@ -28,7 +28,7 @@ class GenAIRepository {
     }
 
     if (_model == null) {
-      throw Exception('Gemini model not initialized');
+      return Future.error(Exception('Gemini model not initialized'));
     }
 
     try {
@@ -45,7 +45,7 @@ class GenAIRepository {
       return _cleanMarkdownText(response.text!);
     } catch (e) {
       debugPrint('Error generating location description: $e');
-      throw Exception('Failed to generate description: $e');
+      return Future.error(Exception('Failed to generate description: $e'));
     }
   }
 
