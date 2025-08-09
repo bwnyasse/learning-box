@@ -1,0 +1,14 @@
+name: langchain_cli
+description: A sample CLI app integrating LangChain.
+version: 1.0.0
+
+environment:
+  sdk: ^3.0.0
+  
+dependencies:
+  dotenv: ^4.2.0
+  langchain:
+  langchain_google: 
+  langchain_openai: 
+  langchain_community:
+  langchain_ollama:
